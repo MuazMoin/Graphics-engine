@@ -16,6 +16,5 @@ public:
     }
 
 };
-sxsdds
 
 #endif //CG_POINT2D_H
