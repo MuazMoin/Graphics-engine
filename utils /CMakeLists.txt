@@ -18,6 +18,8 @@ set(engine_sources
 	easy_image.cc
 	engine.cc
 	ini_configuration.cc
+		../Lines/Lines2D.h
+		../Lines/Point2D.h
 )
 
 ############################################################
