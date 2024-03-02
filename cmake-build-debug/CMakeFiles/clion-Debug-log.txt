@@ -1,1 +1,0 @@
-CMakeLists.txt not found in /Users/muazmoin/Documents/GITHUB/CG Select CMakeLists.txt
