@@ -64,6 +64,16 @@ img::EasyImage draw2DLines (img::EasyImage& image, const Lines2D &lines, const i
     double imageY = size*(yRange/max(xRange,yRange));
 
 
+    double scalingFactorD = 0.95*(imageX/xRange);
+
+    double DcX = scalingFactorD*(xMin+xMax)/2;
+    double DcY = scalingFactorD*(yMin+yMax)/2;
+
+    double dx = (imageX/2) - DcX;
+    double dy = (imageY/2) - DcY;
+
+
+
 }
 
 
