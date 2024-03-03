@@ -25,7 +25,8 @@ img::EasyImage draw2DLines (img::EasyImage& image, const Lines2D &lines, const i
     double yMax = lines.front().p1.y;
 
     for (const auto& line : lines) {
-        // Update xMin
+
+        // xMin, xMax, yMin, yMax updaten
         if (line.p1.x < xMin) {
             xMin = line.p1.x;
         }
@@ -56,6 +57,8 @@ img::EasyImage draw2DLines (img::EasyImage& image, const Lines2D &lines, const i
     }
 
     cout << "xMin: " << xMin << " xMax: " << xMax << " yMin: " << yMin << " yMax: " << yMax << endl;
+
+    // Berekeningen voor het bepalen van de schaal en verschuiving
 
     double xRange = xMax - xMin;
     double yRange = yMax - yMin;
