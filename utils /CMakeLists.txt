@@ -20,6 +20,7 @@ set(engine_sources
 	ini_configuration.cc
 		../Lines/Lines2D.h
 		../Lines/Point2D.h
+		../Lines/Color.h
 )
 
 ############################################################

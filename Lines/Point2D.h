@@ -8,11 +8,11 @@ class Point2D {
 public:
     double x,y;
 
-    Point2D()=default;
+    Point2D() = default;
 
-    Point2D(double x, double y) {
-        x = x;
-        y = y;
+    Point2D(double newx, double newy) {
+        x = newx;
+        y = newy;
     }
 
 };
