@@ -1,10 +1,71 @@
 #include "easy_image.h"
 #include "ini_configuration.h"
-
+#include "../Lines/Line2D.h"
+#include "../l_parser.h"
+#include "../l_parser.cc"
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <list>
+#include <cmath>
+#include "../Lines/drawLines2D.h"
+using Lines2D = std::list<Line2D>;
+using namespace std;
+
+inline int roundToInt(double d) { return static_cast<int>(round(d)); }
+
+img::EasyImage draw2DLines (img::EasyImage& image, const Lines2D &lines, const int size){
+    if (lines.empty()){
+        throw std::runtime_error("No Lines Given");
+    }
+    double xMin = lines.front().p1.x;
+    double xMax = lines.front().p1.x;
+    double yMin = lines.front().p1.y;
+    double yMax = lines.front().p1.y;
+
+    for (const auto& line : lines) {
+        // Update xMin
+        if (line.p1.x < xMin) {
+            xMin = line.p1.x;
+        }
+        if (line.p2.x < xMin) {
+            xMin = line.p2.x;
+        }
+        if (line.p2.x < xMin) {
+            xMin = line.p2.x;
+        }
+        if (line.p1.x > xMax) {
+            xMax = line.p1.x;
+        }
+        if (line.p2.x > xMax) {
+            xMax = line.p2.x;
+        }
+        if (line.p1.y < yMin) {
+            yMin = line.p1.y;
+        }
+        if (line.p2.y < yMin) {
+            yMin = line.p2.y;
+        }
+        if (line.p1.y > yMax) {
+            yMax = line.p1.y;
+        }
+        if (line.p2.y > yMax) {
+            yMax = line.p2.y;
+        }
+    }
+
+    cout << "xMin: " << xMin << " xMax: " << xMax << " yMin: " << yMin << " yMax: " << yMax << endl;
+
+    double xRange = xMax - xMin;
+    double yRange = yMax - yMin;
+
+    double imageX = size*(xRange/max(xRange,yRange));
+    double imageY = size*(yRange/max(xRange,yRange));
+
+
+}
+
 
 
 

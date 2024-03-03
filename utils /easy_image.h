@@ -20,6 +20,9 @@
 #include <stdint.h>
 #include <vector>
 #include <iostream>
+#include "../Lines/Line2D.h"
+
+
 /**
  * \brief The namespace of the EasyImage class
  */

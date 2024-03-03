@@ -1,8 +1,8 @@
 //
 // Created by Muaz Moin on 02/03/2024.
 //
+
 #include "Point2D.h"
-#include "Lines2D.h"
 #include "Color.h"
 
 #ifndef CG_LINES2D_H
