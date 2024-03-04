@@ -113,7 +113,7 @@ LParser::LSystem2D createLSystem2D(const string& inputfile) { // Functie die een
 }
 
 img::EasyImage LSystem2D(const LParser::LSystem2D&  muaz, const vector<double>& backgroundColor, int size, vector<double> lineColor) {
-    double currentAngle = muaz.get_starting_angle();
+    double currentAngle = muaz.get_starting_angle() * M_PI / 180;
     const set<char>& alphabet = muaz.get_alphabet();
     const string& initiator = muaz.get_initiator();
     img::EasyImage image(size, size, img::Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
@@ -126,11 +126,56 @@ img::EasyImage LSystem2D(const LParser::LSystem2D&  muaz, const vector<double>& 
     }
 
 }
+    Lines2D lines;
+    double x = 0;
+    double y = 0;
+
+    for (char letter: initiator) {
+        if (letter == '-' ){
+            currentAngle -= muaz.get_angle() * M_PI / 180;
+        }
+        else if (letter == '+') {
+            currentAngle += muaz.get_angle() * M_PI / 180;
+        }
+        else{
+            Line2D line{};
+            bool lengthDraw = muaz.draw('F');
+            if (lengthDraw){
+                line.p1.x = x;
+                line.p1.y = y;
+                line.p2.x = x + cos(currentAngle);
+                line.p2.y = y + sin(currentAngle);
+                x = line.p2.x;
+                y = line.p2.y;
+                line.color.red = roundToInt(255*lineColor[0]);
+                line.color.green = roundToInt(255*lineColor[1]);
+                line.color.blue = roundToInt(255*lineColor[2]);
+                lines.push_back(line);
+            }
+
+        }
+    }
+
+    image = draw2DLines(lines, size);
+    return image;
+}
 
 
-img::EasyImage generate_image(const ini::Configuration &configuration)
-{
-	return img::EasyImage();
+
+img::EasyImage generate_image(const ini::Configuration &configuration){
+    img::EasyImage image;
+    string type = configuration["General"]["type"].as_string_or_die();
+
+    if (type == "LSystem2D") {
+        string inputfile = configuration["LSystem2D"]["inputfile"].as_string_or_die();
+        LParser::LSystem2D lSystem2D = createLSystem2D(inputfile);
+        vector<double> color = configuration["LSystem2D"]["color"].as_double_tuple_or_die();
+        vector<double> backgroundColor = configuration["LSystem2D"]["backgroundcolor"].as_double_tuple_or_die();
+        int size = configuration["LSystem2D"]["size"].as_int_or_die();
+        vector<double> lineColor = configuration["LSystem2D"]["linecolor"].as_double_tuple_or_die();
+        image = LSystem2D(lSystem2D, backgroundColor, size, color);
+    }
+	return image;
 }
 
 
