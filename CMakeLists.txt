@@ -22,10 +22,7 @@ set(engine_sources
 		Point2D.h
 		Color.h
 		l_parser.cc
-		Line2D.cpp
 		Color.cpp
-		Point2D.cpp
-		draw2DLines.h
 )
 
 ############################################################

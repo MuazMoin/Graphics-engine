@@ -15,7 +15,11 @@ public:
 
     Color();
 
-    Color(double r, double g, double b);
+    Color(double r, double g, double b) {
+        this->red = r;
+        this->green = g;
+        this->blue = b;
+    }
 
     img::Color toEasyImageColor() const;
 };
