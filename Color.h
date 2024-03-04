@@ -6,13 +6,14 @@
 #define ENGINE_COLOR_H
 #include "easy_image.h"
 
+
 class Color{
 public:
     double red;
     double green;
     double blue;
 
-    Color() = default;
+    Color();
 
     Color(double r, double g, double b);
 
