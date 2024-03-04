@@ -4,7 +4,7 @@
 
 #include "Line2D.h"
 #include <vector>
-#include "../utils /easy_image.h"
+#include "easy_image.h"
 
 img::EasyImage draw2DLines(const Line2D& lines) {
     img::EasyImage image(1000, 1000, img::Color(255, 255, 255));

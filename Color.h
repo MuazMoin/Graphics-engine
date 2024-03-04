@@ -4,6 +4,7 @@
 
 #ifndef ENGINE_COLOR_H
 #define ENGINE_COLOR_H
+#include "easy_image.h"
 
 class Color{
 public:
@@ -15,7 +16,9 @@ public:
 
     Color(double r, double g, double b);
 
+    img::Color toEasyImageColor() const;
 };
+
 
 
 #endif //ENGINE_COLOR_H

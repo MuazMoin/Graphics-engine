@@ -15,12 +15,17 @@ set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${OWN_GXX_FLAGS}")
 # List all sources
 ############################################################
 set(engine_sources
-	easy_image.cc
-	engine.cc
-	ini_configuration.cc
-		../Lines/Lines2D.h
-		../Lines/Point2D.h
-		../Lines/Color.h
+		easy_image.cc
+		engine.cc
+		ini_configuration.cc
+		Line2D.h
+		Point2D.h
+		Color.h
+		l_parser.cc
+		Line2D.cpp
+		Color.cpp
+		Point2D.cpp
+		draw2DLines.h
 )
 
 ############################################################
@@ -28,4 +33,4 @@ set(engine_sources
 ############################################################
 set(exe_name "engine")
 add_executable( ${exe_name} ${engine_sources} )
-install( TARGETS ${exe_name} DESTINATION ${PROJECT_SOURCE_DIR}/ )
+install( TARGETS ${exe_name} DESTINATION "utils ")

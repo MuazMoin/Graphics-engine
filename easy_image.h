@@ -20,7 +20,7 @@
 #include <stdint.h>
 #include <vector>
 #include <iostream>
-#include "../Lines/Line2D.h"
+#include "Line2D.h"
 
 
 /**

@@ -1,21 +1,23 @@
 #include "easy_image.h"
 #include "ini_configuration.h"
-#include "../Lines/Line2D.h"
-#include "../l_parser.h"
-#include "../l_parser.cc"
+#include "Line2D.h"
+#include "l_parser.h"
+#include "l_parser.cc"
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
 #include <string>
 #include <list>
 #include <cmath>
-#include "../Lines/draw2DLines.h"
+#include "draw2DLines.h"
+
+
 using Lines2D = std::list<Line2D>;
 using namespace std;
 
 inline int roundToInt(double d) { return static_cast<int>(round(d)); }
 
-img::EasyImage draw2DLines (img::EasyImage& image, const Lines2D &lines, const int size){
+img::EasyImage draw2DLines (const Lines2D &lines, const int size){
     if (lines.empty()){
         throw std::runtime_error("No Lines Given");
     }
@@ -66,6 +68,8 @@ img::EasyImage draw2DLines (img::EasyImage& image, const Lines2D &lines, const i
     double imageX = size*(xRange/max(xRange,yRange));
     double imageY = size*(yRange/max(xRange,yRange));
 
+    img::EasyImage image(imageX, imageY, img::Color(0, 0, 0));
+
 
     double scalingFactorD = 0.95*(imageX/xRange);
 
@@ -82,7 +86,7 @@ img::EasyImage draw2DLines (img::EasyImage& image, const Lines2D &lines, const i
         double x2 = scalingFactorD * line.p2.x + dx;
         double y2 = scalingFactorD * line.p2.y + dy;
 
-        image.draw_line(roundToInt(x1), roundToInt(y1), roundToInt(x2), roundToInt(y2), img::Color(255, 255, 255));
+        image.draw_line(roundToInt(x1), roundToInt(y1), roundToInt(x2), roundToInt(y2), line.color);
     }
     return image;
 
