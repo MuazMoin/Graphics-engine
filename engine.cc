@@ -94,38 +94,38 @@ img::EasyImage draw2DLines (const Lines2D &lines, const int size){
 }
 
 
-//LParser::LSystem2D createLSystem2D(const string& inputfile) { // Functie die een LSystem2D-object maakt op basis van een invoerbestand
-//
-//    LParser::LSystem2D lSystem2D; // Initialisatie van een LSystem2D-object
-//
-//    ifstream file(inputfile); // Open het opgegeven bestand
-//
-//    if (!file.is_open())  { // Controleer of het bestand met succes is geopend
-//
-//        throw std::runtime_error("File not found"); // Gooi een runtime fout als het bestand niet kan worden geopend
-//    }
-//
-//    file >> lSystem2D; // Lees de inhoud van het bestand in het LSystem2D-object
-//
-//    file.close(); // Sluit het bestand na het lezen
-//
-//    return lSystem2D; // Geef het LSystem2D-object terug
-//}
-//
-//img::EasyImage LSystem2D(const LParser::LSystem2D&  muaz, const vector<double>& backgroundColor, int size, vector<double> lineColor) {
-//    double currentAngle = muaz.get_starting_angle();
-//    const set<char>& alphabet = muaz.get_alphabet();
-//    const string& initiator = muaz.get_initiator();
-//    img::EasyImage image(size, size, img::Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
-//
-//    for (int i = 0; i <size; i++) {
-//        for (int j = 0; j < size; j++) {
-//            image(i, j).red = roundToInt(255*backgroundColor[0]);
-//            image(i, j).green = roundToInt(255*backgroundColor[1]);
-//            image(i, j).blue = roundToInt(255*backgroundColor[2]);
-//    }
-//
-//}
+LParser::LSystem2D createLSystem2D(const string& inputfile) { // Functie die een LSystem2D-object maakt op basis van een invoerbestand
+
+    LParser::LSystem2D lSystem2D; // Initialisatie van een LSystem2D-object
+
+    ifstream file(inputfile); // Open het opgegeven bestand
+
+    if (!file.is_open())  { // Controleer of het bestand met succes is geopend
+
+        throw std::runtime_error("File not found"); // Gooi een runtime fout als het bestand niet kan worden geopend
+    }
+
+    file >> lSystem2D; // Lees de inhoud van het bestand in het LSystem2D-object
+
+    file.close(); // Sluit het bestand na het lezen
+
+    return lSystem2D; // Geef het LSystem2D-object terug
+}
+
+img::EasyImage LSystem2D(const LParser::LSystem2D&  muaz, const vector<double>& backgroundColor, int size, vector<double> lineColor) {
+    double currentAngle = muaz.get_starting_angle();
+    const set<char>& alphabet = muaz.get_alphabet();
+    const string& initiator = muaz.get_initiator();
+    img::EasyImage image(size, size, img::Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
+
+    for (int i = 0; i <size; i++) {
+        for (int j = 0; j < size; j++) {
+            image(i, j).red = roundToInt(255*backgroundColor[0]);
+            image(i, j).green = roundToInt(255*backgroundColor[1]);
+            image(i, j).blue = roundToInt(255*backgroundColor[2]);
+    }
+
+}
 
 
 img::EasyImage generate_image(const ini::Configuration &configuration)
