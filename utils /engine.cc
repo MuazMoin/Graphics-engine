@@ -75,17 +75,36 @@ img::EasyImage draw2DLines (img::EasyImage& image, const Lines2D &lines, const i
     double dx = (imageX/2) - DcX;
     double dy = (imageY/2) - DcY;
 
+    // Teken de lijnen
+    for (const auto& line : lines) {
+        double x1 = scalingFactorD * line.p1.x + dx;
+        double y1 = scalingFactorD * line.p1.y + dy;
+        double x2 = scalingFactorD * line.p2.x + dx;
+        double y2 = scalingFactorD * line.p2.y + dy;
 
+        image.draw_line(roundToInt(x1), roundToInt(y1), roundToInt(x2), roundToInt(y2), img::Color(255, 255, 255));
+    }
+    return image;
 
 }
 
-
-
+LParser::LSystem2D createLSystem2D(const string& inputfile) {
+    LParser::LSystem2D lSystem2D;
+    ifstream file(inputfile);
+    if (!file.is_open()) {
+        throw std::runtime_error("File not found");
+    }
+    file >> lSystem2D;
+    file.close();
+    return lSystem2D;
+}
 
 img::EasyImage generate_image(const ini::Configuration &configuration)
 {
 	return img::EasyImage();
 }
+
+
 
 int main(int argc, char const* argv[])
 {
