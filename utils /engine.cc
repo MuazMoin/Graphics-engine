@@ -88,16 +88,26 @@ img::EasyImage draw2DLines (img::EasyImage& image, const Lines2D &lines, const i
 
 }
 
-LParser::LSystem2D createLSystem2D(const string& inputfile) {
-    LParser::LSystem2D lSystem2D;
-    ifstream file(inputfile);
-    if (!file.is_open()) {
-        throw std::runtime_error("File not found");
+
+LParser::LSystem2D createLSystem2D(const string& inputfile) { // Functie die een LSystem2D-object maakt op basis van een invoerbestand
+
+    LParser::LSystem2D lSystem2D; // Initialisatie van een LSystem2D-object
+
+    ifstream file(inputfile); // Open het opgegeven bestand
+
+    if (!file.is_open())  { // Controleer of het bestand met succes is geopend
+
+        throw std::runtime_error("File not found"); // Gooi een runtime fout als het bestand niet kan worden geopend
     }
-    file >> lSystem2D;
-    file.close();
-    return lSystem2D;
+
+    file >> lSystem2D; // Lees de inhoud van het bestand in het LSystem2D-object
+
+    file.close(); // Sluit het bestand na het lezen
+
+    return lSystem2D; // Geef het LSystem2D-object terug
 }
+
+
 
 img::EasyImage generate_image(const ini::Configuration &configuration)
 {
