@@ -14,9 +14,4 @@ Color::Color() {
     blue = 0.0;
 }
 
-Color::Color(double r, double g, double b) {
-    red = r;
-    green = g;
-    blue = b;
 
-}

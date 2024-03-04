@@ -9,13 +9,25 @@
 #include <string>
 #include <list>
 #include <cmath>
-#include "Utils.h"
-
 
 using Lines2D = std::list<Line2D>;
 using namespace std;
 
 inline int roundToInt(double d) { return static_cast<int>(round(d)); }
+
+void CreateTriangle(Lines2D& triangleLines){
+    Point2D p1(10,10);
+    Point2D p2(15,20);
+    Point2D p3(20,10);
+
+    Line2D l1(p1,p3,Color(255,0,0));
+    Line2D l2(p3,p2,Color(0,255,0));
+    Line2D l3(p1,p2,Color(0,0,255));
+
+    triangleLines.push_back(l1);
+    triangleLines.push_back(l2);
+    triangleLines.push_back(l3);
+}
 
 img::EasyImage draw2DLines (const Lines2D &lines, const int size){
     if (lines.empty()){
@@ -89,10 +101,7 @@ img::EasyImage draw2DLines (const Lines2D &lines, const int size){
         image.draw_line(roundToInt(x1), roundToInt(y1), roundToInt(x2), roundToInt(y2), line.color.toEasyImageColor());
     }
     return image;
-
-
 }
-
 
 LParser::LSystem2D createLSystem2D(const string& inputfile) { // Functie die een LSystem2D-object maakt op basis van een invoerbestand
 
@@ -123,9 +132,9 @@ img::EasyImage LSystem2D(const LParser::LSystem2D&  muaz, const vector<double>& 
             image(i, j).red = roundToInt(255*backgroundColor[0]);
             image(i, j).green = roundToInt(255*backgroundColor[1]);
             image(i, j).blue = roundToInt(255*backgroundColor[2]);
-    }
+        }
 
-}
+    }
     Lines2D lines;
     double x = 0;
     double y = 0;
@@ -160,8 +169,6 @@ img::EasyImage LSystem2D(const LParser::LSystem2D&  muaz, const vector<double>& 
     return image;
 }
 
-
-
 img::EasyImage generate_image(const ini::Configuration &configuration){
     img::EasyImage image;
     string type = configuration["General"]["type"].as_string_or_die();
@@ -175,85 +182,93 @@ img::EasyImage generate_image(const ini::Configuration &configuration){
         vector<double> lineColor = configuration["LSystem2D"]["linecolor"].as_double_tuple_or_die();
         image = LSystem2D(lSystem2D, backgroundColor, size, color);
     }
-	return image;
+    return image;
 }
-
-
 
 int main(int argc, char const* argv[])
 {
-        int retVal = 0;
+    int retVal = 0;
+    try
+    {
+        std::vector<std::string> args = std::vector<std::string>(argv+1, argv+argc);
+        if (args.empty()) {
+            std::ifstream fileIn("filelist");
+            std::string filelistName;
+            while (std::getline(fileIn, filelistName)) {
+                args.push_back(filelistName);
+            }
+        }
+        for(std::string fileName : args)
+        {
+            ini::Configuration conf;
+            try
+            {
+                std::ifstream fin(fileName);
+                if (fin.peek() == std::istream::traits_type::eof()) {
+                    std::cout << "Ini file appears empty. Does '" <<
+                              fileName << "' exist?" << std::endl;
+                    continue;
+                }
+                fin >> conf;
+                fin.close();
+            }
+            catch(ini::ParseException& ex)
+            {
+                std::cerr << "Error parsing file: " << fileName << ": " << ex.what() << std::endl;
+                retVal = 1;
+                continue;
+            }
+
+            img::EasyImage image = generate_image(conf);
+            if(image.get_height() > 0 && image.get_width() > 0)
+            {
+                std::string::size_type pos = fileName.rfind('.');
+                if(pos == std::string::npos)
+                {
+                    //filename does not contain a '.' --> append a '.bmp' suffix
+                    fileName += ".bmp";
+                }
+                else
+                {
+                    fileName = fileName.substr(0,pos) + ".bmp";
+                }
+                try
+                {
+                    std::ofstream f_out(fileName.c_str(),std::ios::trunc | std::ios::out | std::ios::binary);
+                    f_out << image;
+
+                }
+                catch(std::exception& ex)
+                {
+                    std::cerr << "Failed to write image to file: " << ex.what() << std::endl;
+                    retVal = 1;
+                }
+            }
+            else
+            {
+                std::cout << "Could not generate image for " << fileName << std::endl;
+            }
+        }
+
+        // Voeg hier het stukje code toe om de driehoek te maken, te tekenen en op te slaan
+        Lines2D triangleLines;
+        CreateTriangle(triangleLines);
+        img::EasyImage triangleImage = draw2DLines(triangleLines, 100); // Pas de grootte van de afbeelding aan indien nodig
         try
         {
-                std::vector<std::string> args = std::vector<std::string>(argv+1, argv+argc);
-                if (args.empty()) {
-                        std::ifstream fileIn("filelist");
-                        std::string filelistName;
-                        while (std::getline(fileIn, filelistName)) {
-                                args.push_back(filelistName);
-                        }
-                }
-                for(std::string fileName : args)
-                {
-                        ini::Configuration conf;
-                        try
-                        {
-                                std::ifstream fin(fileName);
-                                if (fin.peek() == std::istream::traits_type::eof()) {
-                                    std::cout << "Ini file appears empty. Does '" <<
-                                    fileName << "' exist?" << std::endl;
-                                    continue;
-                                }
-                                fin >> conf;
-                                fin.close();
-                        }
-                        catch(ini::ParseException& ex)
-                        {
-                                std::cerr << "Error parsing file: " << fileName << ": " << ex.what() << std::endl;
-                                retVal = 1;
-                                continue;
-                        }
-
-                        img::EasyImage image = generate_image(conf);
-                        if(image.get_height() > 0 && image.get_width() > 0)
-                        {
-                                std::string::size_type pos = fileName.rfind('.');
-                                if(pos == std::string::npos)
-                                {
-                                        //filename does not contain a '.' --> append a '.bmp' suffix
-                                        fileName += ".bmp";
-                                }
-                                else
-                                {
-                                        fileName = fileName.substr(0,pos) + ".bmp";
-                                }
-                                try
-                                {
-                                        std::ofstream f_out(fileName.c_str(),std::ios::trunc | std::ios::out | std::ios::binary);
-                                        f_out << image;
-
-                                }
-                                catch(std::exception& ex)
-                                {
-                                        std::cerr << "Failed to write image to file: " << ex.what() << std::endl;
-                                        retVal = 1;
-                                }
-                        }
-                        else
-                        {
-                                std::cout << "Could not generate image for " << fileName << std::endl;
-                        }
-                }
+            std::ofstream f_out("triangle.bmp", std::ios::trunc | std::ios::out | std::ios::binary);
+            f_out << triangleImage;
         }
-        catch(const std::bad_alloc &exception)
+        catch(std::exception& ex)
         {
-    		//When you run out of memory this exception is thrown. When this happens the return value of the program MUST be '100'.
-    		//Basically this return value tells our automated test scripts to run your engine on a pc with more memory.
-    		//(Unless of course you are already consuming the maximum allowed amount of memory)
-    		//If your engine does NOT adhere to this requirement you risk losing points because then our scripts will
-		//mark the test as failed while in reality it just needed a bit more memory
-                std::cerr << "Error: insufficient memory" << std::endl;
-                retVal = 100;
+            std::cerr << "Failed to write image to file: " << ex.what() << std::endl;
+            retVal = 1;
         }
-        return retVal;
+    }
+    catch(const std::bad_alloc &exception)
+    {
+        std::cerr << "Error: insufficient memory" << std::endl;
+        retVal = 100;
+    }
+    return retVal;
 }
