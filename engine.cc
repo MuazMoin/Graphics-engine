@@ -2,7 +2,6 @@
 #include "ini_configuration.h"
 #include "Line2D.h"
 #include "l_parser.h"
-#include "l_parser.cc"
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
