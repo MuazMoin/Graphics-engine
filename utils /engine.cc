@@ -113,7 +113,13 @@ img::EasyImage LSystem2D(const LParser::LSystem2D&  muaz, const vector<double>& 
     const string& initiator = muaz.get_initiator();
     img::EasyImage image(size, size, img::Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
 
-    
+    for (int i = 0; i <size; i++) {
+        for (int j = 0; j < size; j++) {
+            image(i, j).red = roundToInt(255*backgroundColor[0]);
+            image(i, j).green = roundToInt(255*backgroundColor[1]);
+            image(i, j).blue = roundToInt(255*backgroundColor[2]);
+    }
+
 }
 
 
