@@ -9,7 +9,7 @@
 #include <string>
 #include <list>
 #include <cmath>
-#include "../Lines/drawLines2D.h"
+#include "../Lines/draw2DLines.h"
 using Lines2D = std::list<Line2D>;
 using namespace std;
 
@@ -107,6 +107,14 @@ LParser::LSystem2D createLSystem2D(const string& inputfile) { // Functie die een
     return lSystem2D; // Geef het LSystem2D-object terug
 }
 
+img::EasyImage LSystem2D(const LParser::LSystem2D&  muaz, const vector<double>& backgroundColor, int size, vector<double> lineColor) {
+    double currentAngle = muaz.get_starting_angle();
+    const set<char>& alphabet = muaz.get_alphabet();
+    const string& initiator = muaz.get_initiator();
+    img::EasyImage image(size, size, img::Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
+
+    
+}
 
 
 img::EasyImage generate_image(const ini::Configuration &configuration)
