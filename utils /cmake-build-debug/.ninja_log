@@ -1,7 +1,0 @@
-# ninja log v5
-1	171	1709505981403836270	CMakeFiles/engine.dir/Users/muazmoin/Documents/GITHUB/CG/Lines/Line2D.cpp.o	3426d191267195b4
-1	171	1709505981403846770	CMakeFiles/engine.dir/Users/muazmoin/Documents/GITHUB/CG/Lines/Color.cpp.o	cba3dbf92453585b
-1	172	1709505981403812269	CMakeFiles/engine.dir/Users/muazmoin/Documents/GITHUB/CG/Lines/Point2D.cpp.o	7a6ebba40e7774ef
-0	494	1709505981725642767	CMakeFiles/engine.dir/easy_image.cc.o	16e9d9160ad8e7f2
-0	549	1709505981781422835	CMakeFiles/engine.dir/Users/muazmoin/Documents/GITHUB/CG/l_parser.cc.o	b7eefebb95e8755d
-0	615	1709505981846805470	CMakeFiles/engine.dir/ini_configuration.cc.o	bd85620ae1d2e3e8
