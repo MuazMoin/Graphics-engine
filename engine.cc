@@ -28,17 +28,17 @@ void CreateTriangle(Lines2D& triangleLines){
     triangleLines.push_back(l3);
 }
 
-img::EasyImage draw2DLines (const Lines2D &lines, const int size){
-    if (lines.empty()){
+img::EasyImage draw2DLines(const Lines2D& lines, const int size) {
+    if (lines.empty()) {
         throw std::runtime_error("No Lines Given");
     }
-    double xMin = lines.front().p1.x;
-    double xMax = lines.front().p1.x;
-    double yMin = lines.front().p1.y;
-    double yMax = lines.front().p1.y;
+    double xMin = size;
+    double xMax = 0;
+    double yMin = size;
+    double yMax = 0;
+
 
     for (const auto& line : lines) {
-
         // xMin, xMax, yMin, yMax updaten
         if (line.p1.x < xMin) {
             xMin = line.p1.x;
@@ -72,23 +72,23 @@ img::EasyImage draw2DLines (const Lines2D &lines, const int size){
     cout << "xMin: " << xMin << " xMax: " << xMax << " yMin: " << yMin << " yMax: " << yMax << endl;
 
     // Berekeningen voor het bepalen van de schaal en verschuiving
-
     double xRange = xMax - xMin;
     double yRange = yMax - yMin;
 
-    double imageX = size*(xRange/max(xRange,yRange));
-    double imageY = size*(yRange/max(xRange,yRange));
+    cout << "xRange: " << xRange << " yRange: " << yRange << endl; // Debug toegevoegd
+
+    double imageX = size * (xRange / max(xRange, yRange));
+    double imageY = size * (yRange / max(xRange, yRange));
+
+    cout << "imageX: " << imageX << " imageY: " << imageY << endl; // Debug toegevoegd
 
     img::EasyImage image(imageX, imageY, img::Color(0, 0, 0));
 
-
-    double scalingFactorD = 0.95*(imageX/xRange);
-
-    double DcX = scalingFactorD*(xMin+xMax)/2;
-    double DcY = scalingFactorD*(yMin+yMax)/2;
-
-    double dx = (imageX/2) - DcX;
-    double dy = (imageY/2) - DcY;
+    double scalingFactorD = 0.95 * (imageX / xRange);
+    double DcX = scalingFactorD * (xMin + xMax) / 2;
+    double DcY = scalingFactorD * (yMin + yMax) / 2;
+    double dx = (imageX / 2) - DcX;
+    double dy = (imageY / 2) - DcY;
 
     // Teken de lijnen
     for (const auto& line : lines) {
@@ -118,71 +118,88 @@ LParser::LSystem2D createLSystem2D(const string& inputfile) { // Functie die een
     file.close(); // Sluit het bestand na het lezen
 
     return lSystem2D; // Geef het LSystem2D-object terug
+
 }
 
-img::EasyImage LSystem2D(const LParser::LSystem2D&  muaz, const vector<double>& backgroundColor, int size, vector<double> lineColor) {
+img::EasyImage LSystem2D(const LParser::LSystem2D& muaz, const vector<double>& backgroundColor, int size, vector<double> lineColor) {
     double currentAngle = muaz.get_starting_angle() * M_PI / 180;
     const set<char>& alphabet = muaz.get_alphabet();
     const string& initiator = muaz.get_initiator();
     img::EasyImage image(size, size, img::Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
 
-    for (int i = 0; i <size; i++) {
+    for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            image(i, j).red = roundToInt(255*backgroundColor[0]);
-            image(i, j).green = roundToInt(255*backgroundColor[1]);
-            image(i, j).blue = roundToInt(255*backgroundColor[2]);
+            image(i, j).red = roundToInt(255 * backgroundColor[0]);
+            image(i, j).green = roundToInt(255 * backgroundColor[1]);
+            image(i, j).blue = roundToInt(255 * backgroundColor[2]);
         }
-
     }
+
     Lines2D lines;
     double x = 0;
     double y = 0;
 
-    for (char letter: initiator) {
-        if (letter == '-' ){
+    for (char letter : initiator) {
+        if (letter == '-') {
             currentAngle -= muaz.get_angle() * M_PI / 180;
-        }
-        else if (letter == '+') {
+        } else if (letter == '+') {
             currentAngle += muaz.get_angle() * M_PI / 180;
-        }
-        else{
+        } else {
             Line2D line{};
             bool lengthDraw = muaz.draw('F');
-            if (lengthDraw){
+            if (lengthDraw) {
                 line.p1.x = x;
                 line.p1.y = y;
                 line.p2.x = x + cos(currentAngle);
                 line.p2.y = y + sin(currentAngle);
                 x = line.p2.x;
                 y = line.p2.y;
-                line.color.red = roundToInt(255*lineColor[0]);
-                line.color.green = roundToInt(255*lineColor[1]);
-                line.color.blue = roundToInt(255*lineColor[2]);
+                line.color.red = roundToInt(255 * lineColor[0]);
+                line.color.green = roundToInt(255 * lineColor[1]);
+                line.color.blue = roundToInt(255 * lineColor[2]);
                 lines.push_back(line);
             }
-
         }
     }
+
+    cout << "Number of lines: " << lines.size() << endl; // Debug-uitvoer toegevoegd
 
     image = draw2DLines(lines, size);
     return image;
 }
 
 img::EasyImage generate_image(const ini::Configuration &configuration){
+    cout << "Generating image..." << endl; // Debug-uitvoer toegevoegd
+
     img::EasyImage image;
     string type = configuration["General"]["type"].as_string_or_die();
 
     if (type == "LSystem2D") {
+        cout << "LSystem2D type found." << endl; // Debug
+
         string inputfile = configuration["LSystem2D"]["inputfile"].as_string_or_die();
+        cout << "Input file: " << inputfile << endl; // Debug
+
         LParser::LSystem2D lSystem2D = createLSystem2D(inputfile);
         vector<double> color = configuration["LSystem2D"]["color"].as_double_tuple_or_die();
         vector<double> backgroundColor = configuration["LSystem2D"]["backgroundcolor"].as_double_tuple_or_die();
         int size = configuration["LSystem2D"]["size"].as_int_or_die();
         vector<double> lineColor = configuration["LSystem2D"]["linecolor"].as_double_tuple_or_die();
         image = LSystem2D(lSystem2D, backgroundColor, size, color);
+
+        // Voeg de driehoekslijnen toe aan de afbeelding
+        Lines2D triangleLines;
+        CreateTriangle(triangleLines);
+        for (const auto& line : triangleLines) {
+            image.draw_line(roundToInt(line.p1.x), roundToInt(line.p1.y),
+                            roundToInt(line.p2.x), roundToInt(line.p2.y),
+                            line.color.toEasyImageColor());
+        }
     }
     return image;
 }
+
+
 
 int main(int argc, char const* argv[])
 {
@@ -270,4 +287,7 @@ int main(int argc, char const* argv[])
         retVal = 100;
     }
     return retVal;
+
 }
+
+
