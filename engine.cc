@@ -250,10 +250,10 @@ int main(int argc, char const* argv[])
             }
         }
 
-        // Voeg hier het stukje code toe om de driehoek te maken, te tekenen en op te slaan
+
         Lines2D triangleLines;
         CreateTriangle(triangleLines);
-        img::EasyImage triangleImage = draw2DLines(triangleLines, 100); // Pas de grootte van de afbeelding aan indien nodig
+        img::EasyImage triangleImage = draw2DLines(triangleLines, 100);
         try
         {
             std::ofstream f_out("triangle.bmp", std::ios::trunc | std::ios::out | std::ios::binary);
