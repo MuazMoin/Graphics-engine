@@ -12,7 +12,7 @@
 
 #include "LSystem2D.h"
 
-
+//Created by Muaz Moin on 05/03/2024.
 
 using namespace std; // Gebruik de standaardnaamruimte
 

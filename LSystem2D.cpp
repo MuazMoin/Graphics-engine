@@ -183,3 +183,4 @@ void LSystem2D::drawLines2D(const Lines2D& lines, img::EasyImage &image) {
         image.draw_line(lround(line.p1.x), lround(line.p1.y), lround(line.p2.x), lround(line.p2.y), line.color);
     }
 }
+// Created by Muaz Moin on 05/03/2024.
