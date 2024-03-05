@@ -201,7 +201,7 @@ img::EasyImage generate_image(const ini::Configuration &configuration){
     return image; // Geeft de afbeelding terug
 }
 
-//
+
 
 
 int main(int argc, char const* argv[])
