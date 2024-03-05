@@ -4,7 +4,7 @@
 #include "Color.h"
 
 img::Color Color::toEasyImageColor() const { //const zal nooit object veranderen, maakt mijn variablen nl red green blue (= memberveariablenen) onveranderlijk
-    img::Color muaz(red * 255, green * 255, blue * 255);
+    img::Color muaz( red * 255, green * 255, blue * 255);
     return muaz;
 }
 

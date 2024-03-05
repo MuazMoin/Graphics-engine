@@ -8,66 +8,44 @@
 #include <string> // Include headerbestand voor stringbewerkingen
 #include <list> // Include headerbestand voor de lijstcontainer
 #include <cmath> // Include headerbestand voor wiskundige bewerkingen zoals ronde, cosinus en sinus
+#include <limits>
 
-using Lines2D = std::list<Line2D>; // Definieer een alias voor een lijst van 2D-lijnen
+#include "LSystem2D.h"
+
+
+img::EasyImage parseLSystem2D(const ini::Configuration &configuration);
+
 using namespace std; // Gebruik de standaardnaamruimte
 
 inline int roundToInt(double d) { return static_cast<int>(round(d)); } // Definieer een hulpprogrammafunctie om een ​​drijvend punt naar het dichtstbijzijnde gehele getal te ronden
 
-// Creëert een driehoek met drie lijnen en voegt ze toe aan de gegeven lijst
-void CreateTriangle(Lines2D& triangleLines){
-    Point2D p1(10,10); // Definieer het eerste punt van de driehoek
-    Point2D p2(15,20); // Definieer het tweede punt van de driehoek
-    Point2D p3(20,10); // Definieer het derde punt van de driehoek
-
-    Line2D l1(p1,p3,Color(255,0,0)); // Maak de eerste lijn van de driehoek met de opgegeven kleur
-    Line2D l2(p3,p2,Color(0,255,0)); // Maak de tweede lijn van de driehoek met de opgegeven kleur
-    Line2D l3(p1,p2,Color(0,0,255)); // Maak de derde lijn van de driehoek met de opgegeven kleur
-
-    triangleLines.push_back(l1); // Voeg de eerste lijn van de driehoek toe aan de lijst
-    triangleLines.push_back(l2); // Voeg de tweede lijn van de driehoek toe aan de lijst
-    triangleLines.push_back(l3); // Voeg de derde lijn van de driehoek toe aan de lijst
-}
-
 // Tekent 2D-lijnen op een afbeelding en geeft de afbeelding terug
-img::EasyImage draw2DLines(const Lines2D& lines, const int size) {
+img::EasyImage draw2DLines(const Lines2D &lines, const int size, const vector<double> &backgroundColor) {
     if (lines.empty()) { // Controleer of de lijst met lijnen leeg is
         throw std::runtime_error("No Lines Given"); // Gooi een runtime fout als er geen lijnen zijn
     }
-    double xMin = size; // Initialiseer de minimale x-coördinaat met de afbeeldingsgrootte
-    double xMax = 0; // Initialiseer de maximale x-coördinaat met nul
-    double yMin = size; // Initialiseer de minimale y-coördinaat met de afbeeldingsgrootte
-    double yMax = 0; // Initialiseer de maximale y-coördinaat met nul
+    double xMin = std::numeric_limits<double>::infinity(); // Initialiseer de minimale x-coördinaat met de afbeeldingsgrootte
+    double yMin = std::numeric_limits<double>::infinity();; // Initialiseer de minimale y-coördinaat met de afbeeldingsgrootte
+    double xMax = -std::numeric_limits<double>::infinity();
+    double yMax = -std::numeric_limits<double>::infinity();; // Initialiseer de maximale y-coördinaat met nul
 
     // Bepaalt de minimale en maximale x- en y-coördinaten van de lijnen
     for (const auto& line : lines) {
-        if (line.p1.x < xMin) { // Controleer of de x-coördinaat van het eerste punt kleiner is dan de huidige minimale x-coördinaat
-            xMin = line.p1.x; // Update de minimale x-coördinaat
-        }
-        if (line.p2.x < xMin) { // Controleer of de x-coördinaat van het tweede punt kleiner is dan de huidige minimale x-coördinaat
-            xMin = line.p2.x; // Update de minimale x-coördinaat
-        }
-        if (line.p2.x < xMin) { // Controleer of de x-coördinaat van het tweede punt kleiner is dan de huidige minimale x-coördinaat
-            xMin = line.p2.x; // Update de minimale x-coördinaat
-        }
-        if (line.p1.x > xMax) { // Controleer of de x-coördinaat van het eerste punt groter is dan de huidige maximale x-coördinaat
-            xMax = line.p1.x; // Update de maximale x-coördinaat
-        }
-        if (line.p2.x > xMax) { // Controleer of de x-coördinaat van het tweede punt groter is dan de huidige maximale x-coördinaat
-            xMax = line.p2.x; // Update de maximale x-coördinaat
-        }
-        if (line.p1.y < yMin) { // Controleer of de y-coördinaat van het eerste punt kleiner is dan de huidige minimale y-coördinaat
-            yMin = line.p1.y; // Update de minimale y-coördinaat
-        }
-        if (line.p2.y < yMin) { // Controleer of de y-coördinaat van het tweede punt kleiner is dan de huidige minimale y-coördinaat
-            yMin = line.p2.y; // Update de minimale y-coördinaat
-        }
-        if (line.p1.y > yMax) { // Controleer of de y-coördinaat van het eerste punt groter is dan de huidige maximale y-coördinaat
-            yMax = line.p1.y; // Update de maximale y-coördinaat
-        }
-        if (line.p2.y > yMax) { // Controleer of de y-coördinaat van het tweede punt groter is dan de huidige maximale y-coördinaat
-            yMax = line.p2.y; // Update de maximale y-coördinaat
-        }
+        // x max
+        xMax = max(xMax, line.p1.x);
+        xMax = max(xMax, line.p2.x);
+
+        // x min
+        xMin = min(xMin, line.p1.x);
+        xMin = min(xMin, line.p2.x);
+
+        // y max
+        yMax = max(yMax, line.p1.y);
+        yMax = max(yMax, line.p2.y);
+
+        // y min
+        yMin = min(yMin, line.p1.y);
+        yMin = min(yMin, line.p2.y);
     }
 
     cout << "xMin: " << xMin << " xMax: " << xMax << " yMin: " << yMin << " yMax: " << yMax << endl; // Geef de minimale en maximale coördinaten weer
@@ -78,12 +56,14 @@ img::EasyImage draw2DLines(const Lines2D& lines, const int size) {
 
     cout << "xRange: " << xRange << " yRange: " << yRange << endl; // Geef de x- en y-bereiken weer (debugging toegevoegd)
 
-    double imageX = size * (xRange / max(xRange, yRange)); // Bereken de breedte van de afbeelding op basis van de maximale x- en y-bereiken
-    double imageY = size * (yRange / max(xRange, yRange)); // Bereken de hoogte van de afbeelding op basis van de maximale x- en y-bereiken
+    double maxRange = max(xRange, yRange); // Bepaal het maximale bereik tussen de x- en y-coördinaten
+
+    double imageX = size * (xRange/ maxRange); // Bereken de breedte van de afbeelding op basis van de maximale x- en y-bereiken
+    double imageY = size * (yRange / maxRange); // Bereken de hoogte van de afbeelding op basis van de maximale x- en y-bereiken
 
     cout << "imageX: " << imageX << " imageY: " << imageY << endl; // Geef de breedte en hoogte van de afbeelding weer (debugging toegevoegd)
 
-    img::EasyImage image(imageX, imageY, img::Color(0, 0, 0)); // Creëer een afbeelding met de berekende breedte en hoogte, en een zwarte achtergrond
+    img::EasyImage image(imageX, imageY, img::Color(backgroundColor[0]*255, backgroundColor[1]*255, backgroundColor[2]*255)); // Creëer een afbeelding met de berekende breedte en hoogte, en een zwarte achtergrond
 
     double scalingFactorD = 0.95 * (imageX / xRange); // Bereken de schaalfactor voor de lijnen
     double DcX = scalingFactorD * (xMin + xMax) / 2; // Bereken de x-coördinaat van het midden van de afbeelding na schaling
@@ -98,7 +78,7 @@ img::EasyImage draw2DLines(const Lines2D& lines, const int size) {
         double x2 = scalingFactorD * line.p2.x + dx; // Bereken de x-coördinaat van het tweede punt na schaling en verschuiving
         double y2 = scalingFactorD * line.p2.y + dy; // Bereken de y-coördinaat van het tweede punt na schaling en verschuiving
 
-        image.draw_line(roundToInt(x1), roundToInt(y1), roundToInt(x2), roundToInt(y2), line.color.toEasyImageColor()); // Teken een lijn tussen de twee punten op de afbeelding
+        image.draw_line(roundToInt(x1), roundToInt(y1), roundToInt(x2), roundToInt(y2), line.color); // Teken een lijn tussen de twee punten op de afbeelding
     }
     return image; // Geef de afbeelding terug
 }
@@ -121,88 +101,79 @@ LParser::LSystem2D createLSystem2D(const string& inputfile) {
 }
 
 // Genereert een afbeelding op basis van een LSystem2D-object en configuratiegegevens
-img::EasyImage LSystem2D(const LParser::LSystem2D& muaz, const vector<double>& backgroundColor, int size, vector<double> lineColor) {
-    double currentAngle = muaz.get_starting_angle() * M_PI / 180; // Bereken de huidige hoek in radialen
+img::EasyImage LSystem2D(const LParser::LSystem2D& muaz, const vector<double>& backgroundColor, int size, const img::Color& lineColor) {
+    // Haal de configuratiegegevens op uit het LSystem2D-object
+    double angleComponent = muaz.get_angle() * M_PI / 180; // Bereken de huidige hoek in radialen
     const set<char>& alphabet = muaz.get_alphabet(); // Haal het alfabet op uit het LSystem2D-object
     const string& initiator = muaz.get_initiator(); // Haal de initiatorreeks op uit het LSystem2D-object
-    img::EasyImage image(size, size, img::Color(backgroundColor[0], backgroundColor[1], backgroundColor[2])); // Creëer een afbeelding met de opgegeven grootte en achtergrondkleur
 
-    for (int i = 0; i < size; i++) { // Loop over alle pixels in de afbeelding
-        for (int j = 0; j < size; j++) {
-            image(i, j).red = roundToInt(255 * backgroundColor[0]); // Stel de rode component van de pixelkleur in op basis van de achtergrondkleur
-            image(i, j).green = roundToInt(255 * backgroundColor[1]); // Stel de groene component van de pixelkleur in op basis van de achtergrondkleur
-            image(i, j).blue = roundToInt(255 * backgroundColor[2]); // Stel de blauwe component van de pixelkleur in op basis van de achtergrondkleur
-        }
-    }
+
 
     Lines2D lines; // Maak een lijst om de lijnen van het L-systeem op te slaan
     double x = 0; // Initialiseer de x-coördinaat
     double y = 0; // Initialiseer de y-coördinaat
 
     // Genereert de lijnen op basis van de initiatorreeks en de regels van het L-systeem
-    for (char letter : initiator) {
+    string oldString = initiator;
+    string newString ;
+
+    for (int i = 0; i < muaz.get_nr_iterations(); i++){
+        newString = "";
+        for (char letter : oldString){
+            if (alphabet.find(letter) != alphabet.end()){
+                newString += muaz.get_replacement(letter);
+            } else {
+                newString += letter;
+            }
+        }
+        oldString = newString;
+    }
+
+    double currentAngle = muaz.get_starting_angle() * M_PI / 180; // Bereken de huidige hoek in radialen
+    Point2D oldPoint(0, 0); // Maak een punt met de huidige x- en y-coördinaten
+    Point2D newPoint(0,0); // Maak een punt voor de nieuwe x- en y-coördinaten
+
+    std::vector<vector<double>> bracket_stack; // Maak een lijst om de punten van het L-systeem op te slaan
+
+    for (char letter : newString) {
         if (letter == '-') { // Controleer of de letter een draai naar links vertegenwoordigt
-            currentAngle -= muaz.get_angle() * M_PI / 180; // Verander de huidige hoek naar links
+            currentAngle -= angleComponent;
         } else if (letter == '+') { // Controleer of de letter een draai naar rechts vertegenwoordigt
-            currentAngle += muaz.get_angle() * M_PI / 180; // Verander de huidige hoek naar rechts
+            currentAngle += angleComponent;
+        }else if (letter == '(') { // Controleer of de letter een open haakje vertegenwoordigt
+            bracket_stack.push_back({newPoint.x, newPoint.y, currentAngle}); // Voeg de huidige hoek en x- en y-coördinaten toe aan de lijst
+        } else if (letter == ')') { // Controleer of de letter een sluit haakje vertegenwoordigt
+            newPoint = Point2D(bracket_stack.back()[0], bracket_stack.back()[1]); // Verander het oude punt in het laatste punt in de lijst
+            currentAngle = bracket_stack.back()[2]; // Verander de huidige hoek in de laatste hoek in de lijst
+            bracket_stack.pop_back(); // Verwijder het laatste punt uit de lijst
         } else { // Als de letter een teken voor een lijn is
-            Line2D line{}; // Maak een nieuwe lege lijn
-            bool lengthDraw = muaz.draw('F'); // Controleer of er een lijn moet worden getekend op basis van de tekenregel van het L-systeem
-            if (lengthDraw) { // Als er een lijn moet worden getekend
-                line.p1.x = x; // Stel de x-coördinaat van het eerste punt van de lijn in
-                line.p1.y = y; // Stel de y-coördinaat van het eerste punt van de lijn in
-                line.p2.x = x + cos(currentAngle); // Bereken de x-coördinaat van het tweede punt van de lijn
-                line.p2.y = y + sin(currentAngle); // Bereken de y-coördinaat van het tweede punt van de lijn
-                x = line.p2.x; // Update de x-coördinaat voor de volgende lijn
-                y = line.p2.y; // Update de y-coördinaat voor de volgende lijn
-                line.color.red = roundToInt(255 * lineColor[0]); // Stel de rode component van de lijnkleur in op basis van de opgegeven kleur
-                line.color.green = roundToInt(255 * lineColor[1]); // Stel de groene component van de lijnkleur in op basis van de opgegeven kleur
-                line.color.blue = roundToInt(255 * lineColor[2]); // Stel de blauwe component van de lijnkleur in op basis van de opgegeven kleur
-                lines.push_back(line); // Voeg de lijn toe aan de lijst met lijnen
+            oldPoint = newPoint; // Verander het oude punt in het nieuwe punt
+            newPoint = Point2D(oldPoint.x + cos(currentAngle), oldPoint.y + sin(currentAngle)); // Bereken de nieuwe x- en y-coördinaten
+
+            if (muaz.draw(letter)) { // Controleer of de letter een teken is voor een lijn
+                Line2D line(oldPoint, newPoint, lineColor); // Maak een lijn tussen de oude en nieuwe punten
+                lines.emplace_back(line); // Voeg de lijn toe aan de lijst
             }
         }
     }
 
     cout << "Number of lines: " << lines.size() << endl; // Geef het aantal gegenereerde lijnen weer (debugging toegevoegd)
 
-    image = draw2DLines(lines, size); // Tekent de gegenereerde lijnen op de afbeelding
-    return image; // Geeft de afbeelding terug
+    return draw2DLines(lines, size, backgroundColor); // Tekent de gegenereerde lijnen op de afbeelding
 }
 
 // Genereert een afbeelding op basis van configuratiegegevens
 img::EasyImage generate_image(const ini::Configuration &configuration){
     cout << "Generating image..." << endl; // Geef aan dat de afbeelding wordt gegenereerd (debugging toegevoegd)
 
-    img::EasyImage image; // Initialiseer een lege afbeelding
     string type = configuration["General"]["type"].as_string_or_die(); // Haal het type afbeelding op uit de configuratiegegevens
 
-    if (type == "LSystem2D") { // Controleer of het type afbeelding een LSystem2D is
-        cout << "LSystem2D type found." << endl; // Geef aan dat een LSystem2D-type is gevonden (debugging toegevoegd)
-
-        string inputfile = configuration["LSystem2D"]["inputfile"].as_string_or_die(); // Haal het invoerbestand op uit de configuratiegegevens
-        cout << "Input file: " << inputfile << endl; // Geef het invoerbestand weer (debugging toegevoegd)
-
-        LParser::LSystem2D lSystem2D = createLSystem2D(inputfile); // Creëer een LSystem2D-object op basis van het invoerbestand
-        vector<double> color = configuration["LSystem2D"]["color"].as_double_tuple_or_die(); // Haal de kleur op uit de configuratiegegevens
-        vector<double> backgroundColor = configuration["LSystem2D"]["backgroundcolor"].as_double_tuple_or_die(); // Haal de achtergrondkleur op uit de configuratiegegevens
-        int size = configuration["LSystem2D"]["size"].as_int_or_die(); // Haal de grootte op uit de configuratiegegevens
-        vector<double> lineColor = configuration["LSystem2D"]["linecolor"].as_double_tuple_or_die(); // Haal de lijnkleur op uit de configuratiegegevens
-        image = LSystem2D(lSystem2D, backgroundColor, size, color); // Genereer de LSystem2D-afbeelding met de opgegeven configuratiegegevens
-
-        // Voeg de driehoekslijnen toe aan de afbeelding
-        Lines2D triangleLines; // Initialiseer een lijst voor de driehoekslijnen
-        CreateTriangle(triangleLines); // Genereer de driehoekslijnen
-        for (const auto& line : triangleLines) { // Loop over alle driehoekslijnen
-            image.draw_line(roundToInt(line.p1.x), roundToInt(line.p1.y), // Teken een lijn tussen de twee punten van elke driehoek
-                            roundToInt(line.p2.x), roundToInt(line.p2.y),
-                            line.color.toEasyImageColor()); // Geef de kleur van de lijn op basis van de kleur van de driehoek
-        }
+    if (type == "2DLSystem") {
+        return LSystem2D::parseLSystem2D(configuration);
+    } else {
+        return {};
     }
-    return image; // Geeft de afbeelding terug
 }
-
-
-
 
 int main(int argc, char const* argv[])
 {
@@ -268,29 +239,17 @@ int main(int argc, char const* argv[])
                 std::cout << "Could not generate image for " << fileName << std::endl;
             }
         }
-
-
-        Lines2D triangleLines;
-        CreateTriangle(triangleLines);
-        img::EasyImage triangleImage = draw2DLines(triangleLines, 100);
-        try
-        {
-            std::ofstream f_out("triangle.bmp", std::ios::trunc | std::ios::out | std::ios::binary);
-            f_out << triangleImage;
-        }
-        catch(std::exception& ex)
-        {
-            std::cerr << "Failed to write image to file: " << ex.what() << std::endl;
-            retVal = 1;
-        }
     }
     catch(const std::bad_alloc &exception)
     {
+        //When you run out of memory this exception is thrown. When this happens the return value of the program MUST be '100'.
+        //Basically this return value tells our automated test scripts to run your engine on a pc with more memory.
+        //(Unless of course you are already consuming the maximum allowed amount of memory)
+        //If your engine does NOT adhere to this requirement you risk losing points because then our scripts will
+        //mark the test as failed while in reality it just needed a bit more memory
         std::cerr << "Error: insufficient memory" << std::endl;
         retVal = 100;
     }
     return retVal;
-
 }
-
 

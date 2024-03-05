@@ -23,6 +23,8 @@ set(engine_sources
 		Color.h
 		l_parser.cc
 		Color.cpp
+		LSystem2D.h
+		LSystem2D.cpp
 )
 
 ############################################################
