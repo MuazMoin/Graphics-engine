@@ -1,6 +1,6 @@
 #include "easy_image.h" // Include headerbestand voor het EasyImage-bibliotheek
 #include "ini_configuration.h" // Include headerbestand voor de INI Configuration-bibliotheek
-#include "Line2D.h" // Include headerbestand voor de 2D-lijnbibliotheek
+#include "2D L-Systemen/Line2D.h" // Include headerbestand voor de 2D-lijnbibliotheek
 #include "l_parser.h" // Include headerbestand voor de L-parser-bibliotheek
 #include <fstream> // Include headerbestand voor bestandsbewerkingen
 #include <iostream> // Include headerbestand voor in-/uitvoerbewerkingen
@@ -10,7 +10,7 @@
 #include <cmath> // Include headerbestand voor wiskundige bewerkingen zoals ronde, cosinus en sinus
 #include <limits>
 
-#include "LSystem2D.h"
+#include "2D L-Systemen/LSystem2D.h"
 
 //Created by Muaz Moin on 05/03/2024.
 

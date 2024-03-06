@@ -18,13 +18,13 @@ set(engine_sources
 		easy_image.cc
 		engine.cc
 		ini_configuration.cc
-		Line2D.h
-		Point2D.h
-		Color.h
+		"2D L-Systemen/Line2D.h"
+		"2D L-Systemen/Point2D.h"
+		"2D L-Systemen/Color.h"
 		l_parser.cc
-		Color.cpp
-		LSystem2D.h
-		LSystem2D.cpp
+		"2D L-Systemen/Color.cpp"
+		"2D L-Systemen/LSystem2D.h"
+		"2D L-Systemen/LSystem2D.cpp"
 )
 
 ############################################################

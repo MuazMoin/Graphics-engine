@@ -1,9 +1,9 @@
 #ifndef ENGINE_LSYSTEM2D_H
 #define ENGINE_LSYSTEM2D_H
 
-#include "easy_image.h"
-#include "ini_configuration.h"
-#include "l_parser.h"
+#include "../easy_image.h"
+#include "../ini_configuration.h"
+#include "../l_parser.h"
 #include "Line2D.h"
 
 class LSystem2D {

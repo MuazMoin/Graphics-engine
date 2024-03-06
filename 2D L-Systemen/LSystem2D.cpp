@@ -3,9 +3,9 @@
 //
 
 #include "LSystem2D.h"
-#include "l_parser.h"
+#include "../l_parser.h"
 #include "Line2D.h"
-#include "ini_configuration.h"
+#include "../ini_configuration.h"
 
 #include <vector>
 #include <fstream>
