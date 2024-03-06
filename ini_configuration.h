@@ -319,7 +319,7 @@ namespace ini
         };
 
         /**
-         * \brief The execption that is thrown when the value of an entry in an ini-configuration cannot be converted to the requested value.
+         * \brief The execption that is thrown when the value of an entry in an l_systems-configuration cannot be converted to the requested value.
          */
         class IncompatibleConversion: public std::exception
         {
