@@ -13,11 +13,11 @@ public:
 
     static Matrix translate(const Vector3D &vector3D);
 
-    static Matrix rotateX(const double angle);
+    static Matrix rotateX(const double a);
 
-    static Matrix rotateY(const double angle);
+    static Matrix rotateY(const double a);
 
-    static Matrix rotateZ(const double angle);
+    static Matrix rotateZ(const double a);
 
     static Matrix eyePointTransformation(const Vector3D &eyepoint); //zorgt ervoor dat een 3d object op een 2d vlak getoond wordt.
 
