@@ -9,16 +9,21 @@
 
 class TransformationMatrix {
 public:
-    static Matrix scalfigure(const double &scale);
+    static Matrix scalefigure(const double &scale);
+
     static Matrix translate(const Vector3D &vector3D);
 
     static Matrix rotateX(const double &angle);
+
     static Matrix rotateY(const double &angle);
+
     static Matrix rotateZ(const double &angle);
 
     static Matrix eyePointTransformation(const Vector3D &eyepoint);
 
 
-};
+    static Matrix linedrawing3DTransformation(const double &scale, const double &angleX, const double &angleY, const double &angleZ,
+                                const Vector3D &vector, Vector3D eye);
 
+};
 #endif //ENGINE_TRANSFORMATIONMATRIX_H
