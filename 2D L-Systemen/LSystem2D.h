@@ -16,7 +16,7 @@ private:
 
     static LParser::LSystem2D getLParser2D(const std::string& inputfile);
 
-    static Lines2D getLines(LParser::LSystem2D system2D, std::string basicString, const img::Color& lineColor);
+    static Lines2D getLines(LParser::LSystem2D& system2D, std::string basicString, const img::Color& lineColor);
 
     static std::vector<double> scaleLines(Lines2D &lines, int maxSize);
 

@@ -18,13 +18,18 @@ using namespace std; // Gebruik de standaardnaamruimte
 
 // Genereert een afbeelding op basis van configuratiegegevens
 img::EasyImage generate_image(const ini::Configuration &configuration){
-    cout << "Generating image..." << endl; // Geef aan dat de afbeelding wordt gegenereerd (debugging toegevoegd)
+    try {
+        cout << "Generating image..." << endl; // Geef aan dat de afbeelding wordt gegenereerd (debugging toegevoegd)
 
-    string type = configuration["General"]["type"].as_string_or_die(); // Haal het type afbeelding op uit de configuratiegegevens
+        string type = configuration["General"]["type"].as_string_or_die(); // Haal het type afbeelding op uit de configuratiegegevens
 
-    if (type == "2DLSystem") {
-        return LSystem2D::parseLSystem2D(configuration);
-    } else {
+        if (type == "2DLSystem") {
+            return LSystem2D::parseLSystem2D(configuration);
+        } else {
+            return {};
+        }
+    } catch (const std::exception &ex) {
+        std::cerr << "Error: " << ex.what() << std::endl;
         return {};
     }
 }
