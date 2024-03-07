@@ -28,9 +28,11 @@ set(engine_sources
 		TransformationMatrix.h
 		"3D Lijntekeningen/vector3d.h"
 		TransformationMatrix.cpp
-		Face.h
 		Figure.h
-		Face3D.cpp
+		Figure.cpp
+		Face.cpp
+
+
 )
 
 ############################################################
