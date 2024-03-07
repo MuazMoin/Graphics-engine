@@ -21,9 +21,8 @@ public:
 
     static Matrix eyePointTransformation(const Vector3D &eyepoint); //zorgt ervoor dat een 3d object op een 2d vlak getoond wordt.
 
-
-    static Matrix linedrawing3DTransformation(const double &scale, const double &angleX, const double &angleY, const double &angleZ,
-                                const Vector3D &vector, Vector3D eye);
+    static Matrix linedrawing3DTransformation(const double &scale, const double &aX, const double &aY, const double &aZ,
+                                const Vector3D &center, Vector3D eye);
 
 };
 

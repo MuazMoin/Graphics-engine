@@ -77,4 +77,14 @@ Matrix TransformationMatrix::eyePointTransformation(const Vector3D &eyepoint) {
 
 }
 
+// geeft transformatiematrix terug tekenen van 3D-lijnen
+Matrix
+TransformationMatrix::linedrawing3DTransformation(const double &scale, const double &aX, const double &aY,
+                                                  const double &aZ, const Vector3D &center, Vector3D eye) {
+    Matrix
+    matrix = TransformationMatrix::scalefigure(scale) * TransformationMatrix::rotateX(aX) *
+                     TransformationMatrix::rotateY(aY) * TransformationMatrix::rotateZ(aZ) *
+                     TransformationMatrix::translate(center) * TransformationMatrix::eyePointTransformation(eye);
+    return matrix;
+}
 
