@@ -49,6 +49,7 @@ Matrix TransformationMatrix::translate(const Vector3D &vector3D) {
     matrix(4,4) = 1;
     return matrix;
 }
+//
 
 Matrix TransformationMatrix::eyePointTransformation(const Vector3D &eyepoint) {
     double r = eyepoint.length();
