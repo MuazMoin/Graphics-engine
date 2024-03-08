@@ -6,9 +6,11 @@
 #include "../l_parser.h"
 #include "Line2D.h"
 #include "../ini_configuration.h"
+#include <cmath>
 
 #include <vector>
 #include <fstream>
+#include <limits>
 
 img::EasyImage LSystem2D::parseLSystem2D(const ini::Configuration &configuration) {
     // Get data form file
@@ -77,8 +79,8 @@ std::string LSystem2D::getString(const LParser::LSystem2D &system) {
 Lines2D LSystem2D::getLines(LParser::LSystem2D &system2D, std::string basicString, const img::Color &lineColor) {
     Lines2D lines;
 
-    double angleComponent = system2D.get_angle() * M_PI / 180; // Bereken de hoek in radialen
-    double currentAngle = system2D.get_starting_angle() * M_PI / 180; // Bereken de huidige hoek in radialen
+    double angleComponent = system2D.get_angle() * 3.14159265359 / 180; // Bereken de hoek in radialen
+    double currentAngle = system2D.get_starting_angle() * 3.14159265359 / 180; // Bereken de huidige hoek in radialen
 
     Point2D oldPoint(0, 0); // Maak een punt met de huidige x- en y-coördinaten
     Point2D newPoint(0, 0); // Maak een punt voor de nieuwe x- en y-coördinaten

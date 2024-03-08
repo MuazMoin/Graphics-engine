@@ -4,8 +4,8 @@
 
 #include "Figure.h"
 #include "TransformationMatrix.h"
-#include "cmath"
-#include "3D_Lijntekeningen/vector3d.h"
+#include <cmath>
+#include "vector3d.h"
 
 Figure::Figure() {
     rotateX = 0;

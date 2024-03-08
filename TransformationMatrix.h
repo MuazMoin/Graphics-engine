@@ -5,7 +5,7 @@
 #ifndef ENGINE_TRANSFORMATIONMATRIX_H
 #define ENGINE_TRANSFORMATIONMATRIX_H
 
-#include "3D_Lijntekeningen/vector3d.h"
+#include "vector3d.h"
 
 class TransformationMatrix {
 public:
