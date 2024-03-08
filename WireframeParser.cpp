@@ -17,3 +17,4 @@ img::EasyImage WireframeParser::parseWireframe(const ini::Configuration &configu
     Vector3D eye = Vector3D::vector(eyeTuple[0], eyeTuple[1], eyeTuple[2]);
 
     // Get all figures from configuration
+}
