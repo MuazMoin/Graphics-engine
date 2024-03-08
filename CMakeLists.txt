@@ -18,23 +18,15 @@ set(engine_sources
 		easy_image.cc
 		engine.cc
 		ini_configuration.cc
-		"2D L-Systemen/Line2D.h"
-		"2D L-Systemen/Point2D.h"
-		"2D L-Systemen/Color.h"
 		l_parser.cc
-		"2D L-Systemen/Color.cpp"
-		"2D L-Systemen/LSystem2D.h"
-		"2D L-Systemen/LSystem2D.cpp"
-		TransformationMatrix.h
-		"3D Lijntekeningen/vector3d.h"
+		2D_L-Systemen/Color.cpp
+		2D_L-Systemen/LSystem2D.cpp
 		TransformationMatrix.cpp
-		Figure.h
 		Figure.cpp
 		Face.cpp
-		Projection.h
 		Projection.cpp
-		"WireframeParser.h"
-		"WireframeParser.cpp"
+		WireframeParser.cpp
+		3D_Lijntekeningen/vector3d.cc
 
 
 )

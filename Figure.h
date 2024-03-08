@@ -6,9 +6,9 @@
 #define ENGINE_FIGURE_H
 
 #include "Face.h"
-#include "3D Lijntekeningen/vector3d.h"
-#include "3D Lijntekeningen/vector3d.cc"
-#include "2D L-Systemen/color.h"
+#include "3D_Lijntekeningen/vector3d.h"
+#include "3D_Lijntekeningen/vector3d.cc"
+#include "2D_L-Systemen/color.h"
 #include "ini_configuration.h"
 #include <list>
 #include "easy_image.h"

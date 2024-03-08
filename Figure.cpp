@@ -5,7 +5,7 @@
 #include "Figure.h"
 #include "TransformationMatrix.h"
 #include "cmath"
-#include "3D Lijntekeningen/vector3d.h"
+#include "3D_Lijntekeningen/vector3d.h"
 
 Figure::Figure() {
     rotateX = 0;
@@ -13,7 +13,9 @@ Figure::Figure() {
     rotateZ = 0;
     scale = 1;
     color = img::Color(0, 0, 0);
-    center = Vector3D(0, 0, 0);
+    center.x = 0;
+    center.y = 0;
+    center.z = 0;
 }
 
 Figure::Figure(const std::vector<Face> &faces, const std::vector<Vector3D> &points, const std::vector<double> &rotations,

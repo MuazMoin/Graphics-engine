@@ -4,8 +4,8 @@
 
 #include "WireframeParser.h"
 #include "Projection.h"
-#include "2D L-Systemen/LSystem2D.h"
-#include "2D L-Systemen/Color.h"
+#include "2D_L-Systemen/LSystem2D.h"
+#include "2D_L-Systemen/Color.h"
 
 
 img::EasyImage WireframeParser::parseWireframe(const ini::Configuration &configuration) {

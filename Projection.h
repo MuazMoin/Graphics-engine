@@ -4,9 +4,9 @@
 
 #ifndef ENGINE_DOPROJECTION_H
 #define ENGINE_DOPROJECTION_H
-#include "3D Lijntekeningen/vector3d.h"
-#include "2D L-Systemen/point2d.h"
-#include "2D L-Systemen/line2D.h"
+#include "3D_Lijntekeningen/vector3d.h"
+#include "2D_L-Systemen/point2d.h"
+#include "2D_L-Systemen/line2D.h"
 #include "Figure.h"
 
 

@@ -28,8 +28,6 @@ Lines2D Projection::doProjection(const Figures3d &figures) {
 
                 lines.emplace_back(point1,
                                    point2,
-                                   points[point_indexes[i]].z,
-                                   points[point_indexes[(i + 1) % point_indexes.size()]].z,
                                    figure.getColor());
             }
         }

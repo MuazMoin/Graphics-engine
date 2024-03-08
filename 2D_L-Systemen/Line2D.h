@@ -20,8 +20,8 @@ public:
 
     Line2D(Point2D point1, Point2D point2, const img::Color& color) : p1(point1), p2(point2), color(color){}
 
-// laten nakijken door arthur
-// Line2D(const Point2D &point1, const Point2D &point2, double z1, double z2, const img::Color &color);
+    // laten nakijken door arthur
+    // Line2D(const Point2D &point1, const Point2D &point2, double z1, double z2, const img::Color &color);
 
 
     void scale(double factor) {
