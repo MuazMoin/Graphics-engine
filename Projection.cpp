@@ -5,14 +5,16 @@
 #include "Projection.h"
 
 
-Point2D Projection::doProjection(const Vector3D *point, const double d) {
+Point2D Projection::doProjectionPoint2D(const Vector3D *point, const double d) {
     double x = (d * point->x) / (-point->z);
     double y = (d * point->y) / (-point->z);
 
     return {x, y};
 }
 
-Lines2D Projection::doProjection(const Figures3d &figures) {
+
+
+Lines2D Projection::doProjectionLines2D(const Figures3d &figures) {
     Lines2D lines;
 
     for (const auto &figure: figures) {
@@ -23,8 +25,8 @@ Lines2D Projection::doProjection(const Figures3d &figures) {
             auto point_indexes = face.point_indexes;
 
             for (int i = 0; i < point_indexes.size(); ++i) {
-                Point2D point1 = doProjection(&points[point_indexes[i]], 1);
-                Point2D point2 = doProjection(&points[point_indexes[(i + 1) % point_indexes.size()]], 1);
+                Point2D point1 = doProjectionPoint2D(&points[point_indexes[i]], 1);
+                Point2D point2 = doProjectionPoint2D(&points[point_indexes[(i + 1) % point_indexes.size()]], 1);
 
                 lines.emplace_back(point1,
                                    point2,
