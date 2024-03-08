@@ -61,3 +61,5 @@ const std::vector<Vector3D> &Figure::getPoints() const {
     return points;
 }
 
+typedef std::list<Figure> Figures3d ;
+

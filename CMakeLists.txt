@@ -31,6 +31,8 @@ set(engine_sources
 		Figure.h
 		Figure.cpp
 		Face.cpp
+		Projection.h
+		Projection.cpp
 
 
 )

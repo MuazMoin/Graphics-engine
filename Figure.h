@@ -13,7 +13,7 @@
 #include <list>
 #include "easy_image.h"
 
-#endif //ENGINE_FIGURE_H
+
 
 class Figure {
 public:  //Dit stukje heb ik laten genereren door de AI. Dit is niet mijn eigen code (Mithal AI).
@@ -25,7 +25,7 @@ public:  //Dit stukje heb ik laten genereren door de AI. Dit is niet mijn eigen 
 
 
 
-    std::vector<Face> faces;
+        std::vector<Face> faces;
         std::vector<Vector3D> points;
 
 
@@ -53,4 +53,7 @@ private:
 
 
 
-    };
+};
+typedef std::list<Figure> Figures3d;
+
+#endif //ENGINE_FIGURE_H

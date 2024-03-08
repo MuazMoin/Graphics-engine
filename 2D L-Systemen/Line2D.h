@@ -11,6 +11,8 @@
 
 class Line2D {
 public:
+
+
     Point2D p1{},p2{}; //Mijn twee punten
     img::Color color; //kleur van mijn lijn
 
