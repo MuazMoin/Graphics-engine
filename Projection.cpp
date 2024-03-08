@@ -4,6 +4,7 @@
 
 #include "Projection.h"
 
+
 Point2D Projection::doProjection(const Vector3D *point, const double d) {
     double x = (d * point->x) / (-point->z);
     double y = (d * point->y) / (-point->z);
