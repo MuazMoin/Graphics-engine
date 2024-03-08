@@ -33,6 +33,8 @@ set(engine_sources
 		Face.cpp
 		Projection.h
 		Projection.cpp
+		"WireframeParser.h"
+		"WireframeParser.cpp"
 
 
 )
