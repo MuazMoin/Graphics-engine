@@ -3,5 +3,10 @@
 //
 #include "Line2D.h"
 
-
+void Line2D::scaleLine(const double &factor){
+    p1.x *= factor;
+    p1.y *= factor;
+    p2.x *= factor;
+    p2.y *= factor;
+}
 

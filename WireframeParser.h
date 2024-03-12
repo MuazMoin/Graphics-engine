@@ -13,6 +13,7 @@ class WireframeParser {
 public:
     static img::EasyImage parseWireframe(const ini::Configuration &configuration);
 
+
 };
 
 #endif //ENGINE_WIREFRAMEPARSER_H

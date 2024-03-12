@@ -27,8 +27,15 @@ set(engine_sources
     Projection.cpp
     WireframeParser.cpp
     vector3d.cc
+        FigureParser.h
+        FigureParser.cpp
+        ImageSize.h
+        ImageSize.cpp
+        Scale.h
+        Scale.cpp
+        2D_L-Systemen/Line2D.cpp
 
-    )
+)
 
 ############################################################
 # Create an executable

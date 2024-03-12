@@ -11,6 +11,7 @@
 #include <limits>
 
 #include "2D_L-Systemen/LSystem2D.h"
+#include "WireframeParser.h"
 
 //Created by Muaz Moin on 05/03/2024.
 
@@ -25,8 +26,8 @@ img::EasyImage generate_image(const ini::Configuration &configuration){
 
         if (type == "2DLSystem") {
             return LSystem2D::parseLSystem2D(configuration);
-        } else {
-            return {};
+        } else if (type == "Wireframe") {
+            return WireframeParser::parseWireframe(configuration);
         }
     } catch (const std::exception &ex) {
         std::cerr << "Error: " << ex.what() << std::endl;
