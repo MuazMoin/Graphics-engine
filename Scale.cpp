@@ -3,7 +3,6 @@
 //
 
 #include "Scale.h"
-#include "2D_L-Systemen/Line2D.h"
 
 void scaleLines::scale2DLines(Line2D &lines, std::vector<int> imageSize, const double &xMin, const double &xMax,
                               const double &yMin, const double &yMax) {

@@ -4,7 +4,7 @@
 
 #include "WireframeParser.h"
 #include "FigureParser.h"
-#include "2D_L-Systemen/lSystem2D.h"
+#include "2D_L-Systemen/LSystem2D.h"
 #include "Projection.h"
 #include "ImageSize.h"
 #include "Scale.h"

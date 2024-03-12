@@ -17,7 +17,7 @@ FigureParser::parseWireframeFigures(const ini::Configuration &configuration, con
 
         Figure newFigures = FigureParser::parseWireframeFigure(configuration[figureName]);
 
-        for (Figure figure: newFigures {
+        for (Figure figure: newFigures) {
             figure.applyTransformation(TransformationMatrix::linedrawing3DTransformation(figure.getScale(),
                                                                                          figure.getRotateX() * M_PI /
                                                                                          180.0,
@@ -28,7 +28,9 @@ FigureParser::parseWireframeFigures(const ini::Configuration &configuration, con
                                                                                          eye));
             figuresList.push_back(figure);
         }
+
     }
+
     return figuresList;
 
 }

@@ -7,7 +7,7 @@
 
 #include "Face.h"
 #include "vector3d.h"
-#include "2D_L-Systemen/color.h"
+#include "2D_L-Systemen/Color.h"
 #include "ini_configuration.h"
 #include <list>
 #include "easy_image.h"

@@ -1,7 +1,7 @@
 //
 // Created by Muaz Moin on 12/03/2024.
 //
-#include "2D_L-Systemen/line2D.h"
+#include "2D_L-Systemen/Line2D.h"
 #include <vector>
 
 class scaleLines {
