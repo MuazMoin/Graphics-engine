@@ -36,7 +36,16 @@ public:
         p2.x += translation.x;
         p2.y += translation.y;
     }
+
+    void moveLine(const double dx, const double dy) {
+        p1.x += dx;
+        p1.y += dy;
+        p2.x += dx;
+        p2.y += dy;
+    }
 };
+
+
 
 using Lines2D = std::list<Line2D>; // Definieer een alias voor een lijst van 2D-lijnen
 

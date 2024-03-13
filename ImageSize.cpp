@@ -29,15 +29,15 @@ ImageSize::getImageSize(Lines2D lines, int size, double &xMin, double &xMax, dou
         yMin = std::min(yMin, line.p2.y);
     }
 
-        double range_x = xMax - xMin;
-        double range_y = yMax - yMin;
+    double range_x = xMax - xMin;
+    double range_y = yMax - yMin;
 
-        // calculate max range
-        double max_range = std::max(range_x, range_y);
+    // calculate max range
+    double max_range = std::max(range_x, range_y);
 
-        // calculate size of image
-        double image_x = size * (range_x / max_range);
-        double image_y = size * (range_y / max_range);
+    // calculate size of image
+    double image_x = size * (range_x / max_range);
+    double image_y = size * (range_y / max_range);
 
-        return {int(image_x), int(image_y)};
-    }
+    return {int(image_x), int(image_y)};
+}

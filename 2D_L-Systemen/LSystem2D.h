@@ -22,6 +22,8 @@ private:
 
     static img::EasyImage makeImage(int size, std::vector<double> maxAndMinValues, std::vector<double> backgroundColor);
 
+public:
+
     static void drawLines2D(const Lines2D& lines, img::EasyImage &image);
 };
 

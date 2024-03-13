@@ -12,20 +12,13 @@ Figure::Figure() {
     rotateY = 0;
     rotateZ = 0;
     scale = 1;
-    color = img::Color(0, 0, 0);
+    color = Color(0, 0, 0);
     center.x = 0;
     center.y = 0;
     center.z = 0;
 }
 
-Figure::Figure(const std::vector<Face> &faces, const std::vector<Vector3D> &points, const std::vector<double> &rotations,
-               double scale, Vector3D center, img::Color color) : faces(faces), points(points), center(center), scale(scale), color(color) {
-    rotateX = rotations[0];
-    rotateY = rotations[1];
-    rotateZ = rotations[2];
-}
-
-const img::Color &Figure::getColor() const {
+const Color &Figure::getColor() const {
     return color;
 }
 

@@ -19,10 +19,13 @@ img::EasyImage WireframeParser::parseWireframe(const ini::Configuration &configu
     Vector3D eye = Vector3D::vector(eyeTuple[0], eyeTuple[1], eyeTuple[2]);
 
 
-    Figure figures = FigureParser::parseWireframeFigures(configuration, eye, nrFigures);
+    Figures3d figures = FigureParser::parseWireframeFigures(configuration, eye, nrFigures);
     Lines2D lines = Projection::doProjection(figures);
 
-    double xMax, yMax, xMin, yMin;
+    double xMax = 0.0;
+    double yMax = 0.0;
+    double xMin = 0.0;
+    double yMin = 0.0;
     std::vector<int> imageSize = ImageSize::getImageSize(lines, size, xMin, xMax, yMin, yMax);
 
     img::EasyImage image = img::EasyImage(imageSize[0], imageSize[1],

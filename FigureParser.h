@@ -9,7 +9,7 @@
 class FigureParser {
 public:
     static std::vector<Figure> parseFigures(const ini::Configuration &configuration);
-    static Figure parseWireframeFigures(const ini::Configuration &configuration, const Vector3D &eye, int nrFigures);
+    static Figures3d parseWireframeFigures(const ini::Configuration &configuration, const Vector3D &eye, int nrFigures);
     static Figure parseWireframeFigure(const ini::Section& figure);
 
 };

@@ -16,7 +16,7 @@ public:
 //    static Lines2D doProjection(const Figures3d &figures);
 
     static Point2D doProjection(const Vector3D &point, double d);
-    static Lines2D doProjection(const Figure &figures);
+    static Lines2D doProjection(const Figures3d &figures);
 
     };
 

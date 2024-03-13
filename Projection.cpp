@@ -14,9 +14,9 @@ Point2D Projection::doProjection(const Vector3D &point, const double d) {
 
 
 
-Lines2D Projection::doProjection(const Figure &figures) {
-    Lines2D lines;
+Lines2D Projection::doProjection(const Figures3d &figures) {
 
+    Lines2D lines;
     for (const auto &figure: figures) {
         std::vector<Face> faces = figure.faces;
         std::vector<Vector3D> points = figure.points;
@@ -30,8 +30,7 @@ Lines2D Projection::doProjection(const Figure &figures) {
 
                 lines.emplace_back(point1,
                                    point2,
-                                   points[point_indexes[i]].z,
-                                   figure.getColor());
+                                   figure.getColor().toEasyImageColor());
             }
         }
 
