@@ -28,26 +28,6 @@ void Figure::applyTransformation(const Matrix& transformationMatrix) {
     }
 }
 
-int Figure::getRotateX() const {
-    return rotateX;
-}
-
-int Figure::getRotateY() const {
-    return rotateY;
-}
-
-int Figure::getRotateZ() const {
-    return rotateZ;
-}
-
-double Figure::getScale() const {
-    return scale;
-}
-
-const Vector3D &Figure::getCenter() const {
-    return center;
-}
-
 const std::string &Figure::getType() const {
     return type;
 }

@@ -16,10 +16,10 @@ FigureParser::parseWireframeFigures(const ini::Configuration &configuration, con
 
 
         Figure newFig = FigureParser::parseWireframeFigure(configuration[figureName]);
-        auto transform = TransformationMatrix::linedrawing3DTransformation(newFig.getScale(),
-                                                                         newFig.getRotateX() * M_PI / 180.0,
-                                                                         newFig.getRotateY() * M_PI / 180.0,
-                                                                         newFig.getRotateZ() * M_PI / 180.0, newFig.getCenter(),
+        auto transform = TransformationMatrix::linedrawing3DTransformation(newFig.scale,
+                                                                         newFig.rotateX,
+                                                                         newFig.rotateY,
+                                                                         newFig.rotateZ, newFig.center,
                                                                          eye);
         newFig.applyTransformation(transform);
         figuresList.push_back(newFig);
@@ -32,20 +32,24 @@ FigureParser::parseWireframeFigures(const ini::Configuration &configuration, con
 Figure FigureParser::parseWireframeFigure(const ini::Section &figure) {
     std::string type = figure["type"].as_string_or_die();
 
-    double rotateX = figure["rotateX"].as_double_or_die();
-    double rotateY = figure["rotateY"].as_double_or_die();
-    double rotateZ = figure["rotateZ"].as_double_or_die();
-    const std::vector<double> rotations = {rotateX, rotateY, rotateZ};
+    Figure newFigure;
 
-    const double scale = figure["scale"].as_double_or_die();
+    newFigure.rotateX = figure["rotateX"].as_double_or_die();
+    newFigure.rotateY = figure["rotateY"].as_double_or_die();
+    newFigure.rotateZ = figure["rotateZ"].as_double_or_die();
+    newFigure.scale = figure["scale"].as_double_or_die();
+
+
+
 
     auto centerTuple = figure["center"].as_double_tuple_or_die();
     Vector3D center = Vector3D::vector(centerTuple[0], centerTuple[1], centerTuple[2]);
 
+    newFigure.center = center;
+
     std::vector<double> figureColor = figure["color"].as_double_tuple_or_die();
     Color color(figureColor[0], figureColor[1], figureColor[2]);
 
-    Figure newFigure;
     newFigure.color = color;
 
     int nrPoints = figure["nrPoints"].as_int_or_die();

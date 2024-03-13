@@ -28,26 +28,19 @@ public:  //Dit stukje heb ik laten genereren door de AI. Dit is niet mijn eigen 
 
         // Getters
         const Color &getColor() const;
-        int getRotateX() const;
-        int getRotateY() const;
-        int getRotateZ() const;
-        double getScale() const;
-        const Vector3D &getCenter() const;
         const std::string &getType() const;
         const std::vector<Vector3D> &getPoints() const;
 
     //setters
         void applyTransformation(const Matrix& transformationMatrix);
 
-private:
+public:
         std::string type;
         double rotateX;
         double rotateY;
         double rotateZ;
         double scale;
         Vector3D center;
-
-public:
         Color color;
 
 
