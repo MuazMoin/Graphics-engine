@@ -1,0 +1,18 @@
+//
+// Created by Muaz Moin on 15/03/2024.
+//
+
+#ifndef ENGINE_TRIANGLES_H
+#define ENGINE_TRIANGLES_H
+#include "Face.h"
+#include "Figure.h"
+
+
+class Triangles {
+    static std::pair<std::vector<Face>, std::vector<Vector3D>> split_Faces(const std::vector<Face> &faces, const std::vector<Vector3D> &points, const int &splitAmount);
+    static void triangulateFigures(Figures3d &figures);
+    static Figure triangulateFigure(const Figure &figure);
+
+
+};
+#endif //ENGINE_TRIANGLES_H

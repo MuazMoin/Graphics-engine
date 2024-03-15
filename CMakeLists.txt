@@ -34,6 +34,8 @@ set(engine_sources
         Scale.h
         Scale.cpp
         2D_L-Systemen/Line2D.cpp
+        Triangles.h
+        Triangles.cpp
 
 )
 
