@@ -7,7 +7,7 @@
 
 // een hoop vlakken en punten die we meekrijgen
 std::pair<std::vector<Face>, std::vector<Vector3D>>
-Triangles::split_Faces(const std::vector<Face> &faces, const std::vector<Vector3D> &points, const int &splitAmount) {
+Triangles::split_Faces(const std::vector<Face> &faces, const std::vector<Vector3D> &points, const int &splitAmount) { //dit lijntje is gegenereerd door chatgpt, omdat ik telkens iets fout deed bij het schrijven van de code.
     std::cout << "De functie split_Faces begint." << std::endl;
 
     // 2 neieuwe lege vectoren om punten en vlakken in op te slaan.
