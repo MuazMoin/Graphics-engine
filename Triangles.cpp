@@ -44,7 +44,7 @@ Triangles::split_Faces(const std::vector<Face> &faces, const std::vector<Vector3
             int IndexC = face.point_indexes[2]; //derde punt van oorspronkelijke driehoek
 
             //vector betaat nu uit 6 puten.
-            int IndexD = split_Points.size() - 3; //Index van D. Totale lengte van de vector is 6, maar d wordt als eerste toegevoegd.en heeft dus index 3
-            int IndexE = split_Points.size() - 2; //Index van E. Totale lengte van de vector is 6, maar e wordt als tweede toegevoegd.en heeft dus index 4
-            int IndexF = split_Points.size() - 1; //Index van F. Totale lengte van de vector is 6, maar f wordt als derde toegevoegd.en heeft dus index 5
+            int IndexD = split_Points.size() - 3; //Index van D. Totale lengte van de vector is 6, maar d wordt als eerste toegevoegd en heeft dus index 3
+            int IndexE = split_Points.size() - 2; //Index van E. Totale lengte van de vector is 6, maar e wordt als tweede toegevoegd en heeft dus index 4
+            int IndexF = split_Points.size() - 1; //Index van F. Totale lengte van de vector is 6, maar f wordt als derde toegevoegd en heeft dus index 5
 
