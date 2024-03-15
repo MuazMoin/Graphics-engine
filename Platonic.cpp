@@ -3,6 +3,9 @@
 //
 
 #include "Platonic.h"
+#include "Triangles.h"
+#include <cmath>
+#include <numeric>
 
 
 Figure Platonic::createCube(const std::vector<double> &rotations, const double &scale, const Vector3D &center,

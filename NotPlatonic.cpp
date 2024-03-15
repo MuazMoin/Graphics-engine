@@ -3,6 +3,9 @@
 //
 
 #include "NotPlatonic.h"
+#include "Triangles.h"
+#include <cmath>
+#include <numeric>
 
 Figure NotPlatonic::createCylinder(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
                                    const img::Color &color, const int &n, const double &height) {
