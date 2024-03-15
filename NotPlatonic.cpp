@@ -25,7 +25,8 @@ Figure NotPlatonic::createTorus(const std::vector<double> &rotations, const doub
 }
 
 Figure
-NotPlatonic::createDodecahedron(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
-                                const img::Color &color) {
+NotPlatonic::createHalfCylinder(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
+                                const img::Color &color, const int &n, const double &height) {
     return Figure();
 }
+

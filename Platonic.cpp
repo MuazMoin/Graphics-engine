@@ -34,3 +34,10 @@ Figure Platonic::createIcosahedron(const std::vector<double> &rotations, const d
     std::vector<Face> faces;
     std::vector<Vector3D> points;
 }
+
+Figure Platonic::createDodecahedron(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
+                                    const img::Color &color) {
+
+    std::vector<Face> faces;
+    std::vector<Vector3D> points;
+}

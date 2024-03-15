@@ -8,10 +8,10 @@
 
 class NotPlatonic{
     static Figure createCylinder(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const img::Color& color, const int &n, const double &height);
+    static Figure createHalfCylinder(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const img::Color& color, const int &n, const double &height);
     static Figure createCone(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const img::Color& color, const int &n, const double &height);
     static Figure createSphere(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const img::Color& color, const int &n);
     static Figure createTorus(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const img::Color& color, const double &R, const double &r, const int &n, const int &m);
-    static Figure createDodecahedron(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const img::Color& color);
 private:
     static int calculateIndex(const int &i, const int &j, const int &m);
 
