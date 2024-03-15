@@ -36,6 +36,10 @@ set(engine_sources
         2D_L-Systemen/Line2D.cpp
         Triangles.h
         Triangles.cpp
+        Platonic.h
+        NotPlatonic.h
+        Platonic.cpp
+        NotPlatonic.cpp
 
 )
 

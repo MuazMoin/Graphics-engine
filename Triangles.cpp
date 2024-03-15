@@ -73,3 +73,29 @@ Triangles::split_Faces(const std::vector<Face> &faces, const std::vector<Vector3
     std::cout.flush();
     return {split_Faces, split_Points};
 }
+
+void Triangles::triangulateFigures(Figures3d &figures) {
+    std::cout << "De functie triangulateFigures begint." << std::endl;
+
+    for (auto &figure : figures) {
+        std::cout << "Nieuwe figuur." << std::endl;
+
+        std::vector<Face> newFaces;
+        for (auto &face : figure.faces) {
+            if (face.point_indexes.size() <= 3) {
+                newFaces.push_back(face);
+                continue;
+            }
+            for (int i = 1; i < static_cast<int>(face.point_indexes.size()) - 1; ++i) {
+                newFaces.push_back(Face({face.point_indexes[0], face.point_indexes[i], face.point_indexes[i + 1]}));
+            }
+        }
+        figure.faces = newFaces;
+    }
+
+    std::cout << "De functie triangulateFigures eindigt." << std::endl;
+    std::cout.flush();
+}
+
+
+
