@@ -14,13 +14,31 @@ Figure Platonic::createCube(const std::vector<double> &rotations, const double &
     std::vector<Face> faces;
     std::vector<Vector3D> points;
 
+    points.emplace_back(Vector3D::point(1, -1, -1));
+    points.emplace_back(Vector3D::point(-1, 1, -1));
+    points.emplace_back(Vector3D::point(1, 1, 1));
+    points.emplace_back(Vector3D::point(-1, -1, 1));
+    points.emplace_back(Vector3D::point(1, 1, -1));
+    points.emplace_back(Vector3D::point(-1, -1, -1));
+    points.emplace_back(Vector3D::point(1, -1, 1));
+    points.emplace_back(Vector3D::point(-1, 1, 1));
+
+
 }
+
+
 
 Figure Platonic::createTetrahedron(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
                                    const img::Color &color) {
 
     std::vector<Face> faces;
     std::vector<Vector3D> points;
+
+    points.emplace_back(Vector3D::point(1, -1, -1));
+    points.emplace_back(Vector3D::point(-1, 1, -1));
+    points.emplace_back(Vector3D::point(1, 1, 1));
+    points.emplace_back(Vector3D::point(-1, -1, 1));
+
 
 }
 
@@ -29,6 +47,14 @@ Figure Platonic::createOctahedron(const std::vector<double> &rotations, const do
 
     std::vector<Face> faces;
     std::vector<Vector3D> points;
+
+    points.emplace_back(Vector3D::point(1, 0, 0));
+    points.emplace_back(Vector3D::point(0, 1, 0));
+    points.emplace_back(Vector3D::point(-1, 0, 0));
+    points.emplace_back(Vector3D::point(0, -1, 0));
+    points.emplace_back(Vector3D::point(0, 0, -1));
+    points.emplace_back(Vector3D::point(0, 0, 1));
+
 }
 
 Figure Platonic::createIcosahedron(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
@@ -36,6 +62,7 @@ Figure Platonic::createIcosahedron(const std::vector<double> &rotations, const d
 
     std::vector<Face> faces;
     std::vector<Vector3D> points;
+
 }
 
 Figure Platonic::createDodecahedron(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
