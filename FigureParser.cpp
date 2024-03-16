@@ -51,6 +51,7 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &figure) {
     std::vector<double> figureColor = figure["color"].as_double_tuple_or_die();
     Color color(figureColor[0], figureColor[1], figureColor[2]);
 
+
     newFigure.color = color;
 
     int nrPoints = figure["nrPoints"].as_int_or_die();
@@ -74,33 +75,33 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &figure) {
 
     return newFigure;
 
-//    if (type == "Cube"){
-//        Figure newFigure = Platonic::createCube({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color);
-//        return newFigure;}
-//    else if (type == "Dodecahedron"){
-//        Figure newFigure = Platonic::createDodecahedron({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color);
-//        return newFigure;}
-//    else if (type == "Icosahedron"){
-//        Figure newFigure = Platonic::createIcosahedron({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color);
-//        return newFigure;}
-//    else if (type == "Octahedron"){
-//        Figure newFigure = Platonic::createOctahedron({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color);
-//        return newFigure;}
-//    else if (type == "Tetrahedron"){
-//        Figure newFigure = Platonic::createTetrahedron({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color);
-//        return newFigure;}
-//    else if (type == "Cylinder"){
-//        Figure newFigure = NotPlatonic::createCylinder({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color, 4, 1);
-//        return newFigure;}
-//    else if (type == "Cone"){
-//        Figure newFigure = NotPlatonic::createCone({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color, 4, 1);
-//        return newFigure;}
-//    else if (type == "Sphere"){
-//        Figure newFigure = NotPlatonic::createSphere({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color, 0);
-//        return newFigure;}
-//    else if (type == "Torus"){
-//        Figure newFigure = NotPlatonic::createTorus({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color, 1, 0.5, 4, 4);
-//        return newFigure;}
-//    }
+    if (type == "Cube"){
+        Figure newFigure = Platonic::createCube({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color);
+        return newFigure;}
+    else if (type == "Dodecahedron"){
+        Figure newFigure = Platonic::createDodecahedron({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color);
+        return newFigure;}
+    else if (type == "Icosahedron"){
+        Figure newFigure = Platonic::createIcosahedron({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color);
+        return newFigure;}
+    else if (type == "Octahedron"){
+        Figure newFigure = Platonic::createOctahedron({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color);
+        return newFigure;}
+    else if (type == "Tetrahedron"){
+        Figure newFigure = Platonic::createTetrahedron({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color);
+        return newFigure;}
+    else if (type == "Cylinder"){
+        Figure newFigure = NotPlatonic::createCylinder({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color, 4, 1);
+        return newFigure;}
+    else if (type == "Cone"){
+        Figure newFigure = NotPlatonic::createCone({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color, 4, 1);
+        return newFigure;}
+    else if (type == "Sphere"){
+        Figure newFigure = NotPlatonic::createSphere({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color, 0);
+        return newFigure;}
+    else if (type == "Torus"){
+        Figure newFigure = NotPlatonic::createTorus({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color, 1, 0.5, 4, 4);
+        return newFigure;}
+    }
 
 }
