@@ -109,11 +109,9 @@ Figure NotPlatonic::createTorus(const std::vector<double> &rotations, const doub
         for (int j = 0; j < m; ++j) {
             double v = j * V;
 
-            double x = (R + r * cos(v)) * cos(u);
-            double y = (R + r * cos(v)) * sin(u);
-            double z = r * sin(v);
-
-            points.push_back(Vector3D::point(x, y, z));
+            points.push_back(Vector3D::point((R + r * cos(v)) * cos(u),
+                                                (R + r * cos(v)) * sin(u),
+                                                r * sin(v)));
 
 
             int index1 = calculateIndex(i, j, m);
