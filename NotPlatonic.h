@@ -7,6 +7,7 @@
 #include "Figure.h"
 
 class NotPlatonic{
+    public:
     static Figure createCylinder(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const img::Color& color, const int &n, const double &height);
     static Figure createHalfCylinder(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const img::Color& color, const int &n, const double &height);
     static Figure createCone(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const img::Color& color, const int &n, const double &height);
