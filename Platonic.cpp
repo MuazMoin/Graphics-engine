@@ -80,6 +80,7 @@ Figure Platonic::createOctahedron(const std::vector<double> &rotations, const do
     face.push_back(Face({5, 4, 1})); // Achtste vlak
 
 
+
 }
 
 Figure Platonic::createIcosahedron(const std::vector<double> &rotations, const double &scale, const Vector3D &center,

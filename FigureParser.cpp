@@ -75,6 +75,12 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &figure) {
 
     return newFigure;
 
+    double height = figure["height"].as_double_or_default(0);
+    double R = figure["R"].as_double_or_default(0);
+    double r = figure["r"].as_double_or_default(0);
+    int n = figure["n"].as_int_or_default(0);
+    int m = figure["m"].as_int_or_default(0);
+
     if (type == "Cube"){
         Figure newFigure = Platonic::createCube({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color);
         return newFigure;}
@@ -100,8 +106,7 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &figure) {
         Figure newFigure = NotPlatonic::createSphere({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color, 0);
         return newFigure;}
     else if (type == "Torus"){
-        Figure newFigure = NotPlatonic::createTorus({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, newFigure.color, 1, 0.5, 4, 4);
+        Figure newFigure = NotPlatonic::createTorus({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, Color, 1, 0.5, 4, 4);
         return newFigure;}
     }
 
-}
