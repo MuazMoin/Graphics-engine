@@ -45,6 +45,8 @@ Figure NotPlatonic::createCylinder(const std::vector<double> &rotations, const d
         }
     }
 
+    return {faces, points, rotations, scale, center, color};
+
 }
 
 Figure NotPlatonic::createCone(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
@@ -75,6 +77,7 @@ Figure NotPlatonic::createCone(const std::vector<double> &rotations, const doubl
         topFace.push_back(i);
     }
 
+    return {faces, points, rotations, scale, center, color};
 
 }
 
@@ -90,7 +93,11 @@ Figure NotPlatonic::createSphere(const std::vector<double> &rotations, const dou
         for (Vector3D &point: splitFaces.second) {
             point.normalise();
         }
+
+        return {splitFaces.first, splitFaces.second, rotations, scale, center, color};
+
     }
+
 }
 
 Figure NotPlatonic::createTorus(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
@@ -123,6 +130,7 @@ Figure NotPlatonic::createTorus(const std::vector<double> &rotations, const doub
         }
     }
 
+    return {faces, points, rotations, scale, center, color};
 }
 
 Figure
@@ -137,15 +145,18 @@ NotPlatonic::createHalfCylinder(const std::vector<double> &rotations, const doub
         points.push_back(Vector3D::point(x, y, height));
         points.push_back(Vector3D::point(x, y, 0));
 
-        std::vector<Face> faces;
+        std::vector<Face> face;
         for (int i = 0; i < n; ++i) {
             int v0 = 2 * i;
             int v1 = 2 * i + 1;
             int v2 = (2 * i + 3) % (2 * n);
             int v3 = (2 * i + 2) % (2 * n);
 
-            faces.push_back(Face({v0, v1, v2, v3}));
+            face.push_back(Face({v0, v1, v2, v3}));
 
         }
+
+        return {face, points, rotations, scale, center, color};
     }
+
 }

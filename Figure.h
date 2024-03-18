@@ -19,7 +19,8 @@ public:  //Dit stukje heb ik laten genereren door de AI. Dit is niet mijn eigen 
         // Constructors
 
         Figure();
-
+        Figure(const std::vector<Face> &faces, const std::vector<Vector3D> &points, const std::vector<double> &rotations,
+             double scale, Vector3D center, img::Color color);
 
 
         std::vector<Face> faces;

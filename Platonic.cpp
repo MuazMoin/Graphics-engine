@@ -8,6 +8,7 @@
 #include <numeric>
 
 
+
 Figure Platonic::createCube(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
                             const img::Color &color) {
 
@@ -31,7 +32,7 @@ Figure Platonic::createCube(const std::vector<double> &rotations, const double &
     face.push_back(Face({2, 3, 7, 6})); // Rechterkant vlak
     face.push_back(Face({0, 4, 5, 1})); // Linkerkant vlak
 
-
+    return {face, points, rotations, scale, center, color};
 
 }
 
@@ -52,6 +53,7 @@ Figure Platonic::createTetrahedron(const std::vector<double> &rotations, const d
     face.push_back(Face({0, 3, 2})); // Derde vlak
     face.push_back(Face({0, 2, 1})); // Vierde vlak
 
+    return {face, points, rotations, scale, center, color};
 
 
 }
@@ -79,6 +81,7 @@ Figure Platonic::createOctahedron(const std::vector<double> &rotations, const do
     face.push_back(Face({5, 3, 4})); // Zevende vlak
     face.push_back(Face({5, 4, 1})); // Achtste vlak
 
+    return {face, points, rotations, scale, center, color};
 
 
 }
@@ -120,6 +123,7 @@ Figure Platonic::createIcosahedron(const std::vector<double> &rotations, const d
     face.push_back(Face({11, 10, 9})); // Negentiende vlak
     face.push_back(Face({11, 6, 10})); // Twintigste vlak
 
+    return {face, points, rotations, scale, center, color};
 
 }
 
@@ -162,4 +166,5 @@ Figure Platonic::createDodecahedron(const std::vector<double> &rotations, const 
     face.push_back(Face({2, 7, 12, 13, 3}));  // Elfde vlak
     face.push_back(Face({3, 8, 13, 12, 17})); // Twaalfde vlak
 
+    return {face, points, rotations, scale, center, color};
 }
