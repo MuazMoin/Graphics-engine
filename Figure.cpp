@@ -36,11 +36,9 @@ const std::vector<Vector3D> &Figure::getPoints() const {
     return points;
 }
 
-Figure::Figure(const std::vector<Face> &faces, const std::vector<Vector3D> &points, const std::vector<double> &rotations,
-                  double scale, Vector3D center, img::Color color) : faces(faces), points(points), center(center), scale(scale), color(color){
-    rotateX = rotations[0];
-    rotateY = rotations[1];
-    rotateZ = rotations[2];
+Figure::Figure(const std::vector<Face> &faces, const std::vector<Vector3D> &points,
+               const std::vector<double> &rotations, double scale, Vector3D center, img::Color color) {
+
 }
 
 typedef std::list<Figure> Figures3d ;

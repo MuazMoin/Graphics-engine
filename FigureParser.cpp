@@ -77,6 +77,7 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &figure) {
 
 
 
+
     double height = figure["height"].as_double_or_default(0);
     int nrIterations = figure["nrIterations"].as_int_or_default(0);
     double R = figure["R"].as_double_or_default(0);
