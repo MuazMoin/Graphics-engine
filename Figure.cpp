@@ -37,7 +37,7 @@ const std::vector<Vector3D> &Figure::getPoints() const {
 }
 
 Figure::Figure(const std::vector<Face> &faces, const std::vector<Vector3D> &points,
-               const std::vector<double> &rotations, double scale, Vector3D center, img::Color color) {
+               const std::vector<double> &rotations, double scale, Vector3D center, const Color &color) {
 
 }
 

@@ -13,7 +13,7 @@ int NotPlatonic::calculateIndex(const int &i, const int &j, const int &m) {
 }
 
 Figure NotPlatonic::createCylinder(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
-                                   const img::Color &color, const int &n, const double &height) {
+                                   const Color &color, const int &n, const double &height) {
     std::vector<Vector3D> points;
     for (int i = 0; i < n; ++i) {
         double angle = 2 * i * M_PI / n;
@@ -50,7 +50,7 @@ Figure NotPlatonic::createCylinder(const std::vector<double> &rotations, const d
 }
 
 Figure NotPlatonic::createCone(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
-                               const img::Color &color, const int &n, const double &height) {
+                               const Color &color, const int &n, const double &height) {
 
     std::vector<Vector3D> points;
 
@@ -82,7 +82,7 @@ Figure NotPlatonic::createCone(const std::vector<double> &rotations, const doubl
 }
 
 Figure NotPlatonic::createSphere(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
-                                 const img::Color &color, const int &n) {
+                                 const Color &color, const int &n) {
     if (n == 0) {
         return Platonic::createIcosahedron(rotations, scale, center, color);
     } else {
@@ -101,7 +101,7 @@ Figure NotPlatonic::createSphere(const std::vector<double> &rotations, const dou
 }
 
 Figure NotPlatonic::createTorus(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
-                                const img::Color &color, const double &R, const double &r, const int &n,
+                                const Color &color, const double &R, const double &r, const int &n,
                                 const int &m) {
 
 
@@ -135,7 +135,7 @@ Figure NotPlatonic::createTorus(const std::vector<double> &rotations, const doub
 
 Figure
 NotPlatonic::createHalfCylinder(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
-                                const img::Color &color, const int &n, const double &height) {
+                                const Color &color, const int &n, const double &height) {
     std::vector<Vector3D> points;
     for (int i = 0; i < n; ++i) {
         double angle = 2 * i * M_PI / n;

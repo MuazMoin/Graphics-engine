@@ -5,11 +5,11 @@
 
 class Platonic {
 public:
-    static Figure createCube(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const img::Color& color);
-    static Figure createTetrahedron(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const img::Color& color);
-    static Figure createOctahedron(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const img::Color& color);
-    static Figure createIcosahedron(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const img::Color& color);
-    static Figure createDodecahedron(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const img::Color& color);
+    static Figure createCube(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const Color &color);
+    static Figure createTetrahedron(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const Color &color);
+    static Figure createOctahedron(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const Color &color);
+    static Figure createIcosahedron(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const Color &color);
+    static Figure createDodecahedron(const std::vector<double> &rotations, const double &scale, const Vector3D& center, const Color &color);
 
 
 };

@@ -10,7 +10,7 @@
 
 
 Figure Platonic::createCube(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
-                            const img::Color &color) {
+                            const Color &color) {
 
     std::vector<Vector3D> points;
 
@@ -32,12 +32,10 @@ Figure Platonic::createCube(const std::vector<double> &rotations, const double &
     face.push_back(Face({2, 3, 7, 6})); // Rechterkant vlak
     face.push_back(Face({0, 4, 5, 1})); // Linkerkant vlak
 
-    return {face, points, rotations, scale, center, color};
-
 }
 
 Figure Platonic::createTetrahedron(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
-                                   const img::Color &color) {
+                                   const Color &color) {
 
     std::vector<Vector3D> points;
 
@@ -59,7 +57,7 @@ Figure Platonic::createTetrahedron(const std::vector<double> &rotations, const d
 }
 
 Figure Platonic::createOctahedron(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
-                                  const img::Color &color) {
+                                  const Color &color) {
 
     std::vector<Vector3D> points;
 
@@ -87,7 +85,7 @@ Figure Platonic::createOctahedron(const std::vector<double> &rotations, const do
 }
 
 Figure Platonic::createIcosahedron(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
-                                   const img::Color &color) {
+                                   const Color &color) {
 
     std::vector<Vector3D> points;
 
@@ -128,7 +126,7 @@ Figure Platonic::createIcosahedron(const std::vector<double> &rotations, const d
 }
 
 Figure Platonic::createDodecahedron(const std::vector<double> &rotations, const double &scale, const Vector3D &center,
-                                    const img::Color &color) {
+                                    const Color &color) {
 
     std::vector<Vector3D> points;
 
