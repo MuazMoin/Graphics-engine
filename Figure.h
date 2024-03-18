@@ -12,6 +12,8 @@
 #include <list>
 #include "easy_image.h"
 
+#include "Include.hpp"
+
 
 
 class Figure {

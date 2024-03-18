@@ -112,5 +112,8 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &figure) {
     else if (type == "Torus"){
         Figure newFigure = NotPlatonic::createTorus({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, img::Color(), 1, 0.5, 4, 4);
         return newFigure;}
+    else {
+        throw std::runtime_error("Invalid type: " + type);
+    }
     }
 

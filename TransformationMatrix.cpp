@@ -3,7 +3,6 @@
 //
 
 #include "TransformationMatrix.h"
-#include <cmath>
 
 Matrix TransformationMatrix::scalefigure(const double &scale) {
     Matrix matrix;
