@@ -54,41 +54,34 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &figure) {
 
     newFigure.color = color;
 
-    int nrPoints = figure["nrPoints"].as_int_or_die();
-    int nrLines = figure["nrLines"].as_int_or_die();
+    if(type == "LineDrawing") {
+        int nrPoints = figure["nrPoints"].as_int_or_die();
+        int nrLines = figure["nrLines"].as_int_or_die();
+
+        for (int i = 0; i < nrPoints; i++) {
+            std::string pointName = "point" + std::to_string(i);
+            auto Point = figure[pointName].as_double_tuple_or_die();
+            auto newPoint = Vector3D::point(Point[0], Point[1], Point[2]);
+            newFigure.points.emplace_back(newPoint);
+        }
 
 
-    for (int i = 0; i < nrPoints; i++) {
-        std::string pointName = "point" + std::to_string(i);
-        auto Point = figure[pointName].as_double_tuple_or_die();
-        auto newPoint = Vector3D::point(Point[0], Point[1], Point[2]);
-        newFigure.points.emplace_back(newPoint);
+        for (int i = 0; i < nrLines; i++) {
+            std::string lineName = "line" + std::to_string(i);
+            ini::IntTuple figureLine = figure[lineName].as_int_tuple_or_die();
+            auto newFace = Face(figureLine);
+            newFigure.faces.emplace_back(newFace);
+        }
     }
 
-
-    for (int i = 0; i < nrLines; i++) {
-        std::string lineName = "line" + std::to_string(i);
-        ini::IntTuple figureLine = figure[lineName].as_int_tuple_or_die();
-        auto newFace = Face(figureLine);
-        newFigure.faces.emplace_back(newFace);
-    }
-
-
-    double height = figure["height"].as_double_or_default(0);
-    int nrIterations = figure["nrIterations"].as_int_or_default(0);
-    double R = figure["R"].as_double_or_default(0);
-    double r = figure["r"].as_double_or_default(0);
-    int n = figure["n"].as_int_or_default(0);
-    int m = figure["m"].as_int_or_default(0);
-
-    if (type == "Cube"){
-        Figure newFigure = Platonic::createCube({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, color);
+    else if (type == "Cube"){
+        newFigure = Platonic::createCube({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, color);
         return newFigure;}
     else if (type == "Dodecahedron"){
-        Figure newFigure = Platonic::createDodecahedron({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, color);
+        newFigure = Platonic::createDodecahedron({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, color);
         return newFigure;}
     else if (type == "Icosahedron"){
-        Figure newFigure = Platonic::createIcosahedron({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, color);
+        newFigure = Platonic::createIcosahedron({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, color);
         return newFigure;}
     else if (type == "Octahedron"){
         Figure newFigure = Platonic::createOctahedron({newFigure.rotateX, newFigure.rotateY, newFigure.rotateZ}, newFigure.scale, newFigure.center, color);
