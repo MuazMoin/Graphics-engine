@@ -76,17 +76,15 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &section) {
         Platonic::createIcosahedron(newFigure);
     } else if (type == "Dodecahedron") {
         Platonic::createDodecahedron(newFigure);
-    }
-//    else if (type == "Cylinder") {
-//        NotPlatonic::createCylinder(newFigure, n, height);
-//    } else if (type == "Cone") {
-//        return NotPlatonic::createCone(rotations, scale, center, color, n, height);
+    }else if (type == "Cylinder") {
+        NotPlatonic::createCylinder(newFigure, n, height);
+    } else if (type == "Cone") {
+        NotPlatonic::createCone(newFigure, n, height);
 //    } else if (type == "Sphere") {
 //        return NotPlatonic::createSphere(rotations, scale, center, color, n);
-//    } else if (type == "Torus") {
-//        return NotPlatonic::createTorus(rotations, scale, center, color, R, r, n, m);
-//    }
-    else {
+    } else if (type == "Torus") {
+        NotPlatonic::createTorus(newFigure, R, r, n, m);
+    }else {
         throw std::runtime_error("Invalid figure type: " + type);
     }
     return newFigure;
