@@ -17,7 +17,7 @@
  */
 #ifndef EASY_IMAGE_INCLUDED
 #define EASY_IMAGE_INCLUDED
-#include <stdint.h>
+#include <cstdint>
 #include <vector>
 #include <iostream>
 

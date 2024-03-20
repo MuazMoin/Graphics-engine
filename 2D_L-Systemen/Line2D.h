@@ -9,6 +9,12 @@
 #ifndef CG_LINES2D_H
 #define CG_LINES2D_H
 
+#include <limits>
+
+#if !defined(M_PI)
+#define M_PI 3.14159265359
+#endif
+
 class Line2D {
 public:
 

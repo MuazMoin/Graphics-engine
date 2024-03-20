@@ -40,3 +40,4 @@ img::EasyImage WireframeParser::parseWireframe(const ini::Configuration &configu
     return image;
 
 }
+//
