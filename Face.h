@@ -15,7 +15,7 @@ public:
     Face(const std::vector<int> &point_indexes);
 
     // Getters
-    std::vector<Point2D> doProjection();
+    std::vector<Point2D> doProjection(); //haakjes mmaak daaar een functie van
 
     std::vector<int> point_indexes;
 };

@@ -11,6 +11,8 @@ public:
     static std::vector<Figure> parseFigures(const ini::Configuration &configuration);
     static Figures3d parseWireframeFigures(const ini::Configuration &configuration, const Vector3D &eye, int nrFigures);
     static Figure parseWireframeFigure(const ini::Section& figure);
+    static void createLineDrawing(const ini::Section &section,  Figure &newFigure);
+
 
 };
 #ifndef ENGINE_FIGUREPARSER_H
