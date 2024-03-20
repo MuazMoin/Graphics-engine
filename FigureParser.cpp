@@ -9,6 +9,9 @@
 #include <cmath>
 #include "NotPlatonic.h"
 #include "Platonic.h"
+#include <sstream>
+#include "2D_L-Systemen/LSystem2D.h"
+
 
 Figures3d
 FigureParser::parseWireframeFigures(const ini::Configuration &configuration, const Vector3D &eye, int nrFigures) {
@@ -73,11 +76,9 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &section) {
         Platonic::createIcosahedron(newFigure);
     } else if (type == "Dodecahedron") {
         Platonic::createDodecahedron(newFigure);
-        return {};
-
     }
 //    else if (type == "Cylinder") {
-//        return NotPlatonic::createCylinder(rotations, scale, center, color, n, height);
+//        NotPlatonic::createCylinder(newFigure, n, height);
 //    } else if (type == "Cone") {
 //        return NotPlatonic::createCone(rotations, scale, center, color, n, height);
 //    } else if (type == "Sphere") {
@@ -113,3 +114,5 @@ void FigureParser::createLineDrawing(const ini::Section &section, Figure &newFig
         newFigure.faces.emplace_back(newFace);
     }
 }
+
+

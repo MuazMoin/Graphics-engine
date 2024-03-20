@@ -12,7 +12,7 @@
 //    return i * m + j;
 //}
 //
-//Figure NotPlatonic::createCylinder(Figure &figure, const int &n, const double &height) {
+//void  NotPlatonic::createCylinder(Figure &figure, const int &n, const double &height) {
 //
 //    for (int i = 0; i < n; ++i) {
 //        double angle = 2 * i * M_PI / n;
@@ -47,7 +47,7 @@
 //    return figure;
 //
 //}
-//
+
 //Figure NotPlatonic::createCone(Figure &figure, const int &n, const double &height) {
 //
 //

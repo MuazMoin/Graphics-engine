@@ -104,24 +104,24 @@ void Platonic::createIcosahedron(Figure& figure) {
 
 void Platonic::createDodecahedron(Figure& figure) {
 
-    std::vector<Vector3D> points;
     Figure icosahedron;
 
     createIcosahedron(icosahedron);
     for (const Face &face: icosahedron.faces) {
         double x =
-                (icosahedron.points[face.point_indexes[0]].x) / 3 +
-                (icosahedron.points[face.point_indexes[1]].x) / 3 +
-                (icosahedron.points[face.point_indexes[2]].x) / 3;
+                (icosahedron.points[face.point_indexes[0]].x +
+                icosahedron.points[face.point_indexes[1]].x +
+                icosahedron.points[face.point_indexes[2]].x) / 3;
         double y =
-                (icosahedron.points[face.point_indexes[0]].y) / 3 +
-                (icosahedron.points[face.point_indexes[1]].y) / 3 +
-                (icosahedron.points[face.point_indexes[2]].y) / 3;
+                (icosahedron.points[face.point_indexes[0]].y +
+                icosahedron.points[face.point_indexes[1]].y +
+                icosahedron.points[face.point_indexes[2]].y) / 3;
 
         double z =
-                (icosahedron.points[face.point_indexes[0]].z) / 3 +
-                (icosahedron.points[face.point_indexes[1]].z) / 3 +
-                (icosahedron.points[face.point_indexes[2]].z) / 3;
+                (icosahedron.points[face.point_indexes[0]].z +
+                icosahedron.points[face.point_indexes[1]].z +
+                icosahedron.points[face.point_indexes[2]].z) / 3;
+
         figure.points.push_back(Vector3D::point(x, y, z));
 
     }
