@@ -11,7 +11,7 @@ public:
     static Figures3d parseWireframeFigures(const ini::Configuration &configuration, const Vector3D &eye, int nrFigures);
     static Figure parseWireframeFigure(const ini::Section& figure);
     static void createLineDrawing(const ini::Section &section,  Figure &newFigure);
-    static Figure parse3DLSystem(Figure &figure, const std::string &inputfile);
+    static void parse3DLSystem(Figure &figure, const std::string &inputfile);
 
 
 

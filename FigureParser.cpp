@@ -11,6 +11,7 @@
 #include "Platonic.h"
 #include <sstream>
 #include "2D_L-Systemen/LSystem2D.h"
+#include "l_SystemsFunc.h"
 
 
 Figures3d
@@ -66,6 +67,8 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &section) {
 
     if (type == "LineDrawing") {
         FigureParser::createLineDrawing(section, newFigure);
+    }else if (type == "3DLSystem"){
+        FigureParser::parse3DLSystem(newFigure, section["inputfile"].as_string_or_die());
     } else if (type == "Cube") {
         Platonic::createCube(newFigure);
     } else if (type == "Tetrahedron") {
@@ -80,8 +83,8 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &section) {
         NotPlatonic::createCylinder(newFigure, n, height);
     } else if (type == "Cone") {
         NotPlatonic::createCone(newFigure, n, height);
-//    } else if (type == "Sphere") {
-//        return NotPlatonic::createSphere(rotations, scale, center, color, n);
+    } else if (type == "Sphere") {
+        NotPlatonic::createSphere(newFigure, n);
     } else if (type == "Torus") {
         NotPlatonic::createTorus(newFigure, R, r, n, m);
     }else {
@@ -114,3 +117,10 @@ void FigureParser::createLineDrawing(const ini::Section &section, Figure &newFig
 }
 
 
+void FigureParser::parse3DLSystem(Figure &newFigure, const std::string &inputfile) {
+
+    LParser::LSystem3D l_system = L_SystemsFunc::parseLSystem3D(inputfile);
+    std::string figureString = L_SystemsFunc::getString(l_system);
+    auto facesAndPoints = L_SystemsFunc::getFacesAndPoints(l_system, figureString);
+
+}

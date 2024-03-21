@@ -12,7 +12,7 @@ int NotPlatonic::calculateIndex(const int &i, const int &j, const int &m) {
     return i * m + j;
 }
 
-void  NotPlatonic::createCylinder(Figure &figure, const int &n, const double &height) {
+void NotPlatonic::createCylinder(Figure &figure, const int &n, const double &height) {
 
     for (int i = 0; i < n; ++i) {
         double angle = 2 * i * M_PI / n;
@@ -69,29 +69,40 @@ void NotPlatonic::createCone(Figure &figure, const int &n, const double &height)
     for (int i = 0; i < n; ++i) {
         figure.faces.push_back(Face({i, (i + 1) % n, n}));
     }
-
-
 }
 
-//void NotPlatonic::createSphere(Figure &figure, const int &n) {
-//    if (n == 0) {
-//        return Platonic::createIcosahedron(figure);
-//    } else {
-//        Figure icosahedron = Platonic::createIcosahedron(figure);
-//        auto splitFaces = Triangles::split_Faces(icosahedron.faces, icosahedron.points, n);
-//
-//        // De punten normaliseren tijdens het splitsen
-//        for (Vector3D &point: splitFaces.second) {
-//            point.normalise();
-//        }
-//
-//
-//    }
-//
-//}
+
+void NotPlatonic::createSphere(Figure &figure, const int &n) {
+
+    const double U = 2 * M_PI / n;
+    const double V = M_PI / n;
+
+    for (int i = 0; i < n; ++i) {
+        double u = i * U;
+        for (int j = 0; j < n; ++j) {
+            double v = j * V;
+
+            figure.points.push_back(Vector3D::point(sin(v) * cos(u),
+                                                    sin(v) * sin(u),
+                                                    cos(v)));
+        }
+    }
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            int index1 = calculateIndex(i, j, n);
+            int index2 = calculateIndex((i + 1) % n, j, n);
+            int index3 = calculateIndex((i + 1) % n, (j + 1) % n, n);
+            int index4 = calculateIndex(i, (j + 1) % n, n);
+
+            figure.faces.push_back(Face({index1, index2, index3, index4}));
+        }
+    }
+}
+
 
 void NotPlatonic::createTorus(Figure &figure, const double &R, const double &r, const int &n,
-                                const int &m) {
+                              const int &m) {
 
 
     const double U = 2 * M_PI / n;

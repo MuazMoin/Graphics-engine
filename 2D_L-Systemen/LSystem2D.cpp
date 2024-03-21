@@ -12,6 +12,7 @@
 #include <fstream>
 #include <limits>
 
+
 img::EasyImage LSystem2D::parseLSystem2D(const ini::Configuration &configuration) {
     // Get data form file
     std::string inputfile = configuration["2DLSystem"]["inputfile"].as_string_or_die(); // Haal het invoerbestand op uit de configuratiegegevens
@@ -53,6 +54,7 @@ LParser::LSystem2D LSystem2D::getLParser2D(const std::string &inputfile) {
 
     return lSystem2D;
 }
+
 
 std::string LSystem2D::getString(const LParser::LSystem2D &system) {
     std::string oldString = system.get_initiator();

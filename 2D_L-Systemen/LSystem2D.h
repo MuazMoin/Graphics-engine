@@ -10,9 +10,9 @@ class LSystem2D {
 public:
     static img::EasyImage parseLSystem2D(const ini::Configuration &configuration);
 
-private:
-
     static std::string getString(const LParser::LSystem2D& system);
+
+private:
 
     static LParser::LSystem2D getLParser2D(const std::string& inputfile);
 

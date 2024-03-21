@@ -64,22 +64,20 @@ void Platonic::createOctahedron(Figure& figure) {
 }
 
 void Platonic::createIcosahedron(Figure& figure) {
-    // Define the vertices of the icosahedron
+
     figure.points.push_back(Vector3D::point(0, 0, (sqrt(5))/2)); // Top vertex
 
-    // Vertices around the equator
     for (int i = 1; i < 6; ++i) {
         figure.points.push_back(Vector3D::point(cos((i - 2) * 2 * M_PI / 5), sin((i - 2) * 2 * M_PI / 5), 0.5));
     }
 
-    // Vertices around the bottom
     for (int i = 6; i < 11; ++i) {
         figure.points.push_back(Vector3D::point(cos(M_PI / 5 + (i - 7) * 2 * M_PI / 5), sin(M_PI / 5 + (i - 7) * 2 * M_PI / 5), -0.5));
     }
 
     figure.points.push_back(Vector3D::point(0, 0, -(sqrt(5))/2)); // Bottom vertex
 
-    // Define the faces of the icosahedron
+
     figure.faces.push_back(Face({0, 1, 2}));
     figure.faces.push_back(Face({0, 2, 3}));
     figure.faces.push_back(Face({0, 3, 4}));
@@ -104,38 +102,37 @@ void Platonic::createIcosahedron(Figure& figure) {
 
 void Platonic::createDodecahedron(Figure& figure) {
 
-    Figure icosahedron;
+    // Define the vertices of the dodecahedron
+    figure.points.push_back(Vector3D::point(0, 0, 1.618)); // Top vertex
 
-    createIcosahedron(icosahedron);
-    for (const Face &face: icosahedron.faces) {
-        double x =
-                (icosahedron.points[face.point_indexes[0]].x +
-                icosahedron.points[face.point_indexes[1]].x +
-                icosahedron.points[face.point_indexes[2]].x) / 3;
-        double y =
-                (icosahedron.points[face.point_indexes[0]].y +
-                icosahedron.points[face.point_indexes[1]].y +
-                icosahedron.points[face.point_indexes[2]].y) / 3;
-
-        double z =
-                (icosahedron.points[face.point_indexes[0]].z +
-                icosahedron.points[face.point_indexes[1]].z +
-                icosahedron.points[face.point_indexes[2]].z) / 3;
-
-        figure.points.push_back(Vector3D::point(x, y, z));
-
+    // Vertices around the top
+    for (int i = 1; i < 6; ++i) {
+        figure.points.push_back(Vector3D::point(cos((i - 2) * 2 * M_PI / 5), sin((i - 2) * 2 * M_PI / 5), 1.118));
     }
 
-    figure.faces.emplace_back(Face({0, 1, 2, 3, 4}));
-    figure.faces.emplace_back(Face({0, 5, 6, 7, 1}));
-    figure.faces.emplace_back(Face({1, 7, 8, 9, 2}));
-    figure.faces.emplace_back(Face({2, 9, 10, 11, 3}));
-    figure.faces.emplace_back(Face({3, 11, 12, 13, 4}));
-    figure.faces.emplace_back(Face({4, 13, 14, 5, 0}));
-    figure.faces.emplace_back(Face({19, 18, 17, 16, 15}));
-    figure.faces.emplace_back(Face({19, 14, 13, 12, 18}));
-    figure.faces.emplace_back(Face({18, 12, 11, 10, 17}));
-    figure.faces.emplace_back(Face({17, 10, 9, 8, 16}));
-    figure.faces.emplace_back(Face({16, 8, 7, 6, 15}));
-    figure.faces.emplace_back(Face({15, 6, 5, 14, 19}));
+    // Vertices around the bottom
+    for (int i = 6; i < 11; ++i) {
+        figure.points.push_back(
+                Vector3D::point(cos(M_PI / 5 + (i - 7) * 2 * M_PI / 5), sin(M_PI / 5 + (i - 7) * 2 * M_PI / 5), 0.618));
+    }
+
+    figure.points.push_back(Vector3D::point(0, 0, -1.618)); // Bottom vertex
+
+    // Define the faces of the dodecahedron
+    figure.faces.push_back(Face({0, 1, 2, 3, 4}));
+    figure.faces.push_back(Face({0, 5, 6, 7, 1}));
+    figure.faces.push_back(Face({1, 7, 8, 9, 2}));
+    figure.faces.push_back(Face({2, 9, 10, 11, 3}));
+    figure.faces.push_back(Face({3, 11, 12, 13, 4}));
+    figure.faces.push_back(Face({4, 13, 14, 5, 0}));
+    figure.faces.push_back(Face({19, 18, 17, 16, 15}));
+    figure.faces.push_back(Face({19, 14, 13, 12, 18}));
+    figure.faces.push_back(Face({18, 12, 11, 10, 17}));
+    figure.faces.push_back(Face({17, 10, 9, 8, 16}));
+    figure.faces.push_back(Face({16, 8, 7, 6, 15}));
+    figure.faces.push_back(Face({15, 6, 5, 14, 19}));
 }
+
+
+
+

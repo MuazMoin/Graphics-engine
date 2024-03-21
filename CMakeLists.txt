@@ -41,7 +41,9 @@ set(engine_sources
         Platonic.cpp
         NotPlatonic.cpp
 
-    Include.hpp)
+    Include.hpp
+        l_SystemsFunc.h
+        l_SystemsFunc.cpp)
 
 ############################################################
 # Create an executable
