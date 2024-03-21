@@ -43,7 +43,8 @@ set(engine_sources
 
     Include.hpp
         l_SystemsFunc.h
-        l_SystemsFunc.cpp)
+        l_SystemsFunc.cpp
+        ZBuffer.h)
 
 ############################################################
 # Create an executable
