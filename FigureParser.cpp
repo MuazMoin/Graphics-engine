@@ -67,7 +67,7 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &section) {
 
     if (type == "LineDrawing") {
         FigureParser::createLineDrawing(section, newFigure);
-    }else if (type == "3DLSystem"){
+    } else if (type == "3DLSystem"){
         FigureParser::parse3DLSystem(newFigure, section["inputfile"].as_string_or_die());
     } else if (type == "Cube") {
         Platonic::createCube(newFigure);

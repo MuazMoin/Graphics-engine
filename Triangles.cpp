@@ -8,7 +8,7 @@
 // een hoop vlakken en punten die we meekrijgen
 std::pair<std::vector<Face>, std::vector<Vector3D>>
 Triangles::split_Faces(const std::vector<Face> &faces, const std::vector<Vector3D> &points, const int &splitAmount) { //dit lijntje is gegenereerd door chatgpt, omdat ik telkens iets fout deed bij het schrijven van de code.
-    std::cout << "De functie split_Faces begint." << std::endl;
+
 
     // 2 neieuwe lege vectoren om punten en vlakken in op te slaan.
     std::vector<Face> split_Faces = faces;
@@ -16,7 +16,7 @@ Triangles::split_Faces(const std::vector<Face> &faces, const std::vector<Vector3
 
     //splitAmount is het aantal keer dat we de driehoek willen splitsen
     for (int i = 0; i < splitAmount; ++i) {
-        std::cout << "Iteratie " << i + 1 << " van de lus begint." << std::endl;
+
         std::vector<Face> FaceNew;
 
         for (int j = 0; j < split_Faces.size(); ++j) {
@@ -66,11 +66,10 @@ Triangles::split_Faces(const std::vector<Face> &faces, const std::vector<Vector3
             FaceNew.push_back(Face({IndexC, IndexE, IndexF}));
         }
         split_Faces = FaceNew;
-        std::cout << "Iteratie " << i + 1 << " van de lus eindigt." << std::endl;
+
     }
 
-    std::cout << "De functie split_Faces eindigt." << std::endl;
-    std::cout.flush();
+
     return {split_Faces, split_Points};
 }
 

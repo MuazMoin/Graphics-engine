@@ -73,32 +73,27 @@ void NotPlatonic::createCone(Figure &figure, const int &n, const double &height)
 
 
 void NotPlatonic::createSphere(Figure &figure, const int &n) {
+    if (n == 0) {
+        Platonic::createIcosahedron(figure);
+    } else {
+        Figure icosahedron;
+        Platonic::createIcosahedron(icosahedron);
 
-    const double U = 2 * M_PI / n;
-    const double V = M_PI / n;
+        // Split icosahedron n-times
+        std::pair<std::vector<Face>, std::vector<Vector3D>> splitFaces = Triangles::split_Faces(icosahedron.faces,
+                                                                                                icosahedron.points,n);
 
-    for (int i = 0; i < n; ++i) {
-        double u = i * U;
-        for (int j = 0; j < n; ++j) {
-            double v = j * V;
-
-            figure.points.push_back(Vector3D::point(sin(v) * cos(u),
-                                                    sin(v) * sin(u),
-                                                    cos(v)));
+        // Normalize points
+        for (Vector3D &point: splitFaces.second) {
+            point.normalise();
         }
-    }
 
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            int index1 = calculateIndex(i, j, n);
-            int index2 = calculateIndex((i + 1) % n, j, n);
-            int index3 = calculateIndex((i + 1) % n, (j + 1) % n, n);
-            int index4 = calculateIndex(i, (j + 1) % n, n);
-
-            figure.faces.push_back(Face({index1, index2, index3, index4}));
-        }
+        // Update figure with the split faces and points
+        figure.faces = splitFaces.first;
+        figure.points = splitFaces.second;
     }
 }
+
 
 
 void NotPlatonic::createTorus(Figure &figure, const double &R, const double &r, const int &n,
