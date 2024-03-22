@@ -18,15 +18,13 @@
 class Line2D {
 public:
 
-
     Point2D p1{},p2{}; //Mijn twee punten
-    img::Color color; //kleur van mijn lijn
+    Color color; //kleur van mijn lijn
 
     Line2D() = default;
 
-    Line2D(Point2D point1, Point2D point2, const img::Color& color) : p1(point1), p2(point2), color(color){}
-
-
+    Line2D(Point2D point1, Point2D point2, const Color& color) : p1(point1), p2(point2), color(color){}
+    Line2D(const Point2D &pointA, const Point2D &pointB, double z1, double z2, const Color &color) {}
 
 
     void scale(double factor) {
@@ -49,8 +47,17 @@ public:
         p2.x += dx;
         p2.y += dy;
     }
-};
 
+public:
+    Point2D point1;
+    Point2D point2;
+
+    // Z-Buffer z coordinates
+    double z1;
+    double z2;
+
+
+};
 
 
 using Lines2D = std::list<Line2D>; // Definieer een alias voor een lijst van 2D-lijnen

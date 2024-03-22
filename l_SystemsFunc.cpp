@@ -9,7 +9,7 @@
 LParser::LSystem3D L_SystemsFunc::parseLSystem3D(const std::string &inputfile) {
     LParser::LSystem3D l_system;
     std::ifstream
-    input_stream(inputfile);
+            input_stream(inputfile);
     input_stream >> l_system;
     input_stream.close();
 
@@ -38,10 +38,7 @@ std::string L_SystemsFunc::getString(const LParser::LSystem3D &l_system) {
     }
 }
 
-std::pair<std::vector<Face>, std::vector<Vector3D>>
-L_SystemsFunc::getFacesAndPoints(const LParser::LSystem3D &l_system, const std::string &figureString) {
-    std::vector<Face> faces;
-    std::vector<Vector3D> points;
+void L_SystemsFunc::getFacesAndPoints(Figure &figure, const LParser::LSystem3D &l_system, const std::string &figureString) {
 
     double angle = l_system.get_angle() * M_PI / 180;
     Vector3D vectorH = Vector3D::vector(1, 0, 0);
@@ -49,8 +46,8 @@ L_SystemsFunc::getFacesAndPoints(const LParser::LSystem3D &l_system, const std::
     Vector3D vectorU = Vector3D::vector(0, 0, 1);
 
     std::stack<std::vector<Vector3D>> bracketStack = {};
-    Vector3D previousPosition = Vector3D::point(0, 0, 0);
     Vector3D currentPosition = Vector3D::point(0, 0, 0);
+    Face newface;
 
     for (char c: figureString) {
         if (c == '+') {
@@ -58,30 +55,54 @@ L_SystemsFunc::getFacesAndPoints(const LParser::LSystem3D &l_system, const std::
             Vector3D newVectorL = -vectorH * sin(angle) + vectorL * cos(angle);
             vectorH = newVectorH;
             vectorL = newVectorL;
-            continue;
         } else if (c == '-') {
             Vector3D newVectorH = vectorH * cos(-angle) + vectorL * sin(-angle);
             Vector3D newVectorL = -vectorH * sin(-angle) + vectorL * cos(-angle);
             vectorH = newVectorH;
             vectorL = newVectorL;
-            continue;
         } else if (c == '^') {
             Vector3D newVectorL = vectorL * cos(angle) + vectorU * sin(angle);
             Vector3D newVectorU = -vectorL * sin(angle) + vectorU * cos(angle);
             vectorL = newVectorL;
             vectorU = newVectorU;
-            continue;
         } else if (c == '&') {
             Vector3D newVectorL = vectorL * cos(-angle) + vectorU * sin(-angle);
             Vector3D newVectorU = -vectorL * sin(-angle) + vectorU * cos(-angle);
             vectorL = newVectorL;
             vectorU = newVectorU;
-            continue;
         } else if (c == '\\') {
             Vector3D newVectorH = vectorH * cos(angle) + vectorU * sin(angle);
             Vector3D newVectorU = -vectorH * sin(angle) + vectorU * cos(angle);
             vectorH = newVectorH;
+            vectorU = newVectorU;
+        } else if (c == '/') {
+            Vector3D newVectorH = vectorH * cos(-angle) + vectorU * sin(-angle);
+            Vector3D newVectorU = -vectorH * sin(-angle) + vectorU * cos(-angle);
+            vectorH = newVectorH;
+            vectorU = newVectorU;
+        } else if (c == '|') {
+            vectorH = -vectorH;
+            vectorL = -vectorL;
+        } else if (c == '(') {
+            bracketStack.push({vectorH, vectorL, vectorU, currentPosition});
+        } else if (c == ')') {
+            if (!bracketStack.empty()) {
+                auto state = bracketStack.top();
+                vectorH = state[0];
+                vectorL = state[1];
+                vectorU = state[2];
+                currentPosition = state[3];
+                bracketStack.pop();
+            }
+        } else {
+            Vector3D newPosition = currentPosition + vectorH;
+            if (l_system.draw(c)) {
+                figure.points.push_back(newPosition);
+                newface.point_indexes.push_back(figure.points.size() - 1);
+            }
+            currentPosition = newPosition;
         }
     }
-    return std::make_pair(faces, points);
+    figure.faces.push_back(newface);
 }
+

@@ -14,7 +14,6 @@ public:
         x = newx;
         y = newy;
     }
-
 };
 
 #endif //CG_POINT2D_H

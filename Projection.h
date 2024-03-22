@@ -18,6 +18,8 @@ public:
     static Point2D doProjection(const Vector3D &point, double d);
     static Lines2D doProjection(const Figures3d &figures);
 
+    static Lines2D doZBufferProjection(const Figures3d &figures);
+
     };
 
 

@@ -11,8 +11,6 @@
 class Triangles {
     public:
     static std::pair<std::vector<Face>, std::vector<Vector3D>> split_Faces(const std::vector<Face> &faces, const std::vector<Vector3D> &points, const int &splitAmount);
-    static void triangulateFigures(Figures3d &figures);
-    static Figure triangulateFigure(const Figure &figure);
 
 
 };

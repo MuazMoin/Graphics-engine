@@ -59,7 +59,6 @@ Matrix TransformationMatrix::translate(const Vector3D &vector3D) {
     return matrix;
 }
 //
-
 Matrix TransformationMatrix::eyePointTransformation(const Vector3D &eyepoint) {
     double r = eyepoint.length();
     double theta = std::atan2(eyepoint.y, eyepoint.x);//slides practicum
@@ -86,6 +85,7 @@ Matrix TransformationMatrix::eyePointTransformation(const Vector3D &eyepoint) {
     return matrix;
 
 }
+
 
 // geeft transformatiematrix terug tekenen van 3D-lijnen
 Matrix

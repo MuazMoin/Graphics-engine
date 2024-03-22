@@ -11,6 +11,7 @@
 
 class Face {
 public:
+    Face() = default;
 
     Face(const std::vector<int> &point_indexes);
 

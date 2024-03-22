@@ -9,12 +9,13 @@
 #include <string>
 #include <vector>
 #include "vector3d.h"
+#include "Figure.h"
 
 class L_SystemsFunc {
 public:
     static LParser::LSystem3D parseLSystem3D(const std::string &inputfile);
     static std::string getString(const LParser::LSystem3D &l_system);
-    static std::pair<std::vector<Face>, std::vector<Vector3D>> getFacesAndPoints(const LParser::LSystem3D &l_system, const std::string &figureString);
+    static void getFacesAndPoints(Figure &figure, const LParser::LSystem3D &l_system, const std::string &figureString);
 
 
 };

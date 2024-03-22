@@ -3,6 +3,7 @@
 //
 
 #include "LSystem2D.h"
+#include "../ZBuffer.h"
 #include "../l_parser.h"
 #include "Line2D.h"
 #include "../ini_configuration.h"
@@ -11,14 +12,15 @@
 #include <vector>
 #include <fstream>
 #include <limits>
+#include "sstream"
 
 
 img::EasyImage LSystem2D::parseLSystem2D(const ini::Configuration &configuration) {
     // Get data form file
     std::string inputfile = configuration["2DLSystem"]["inputfile"].as_string_or_die(); // Haal het invoerbestand op uit de configuratiegegevens
     std::vector<double> configLineColor = configuration["2DLSystem"]["color"].as_double_tuple_or_die(); // Haal de kleur op uit de configuratiegegevens
-    img::Color lineColor(configLineColor[0] * 255, configLineColor[1] * 255,
-                         configLineColor[2] * 255); // Maak een kleur op basis van de opgegeven kleur
+    Color lineColor(configLineColor[0], configLineColor[1],
+                         configLineColor[2]); // Maak een kleur op basis van de opgegeven kleur
     std::vector<double> backgroundColor = configuration["General"]["backgroundcolor"].as_double_tuple_or_die(); // Haal de achtergrondkleur op uit de configuratiegegevens
     int size = configuration["General"]["size"].as_int_or_die(); // Haal de grootte op uit de configuratiegegevens
 
@@ -67,8 +69,7 @@ std::string LSystem2D::getString(const LParser::LSystem2D &system) {
         for (char letter: oldString) {
             if (alphabet.find(letter) != alphabet.end()) {
                 newString += system.get_replacement(letter);
-            }
-            else {
+            } else {
                 newString += letter;
             }
         }
@@ -78,7 +79,7 @@ std::string LSystem2D::getString(const LParser::LSystem2D &system) {
     return newString;
 }
 
-Lines2D LSystem2D::getLines(LParser::LSystem2D &system2D, std::string basicString, const img::Color &lineColor) {
+Lines2D LSystem2D::getLines(LParser::LSystem2D &system2D, std::string basicString, const Color &lineColor) {
     Lines2D lines;
 
     double angleComponent = system2D.get_angle() * 3.14159265359 / 180; // Bereken de hoek in radialen
@@ -118,7 +119,8 @@ Lines2D LSystem2D::getLines(LParser::LSystem2D &system2D, std::string basicStrin
 
 std::vector<double> LSystem2D::scaleLines(Lines2D &lines, int maxSize) {
     if (lines.empty()) { // Controleer of de lijst met lijnen leeg is
-        throw std::runtime_error("[LSystem2D][scaleLines]: No Lines Given"); // Gooi een runtime fout als er geen lijnen zijn
+        throw std::runtime_error(
+                "[LSystem2D][scaleLines]: No Lines Given"); // Gooi een runtime fout als er geen lijnen zijn
     }
 
     double xMin = std::numeric_limits<double>::infinity(); // Initialiseer de minimale x-coördinaat met de afbeeldingsgrootte
@@ -193,7 +195,28 @@ LSystem2D::makeImage(int size, std::vector<double> maxAndMinValues, std::vector<
 
 void LSystem2D::drawLines2D(const Lines2D &lines, img::EasyImage &image) {
     for (const auto &line: lines) {
-        image.draw_line(lround(line.p1.x), lround(line.p1.y), lround(line.p2.x), lround(line.p2.y), line.color);
+        image.draw_line(lround(line.p1.x), lround(line.p1.y), lround(line.p2.x), lround(line.p2.y), line.color.toEasyImageColor());
     }
 }
-// Created by Muaz Moin on 05/03/2024.
+
+void
+LSystem2D::drawZBufferLines(img::EasyImage &image, const Lines2D &lines) {
+    ZBuffer ZBuffer(image.get_width(), image.get_height());
+
+    for (const Line2D &line: lines) {
+        draw_zbuf_line(ZBuffer, image, lround(line.p1.x), lround(line.p1.y), lround(line.z1),
+                       lround(line.p2.x), lround(line.p2.y), lround(line.z1), line.color);
+    }
+}
+
+void LSystem2D::draw_zbuf_line(std::vector<std::vector<double>> &zbuffer, img::EasyImage &image, unsigned int x0,
+                               unsigned int y0, unsigned int z0, unsigned int x1, unsigned int y1, unsigned int z1,
+                               const Color &color) {
+    // Check if the line is within the boundaries of the image
+    if (x0 >= image.get_width() || y0 >= image.get_height() || x1 >= image.get_width() || y1 > image.get_height()) {
+        std::stringstream ss;
+        ss << "Drawing line from (" << x0 << "," << y0 << ") to (" << x1 << "," << y1 << ") in image of width "
+           << image.get_width() << " and height " << image.get_height();
+        throw std::runtime_error(ss.str());
+    }
+}

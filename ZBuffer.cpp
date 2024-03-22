@@ -3,3 +3,7 @@
 //
 
 #include "ZBuffer.h"
+
+ZBuffer::ZBuffer(const int width, const int height)
+        : zBuffer(width, std::vector<double>(height, std::numeric_limits<double>::infinity())) {}
+

@@ -12,6 +12,7 @@
 
 #include "2D_L-Systemen/LSystem2D.h"
 #include "WireframeParser.h"
+#include "ZBufferedWireframeParser.h"
 
 //Created by Muaz Moin on 05/03/2024.
 
@@ -28,6 +29,11 @@ img::EasyImage generate_image(const ini::Configuration &configuration){
             return LSystem2D::parseLSystem2D(configuration);
         } else if (type == "Wireframe") {
             return WireframeParser::parseWireframe(configuration);
+        }else if (type == "ZBufferedWireframe") {
+            return ZBufferedWireframeParser::ZBufferedParser(configuration);
+        } else {
+            throw runtime_error("Unknown type: " + type);
+
         }
     } catch (const std::exception &ex) {
         std::cerr << "Error: " << ex.what() << std::endl;

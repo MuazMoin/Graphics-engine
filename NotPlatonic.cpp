@@ -95,7 +95,6 @@ void NotPlatonic::createSphere(Figure &figure, const int &n) {
 }
 
 
-
 void NotPlatonic::createTorus(Figure &figure, const double &R, const double &r, const int &n,
                               const int &m) {
 

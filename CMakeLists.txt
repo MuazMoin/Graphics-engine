@@ -44,7 +44,11 @@ set(engine_sources
     Include.hpp
         l_SystemsFunc.h
         l_SystemsFunc.cpp
-        ZBuffer.h)
+        ZBuffer.h
+        ZBuffer.cpp
+        ZBufferedWireframeParser.h
+        ZBufferedWireframeParser.cpp
+        )
 
 ############################################################
 # Create an executable
