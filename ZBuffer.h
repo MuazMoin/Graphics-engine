@@ -12,6 +12,14 @@ class ZBuffer : public std::vector<std::vector<double> > {
 public:
     ZBuffer();
     ZBuffer(int width, int height);
+    bool z_close(unsigned int x0, unsigned int y0, unsigned int z0, unsigned int x1, unsigned int y1, unsigned int z1,
+                 unsigned int xi, unsigned int yi);
+
+private:
+    double z_interpolatie(double z0, double z1, unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1, unsigned int xi, unsigned int yi);
+public:
+    double getz_interpolatie(unsigned int xi, unsigned int yi) const;
+
     std::vector<std::vector<double>> zBuffer;
 };
 #endif //ENGINE_ZBUFFER_H

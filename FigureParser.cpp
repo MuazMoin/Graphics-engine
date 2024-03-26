@@ -12,6 +12,7 @@
 #include <sstream>
 #include "2D_L-Systemen/LSystem2D.h"
 #include "l_SystemsFunc.h"
+#include "ZBuffer.h"
 
 
 Figures3d

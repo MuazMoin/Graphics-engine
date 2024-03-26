@@ -48,7 +48,7 @@ set(engine_sources
         ZBuffer.cpp
         ZBufferedWireframeParser.h
         ZBufferedWireframeParser.cpp
-        )
+)
 
 ############################################################
 # Create an executable
