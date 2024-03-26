@@ -116,7 +116,6 @@ void FigureParser::createLineDrawing(const ini::Section &section, Figure &newFig
     }
 }
 
-
 void FigureParser::parse3DLSystem(Figure &newFigure, const std::string &inputfile) {
 
     LParser::LSystem3D l_system = L_SystemsFunc::parseLSystem3D(inputfile);

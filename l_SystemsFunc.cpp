@@ -49,56 +49,66 @@ void L_SystemsFunc::getFacesAndPoints(Figure &figure, const LParser::LSystem3D &
     Vector3D currentPosition = Vector3D::point(0, 0, 0);
     Face newface;
 
-    for (char c: figureString) {
-        if (c == '+') {
-            Vector3D newVectorH = vectorH * cos(angle) + vectorL * sin(angle);
-            Vector3D newVectorL = -vectorH * sin(angle) + vectorL * cos(angle);
+    for (char c : figureString){
+        if (c == '+'){
+            Vector3D newVectorH = vectorH*cos(angle) + vectorL * sin(angle);
+            Vector3D newVectorL = -vectorH * sin(angle) + vectorL*cos(angle);
             vectorH = newVectorH;
             vectorL = newVectorL;
-        } else if (c == '-') {
-            Vector3D newVectorH = vectorH * cos(-angle) + vectorL * sin(-angle);
-            Vector3D newVectorL = -vectorH * sin(-angle) + vectorL * cos(-angle);
+            continue;
+        } else if (c == '-'){
+            Vector3D newVectorH = vectorH*cos(-angle) + vectorL * sin(-angle);
+            Vector3D newVectorL = -vectorH * sin(-angle) + vectorL*cos(-angle);
             vectorH = newVectorH;
             vectorL = newVectorL;
-        } else if (c == '^') {
-            Vector3D newVectorL = vectorL * cos(angle) + vectorU * sin(angle);
-            Vector3D newVectorU = -vectorL * sin(angle) + vectorU * cos(angle);
-            vectorL = newVectorL;
-            vectorU = newVectorU;
-        } else if (c == '&') {
-            Vector3D newVectorL = vectorL * cos(-angle) + vectorU * sin(-angle);
-            Vector3D newVectorU = -vectorL * sin(-angle) + vectorU * cos(-angle);
-            vectorL = newVectorL;
-            vectorU = newVectorU;
-        } else if (c == '\\') {
-            Vector3D newVectorH = vectorH * cos(angle) + vectorU * sin(angle);
-            Vector3D newVectorU = -vectorH * sin(angle) + vectorU * cos(angle);
+            continue;
+        } else if (c == '^'){
+            Vector3D newVectorH = vectorH*cos(angle) + vectorU * sin(angle);
+            Vector3D newVectorU = -vectorH * sin(angle) + vectorU*cos(angle);
             vectorH = newVectorH;
             vectorU = newVectorU;
-        } else if (c == '/') {
-            Vector3D newVectorH = vectorH * cos(-angle) + vectorU * sin(-angle);
-            Vector3D newVectorU = -vectorH * sin(-angle) + vectorU * cos(-angle);
+            continue;
+        } else if (c == '&'){
+            Vector3D newVectorH = vectorH*cos(-angle) + vectorU * sin(-angle);
+            Vector3D newVectorU = -vectorH * sin(-angle) + vectorU*cos(-angle);
             vectorH = newVectorH;
             vectorU = newVectorU;
-        } else if (c == '|') {
-            vectorH = -vectorH;
-            vectorL = -vectorL;
-        } else if (c == '(') {
-            bracketStack.push({vectorH, vectorL, vectorU, currentPosition});
-        } else if (c == ')') {
-            if (!bracketStack.empty()) {
-                auto state = bracketStack.top();
-                vectorH = state[0];
-                vectorL = state[1];
-                vectorU = state[2];
-                currentPosition = state[3];
-                bracketStack.pop();
-            }
+            continue;
+        } else if (c == '\\'){
+            Vector3D newVectorL = vectorL*cos(angle) - vectorU * sin(angle);
+            Vector3D newVectorU = vectorL * sin(angle) + vectorU*cos(angle);
+            vectorL = newVectorL;
+            vectorU = newVectorU;
+            continue;
+        } else if (c == '/'){
+            Vector3D newVectorL = vectorL*cos(-angle) - vectorU * sin(-angle);
+            Vector3D newVectorU = vectorL * sin(-angle) + vectorU*cos(-angle);
+            vectorL = newVectorL;
+            vectorU = newVectorU;
+            continue;
+        } else if (c == '|'){
+            vectorH *= -1;
+            vectorL *= -1;
+            continue;
+        } else if (c == '('){
+            bracketStack.push({currentPosition, vectorH, vectorL, vectorU});
+            continue;
+        } else if (c == ')'){
+            std::vector<Vector3D> oldPosition = bracketStack.top();
+            bracketStack.pop();
+
+            currentPosition = oldPosition[0];
+            vectorH = oldPosition[1];
+            vectorL = oldPosition[2];
+            vectorU = oldPosition[3];
+            continue;
+
         } else {
             Vector3D newPosition = currentPosition + vectorH;
             if (l_system.draw(c)) {
                 figure.points.push_back(newPosition);
                 newface.point_indexes.push_back(figure.points.size() - 1);
+
             }
             currentPosition = newPosition;
         }

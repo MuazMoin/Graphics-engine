@@ -8,6 +8,7 @@
 #include "../Face.h"
 #include "Point2D.h"
 #include "../vector3d.h"
+#include "../ZBuffer.h"
 
 class LSystem2D {
 public:
@@ -31,8 +32,11 @@ public:
 
     static void drawLines2D(const Lines2D& lines, img::EasyImage &image);
     static void drawZBufferLines(img::EasyImage &image, const Lines2D &lines);
-    static void draw_zbuf_line(std::vector<std::vector<double>> &zbuffer, img::EasyImage &image, unsigned int x0, unsigned int y0, unsigned int z0, unsigned int x1,
-                               unsigned int y1, unsigned int z1, const Color &color);
+    static void draw_zbuf_line(std::vector<std::vector<double>> &zbuffer, img::EasyImage &image, unsigned int x0,
+                               unsigned int y0, unsigned int z0, unsigned int x1, unsigned int y1, unsigned int z1,
+                               const Color &color);
+
+
 };
 
 

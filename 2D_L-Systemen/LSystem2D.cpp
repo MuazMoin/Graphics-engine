@@ -13,6 +13,7 @@
 #include <fstream>
 #include <limits>
 #include "sstream"
+#include "assert.h"
 
 
 img::EasyImage LSystem2D::parseLSystem2D(const ini::Configuration &configuration) {
@@ -199,24 +200,75 @@ void LSystem2D::drawLines2D(const Lines2D &lines, img::EasyImage &image) {
     }
 }
 
-void
-LSystem2D::drawZBufferLines(img::EasyImage &image, const Lines2D &lines) {
-    ZBuffer ZBuffer(image.get_width(), image.get_height());
+void LSystem2D::drawZBufferLines(img::EasyImage &image, const Lines2D &lines) {
+    unsigned int width = image.get_width();
+    unsigned int height = image.get_height();
 
-    for (const Line2D &line: lines) {
-        draw_zbuf_line(ZBuffer, image, lround(line.p1.x), lround(line.p1.y), lround(line.z1),
-                       lround(line.p2.x), lround(line.p2.y), lround(line.z1), line.color);
+    if (width == 0 || height == 0) {
+        throw std::runtime_error("Image dimensions must be greater than 0.");
+    }
+
+    ZBuffer zBuffer(width, height);
+
+    for (const Line2D &line : lines) {
+        draw_zbuf_line(zBuffer, image, lround(line.p1.x), lround(line.p1.y), lround(line.z1),
+                        lround(line.p2.x), lround(line.p2.y), lround(line.z2), line.color);
     }
 }
+
 
 void LSystem2D::draw_zbuf_line(std::vector<std::vector<double>> &zbuffer, img::EasyImage &image, unsigned int x0,
                                unsigned int y0, unsigned int z0, unsigned int x1, unsigned int y1, unsigned int z1,
                                const Color &color) {
-    // Check if the line is within the boundaries of the image
     if (x0 >= image.get_width() || y0 >= image.get_height() || x1 >= image.get_width() || y1 > image.get_height()) {
         std::stringstream ss;
         ss << "Drawing line from (" << x0 << "," << y0 << ") to (" << x1 << "," << y1 << ") in image of width "
            << image.get_width() << " and height " << image.get_height();
         throw std::runtime_error(ss.str());
+    }
+
+    if (x0 == x1) {
+        for (unsigned int i = std::min(y0, y1); i <= std::max(y0, y1); i++) {
+            if (z1 < zbuffer[x0][i]) {
+                zbuffer[x0][i] = z1;
+                image(x0, i) = color.toEasyImageColor();
+            }
+        }
+    } else if (y0 == y1) {
+        for (unsigned int i = std::min(x0, x1); i <= std::max(x0, x1); i++) {
+            if (z1 < zbuffer[i][y0]) {
+                zbuffer[i][y0] = z1;
+                image(i, y0) = color.toEasyImageColor();
+            }
+        }
+    } else {
+        if (x0 > x1) {
+            std::swap(x0, x1);
+            std::swap(y0, y1);
+            std::swap(z0, z1);
+        }
+        double m = ((double) y1 - (double) y0) / ((double) x1 - (double) x0);
+        if (-1.0 <= m && m <= 1.0) {
+            for (unsigned int i = 0; i <= (x1 - x0); i++) {
+                if (z1 < zbuffer[x0 + i][lround(y0 + m * i)]) {
+                    zbuffer[x0 + i][lround(y0 + m * i)] = z1;
+                    image(x0 + i, lround(y0 + m * i)) = color.toEasyImageColor();
+                }
+            }
+        } else if (m > 1.0) {
+            for (unsigned int i = 0; i <= (y1 - y0); i++) {
+                if (z1 < zbuffer[lround(x0 + i / m)][y0 + i]) {
+                    zbuffer[lround(x0 + i / m)][y0 + i] = z1;
+                    image(lround(x0 + i / m), y0 + i) = color.toEasyImageColor();
+                }
+            }
+        } else if (m < -1.0) {
+            for (unsigned int i = 0; i <= (y0 - y1); i++) {
+                if (z1 < zbuffer[lround(x0 - i / m)][y0 - i]) {
+                    zbuffer[lround(x0 - i / m)][y0 - i] = z1;
+                    image(lround(x0 - i / m), y0 - i) = color.toEasyImageColor();
+                }
+            }
+        }
     }
 }
