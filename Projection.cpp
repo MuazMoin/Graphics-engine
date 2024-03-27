@@ -41,7 +41,6 @@ Lines2D Projection::doProjection(const Figures3d &figures) {
 
 Lines2D Projection::doZBufferProjection(const Figures3d &figures) {
     Lines2D lines;
-
     for (const auto &figure: figures) {
         std::vector<Face> faces = figure.faces;
         std::vector<Vector3D> points = figure.points;

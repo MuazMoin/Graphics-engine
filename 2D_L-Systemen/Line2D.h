@@ -18,13 +18,22 @@
 class Line2D {
 public:
 
-    Point2D p1{},p2{}; //Mijn twee punten
+    Point2D p1{}, p2{}; //Mijn twee punten
     Color color; //kleur van mijn lijn
+
+    // Z-Buffer z coordinates
+    double z1 = 0;
+    double z2 = 0;
 
     Line2D() = default;
 
-    Line2D(Point2D point1, Point2D point2, const Color& color) : p1(point1), p2(point2), color(color){}
-    Line2D(const Point2D &pointA, const Point2D &pointB, double z1, double z2, const Color &color) {}
+    Line2D(Point2D point1, Point2D point2, const Color &color) : p1(point1), p2(point2), color(color) {}
+
+    Line2D(const Point2D &pointA, const Point2D &pointB, double z1, double z2, const Color &color) : p1(pointA),
+                                                                                                     p2(pointB),
+                                                                                                     z1(z1),
+                                                                                                     z2(z2),
+                                                                                                     color(color) {}
 
 
     void scale(double factor) {
@@ -47,15 +56,6 @@ public:
         p2.x += dx;
         p2.y += dy;
     }
-
-public:
-    Point2D point1;
-    Point2D point2;
-
-    // Z-Buffer z coordinates
-    double z1;
-    double z2;
-
 
 };
 
