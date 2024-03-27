@@ -48,6 +48,8 @@ set(engine_sources
         ZBuffer.cpp
         ZBufferedWireframeParser.h
         ZBufferedWireframeParser.cpp
+        ZParser.h
+        ZParser.cpp
 )
 
 ############################################################

@@ -13,6 +13,7 @@
 #include "2D_L-Systemen/LSystem2D.h"
 #include "WireframeParser.h"
 #include "ZBufferedWireframeParser.h"
+#include "ZParser.h"
 
 //Created by Muaz Moin on 05/03/2024.
 
@@ -31,6 +32,8 @@ img::EasyImage generate_image(const ini::Configuration &configuration){
             return WireframeParser::parseWireframe(configuration);
         }else if (type == "ZBufferedWireframe") {
             return ZBufferedWireframeParser::ZBufferedParser(configuration);
+        }else if (type == "ZBuffering") {
+            return ZParser::parseZBuffer(configuration);
         } else {
             throw runtime_error("Unknown type: " + type);
 
