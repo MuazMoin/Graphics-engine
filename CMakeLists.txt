@@ -50,6 +50,7 @@ set(engine_sources
         ZBufferedWireframeParser.cpp
         ZParser.h
         ZParser.cpp
+        l_SystemsFunc.cpp
 )
 
 ############################################################

@@ -46,8 +46,10 @@ void L_SystemsFunc::getFacesAndPoints(Figure &figure, const LParser::LSystem3D &
     Vector3D vectorU = Vector3D::vector(0, 0, 1);
 
     std::stack<std::vector<Vector3D>> bracketStack = {};
+    Vector3D previousPosition = Vector3D::point(0, 0, 0);
     Vector3D currentPosition = Vector3D::point(0, 0, 0);
-    Face newface;
+
+    std::vector<Vector3D> newface;
 
     for (char c : figureString){
         if (c == '+'){
@@ -104,15 +106,16 @@ void L_SystemsFunc::getFacesAndPoints(Figure &figure, const LParser::LSystem3D &
             continue;
 
         } else {
-            Vector3D newPosition = currentPosition + vectorH;
+            previousPosition = currentPosition;
+            currentPosition = previousPosition + vectorH;
+
             if (l_system.draw(c)) {
-                figure.points.push_back(newPosition);
-                newface.point_indexes.push_back(figure.points.size() - 1);
+                figure.points.push_back(previousPosition);
+                figure.points.push_back(currentPosition);
+                figure.faces.push_back(Face({int(figure.points.size() - 2), int(figure.points.size() - 1)}));
 
             }
-            currentPosition = newPosition;
         }
     }
-    figure.faces.push_back(newface);
 }
 
