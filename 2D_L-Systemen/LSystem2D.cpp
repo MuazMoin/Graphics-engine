@@ -196,7 +196,6 @@ void LSystem2D::drawLines2D(const Lines2D &lines, img::EasyImage &image) {
 }
 
 void LSystem2D::drawZBufferLines(img::EasyImage &image, const Lines2D &lines) {
-
     if (image.get_width() == 0 || image.get_height() == 0) {
         throw std::runtime_error("Image dimensions must be greater than 0.");
     }
@@ -205,7 +204,7 @@ void LSystem2D::drawZBufferLines(img::EasyImage &image, const Lines2D &lines) {
 
     for (const Line2D &line : lines) {
         draw_zbuf_line(zBuffer, image, lround(line.p1.x), lround(line.p1.y), lround(line.z1),
-                        lround(line.p2.x), lround(line.p2.y), lround(line.z2), line.color);
+                       lround(line.p2.x), lround(line.p2.y), lround(line.z2), line.color);
     }
 }
 
@@ -222,58 +221,61 @@ void LSystem2D::drawZBufferLinesUsingInterpolation(img::EasyImage &image, const 
         unsigned int x1 = lround(line.p2.x);
         unsigned int y1 = lround(line.p2.y);
 
-        // Bereken dieptewaarden van de uiteinden van het lijnsegment met interpolatie
         unsigned int z0 = lround(zBuffer.getz_interpolatie(x0, y0));
         unsigned int z1 = lround(zBuffer.getz_interpolatie(x1, y1));
 
-        // Teken het lijnsegment met behulp van de Z-buffer en interpolatie
         draw_zbuf_line(zBuffer, image, x0, y0, z0, x1, y1, z1, line.color);
     }
 }
 
-// Tekent een lijnsegment op een afbeelding met behulp van een Z-buffer algoritme
 void LSystem2D::draw_zbuf_line(ZBuffer &zbuffer, img::EasyImage &image, unsigned int x0,
                                unsigned int y0, unsigned int z0, unsigned int x1, unsigned int y1, unsigned int z1,
                                const Color &color) {
-    // Inputvalidatie: Controleer of de coördinaten van het lijnsegment binnen de grenzen van de afbeelding vallen
     if (x0 >= image.get_width() || y0 >= image.get_height() || x1 >= image.get_width() || y1 > image.get_height()) {
-        throw std::runtime_error("Ongeldige coördinaten voor lijnsegment in afbeelding");
+        std::stringstream ss;
+        ss << "Drawing line from (" << x0 << "," << y0 << ") to (" << x1 << "," << y1 << ") in image of width "
+           << image.get_width() << " and height " << image.get_height();
+        throw std::runtime_error(ss.str());
     }
-
-    // Speciale gevallen: Verticale en horizontale lijnsegmenten
     if (x0 == x1) {
         for (unsigned int i = std::min(y0, y1); i <= std::max(y0, y1); i++) {
             if (zbuffer.z_close(x0, y0, z0, x1, y1, z1, x0, i)) {
-                image(x0, i) = color.toEasyImageColor();
+                (image)(x0, i) = color.toEasyImageColor();
             }
         }
     } else if (y0 == y1) {
         for (unsigned int i = std::min(x0, x1); i <= std::max(x0, x1); i++) {
             if (zbuffer.z_close(x0, y0, z0, x1, y1, z1, i, y0)) {
-                image(i, y0) = color.toEasyImageColor();
+                (image)(i, y0) = color.toEasyImageColor();
             }
         }
     } else {
-        // Algemeen geval: Niet-verticale en niet-horizontale lijnsegmenten
         if (x0 > x1) {
             std::swap(x0, x1);
             std::swap(y0, y1);
             std::swap(z0, z1);
         }
-        double m = ((double) y1 - (double) y0) / ((double) x1 - (double) x0); // Helling
-
-        // Bepaal het tekenproces op basis van de helling
-        for (unsigned int i = 0; i <= (x1 - x0); i++) {
-            unsigned int x = x0 + i;
-            unsigned int y = (unsigned int) round(y0 + m * i);
-            // Bereken de y-coördinaat voor een gegeven x-coördinaat (y = mx + b)
-            if (zbuffer.z_close(x0, y0, z0, x1, y1, z1, x, y)) {
-                image(x, y) = color.toEasyImageColor();
+        double m = ((double) y1 - (double) y0) / ((double) x1 - (double) x0);
+        if (-1.0 <= m && m <= 1.0) {
+            for (unsigned int i = 0; i <= (x1 - x0); i++) {
+                if (zbuffer.z_close(x0, y0, z0, x1, y1, z1, x0 + i, (unsigned int) round(y0 + m * i))) {
+                    (image)(x0 + i, (unsigned int) round(y0 + m * i)) = color.toEasyImageColor();
+                }
+            }
+        } else if (m > 1.0) {
+            for (unsigned int i = 0; i <= (y1 - y0); i++) {
+                if (zbuffer.z_close(x0, y0, z0, x1, y1, z1,  (unsigned int) round(x0 + (i / m)), y0 + i)) {
+                    (image)((unsigned int) round(x0 + (i / m)), y0 + i) = color.toEasyImageColor();
+                }
+            }
+        } else if (m < -1.0) {
+            for (unsigned int i = 0; i <= (y0 - y1); i++) {
+                if (zbuffer.z_close(x0, y0, z0, x1, y1, z1, (unsigned int) round(x0 - (i / m)), y0 - i)) {
+                    (image)((unsigned int) round(x0 - (i / m)), y0 - i) = color.toEasyImageColor();
+                }
             }
         }
     }
 }
-
-
 
 
