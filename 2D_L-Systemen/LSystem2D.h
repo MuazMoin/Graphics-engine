@@ -17,7 +17,7 @@ public:
     static std::string getString(const LParser::LSystem2D& system);
 
 
-//
+
 private:
 
     static LParser::LSystem2D getLParser2D(const std::string& inputfile);
