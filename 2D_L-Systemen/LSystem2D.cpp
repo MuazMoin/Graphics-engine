@@ -231,51 +231,79 @@ void LSystem2D::drawZBufferLinesUsingInterpolation(img::EasyImage &image, const 
 void LSystem2D::draw_zbuf_line(ZBuffer &zbuffer, img::EasyImage &image, unsigned int x0,
                                unsigned int y0, unsigned int z0, unsigned int x1, unsigned int y1, unsigned int z1,
                                const Color &color) {
-    if (x0 >= image.get_width() || y0 >= image.get_height() || x1 >= image.get_width() || y1 > image.get_height()) {
-        std::stringstream ss;
-        ss << "Drawing line from (" << x0 << "," << y0 << ") to (" << x1 << "," << y1 << ") in image of width "
-           << image.get_width() << " and height " << image.get_height();
-        throw std::runtime_error(ss.str());
+    // Controleren op gevallen waarin (x0, y0) en (x1, y1) worden omgewisseld
+    bool swapped = false;
+    if ((x0 > x1) || (x0 == x1 && y0 > y1)) {
+        std::swap(x0, x1);
+        std::swap(y0, y1);
+        std::swap(z0, z1);
+        swapped = true;
     }
-    if (x0 == x1) {
-        for (unsigned int i = std::min(y0, y1); i <= std::max(y0, y1); i++) {
-            if (zbuffer.z_close(x0, y0, z0, x1, y1, z1, x0, i)) {
-                (image)(x0, i) = color.toEasyImageColor();
+
+    // Variabele i wordt hier niet gebruikt zoals in de cursus beschreven
+    // In plaats daarvan gebruiken we een variabele `dx` en `dy` om de richting van de lijn aan te geven
+    int dx = x1 - x0;
+    int dy = y1 - y0;
+
+    // Stapgroottes voor x, y en z berekenen
+    int x_step = (dx > 0) ? 1 : -1;
+    int y_step = (dy > 0) ? 1 : -1;
+    int z_step = (z1 - z0) / dx;
+
+    // Absolute waarden van dx en dy berekenen
+    dx = std::abs(dx);
+    dy = std::abs(dy);
+
+    // Startpositie voor z
+    unsigned int z = z0;
+
+    // Variabelen voor het bijhouden van de huidige positie
+    unsigned int x = x0;
+    unsigned int y = y0;
+
+    // Lijn tekenen
+    if (dx > dy) {
+        int d = 2 * dy - dx;
+        int incrE = 2 * dy;
+        int incrNE = 2 * (dy - dx);
+
+        while (x != x1) {
+            if (zbuffer.z_close(x, y, z, x1, y1, z1, x, y)) {
+                image(x, y) = color.toEasyImageColor();
             }
-        }
-    } else if (y0 == y1) {
-        for (unsigned int i = std::min(x0, x1); i <= std::max(x0, x1); i++) {
-            if (zbuffer.z_close(x0, y0, z0, x1, y1, z1, i, y0)) {
-                (image)(i, y0) = color.toEasyImageColor();
+
+            if (d <= 0) {
+                d += incrE;
+                x += x_step;
+            } else {
+                d += incrNE;
+                x += x_step;
+                y += y_step;
             }
+
+            z += z_step;
         }
     } else {
-        if (x0 > x1) {
-            std::swap(x0, x1);
-            std::swap(y0, y1);
-            std::swap(z0, z1);
-        }
-        double m = ((double) y1 - (double) y0) / ((double) x1 - (double) x0);
-        if (-1.0 <= m && m <= 1.0) {
-            for (unsigned int i = 0; i <= (x1 - x0); i++) {
-                if (zbuffer.z_close(x0, y0, z0, x1, y1, z1, x0 + i, (unsigned int) round(y0 + m * i))) {
-                    (image)(x0 + i, (unsigned int) round(y0 + m * i)) = color.toEasyImageColor();
-                }
+        int d = 2 * dx - dy;
+        int incrE = 2 * dx;
+        int incrNE = 2 * (dx - dy);
+
+        while (y != y1) {
+            if (zbuffer.z_close(x, y, z, x1, y1, z1, x, y)) {
+                image(x, y) = color.toEasyImageColor();
             }
-        } else if (m > 1.0) {
-            for (unsigned int i = 0; i <= (y1 - y0); i++) {
-                if (zbuffer.z_close(x0, y0, z0, x1, y1, z1,  (unsigned int) round(x0 + (i / m)), y0 + i)) {
-                    (image)((unsigned int) round(x0 + (i / m)), y0 + i) = color.toEasyImageColor();
-                }
+
+            if (d <= 0) {
+                d += incrE;
+                y += y_step;
+            } else {
+                d += incrNE;
+                x += x_step;
+                y += y_step;
             }
-        } else if (m < -1.0) {
-            for (unsigned int i = 0; i <= (y0 - y1); i++) {
-                if (zbuffer.z_close(x0, y0, z0, x1, y1, z1, (unsigned int) round(x0 - (i / m)), y0 - i)) {
-                    (image)((unsigned int) round(x0 - (i / m)), y0 - i) = color.toEasyImageColor();
-                }
-            }
+
+            z += z_step;
         }
     }
+
 }
-
-
