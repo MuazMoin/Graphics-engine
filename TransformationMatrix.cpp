@@ -72,7 +72,7 @@ Matrix TransformationMatrix::eyePointTransformation(const Vector3D &eyepoint) {
     matrix(1,4) = 0;
     matrix(2,1) = cos(theta);
     matrix(2,2) = -sin(theta) * cos(phi);
-    matrix(2,3) = -sin(theta) * sin(phi);
+    matrix(2,3) = sin(theta) * sin(phi);
     matrix(2,4) = 0;
     matrix(3,1) = 0;
     matrix(3,2) = sin(phi);

@@ -4,6 +4,7 @@
 
 #include "ZBuffer.h"
 #include <limits>
+#include <cmath>
 
 
 ZBuffer::ZBuffer(const int width, const int height)
@@ -23,20 +24,13 @@ ZBuffer::z_close(unsigned int x0, unsigned int y0, unsigned int z0, unsigned int
 
 double ZBuffer::z_interpolatie(double z0, double z1, unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1,
                                unsigned int xi, unsigned int yi) {
-    double
-    dx = x1 - x0;
-    double
-    dy = y1 - y0;
-    double
-    dz = z1 - z0;
-    double
-    dist_x = xi - x0;
-    double
-    dist_y = yi - y0;
-    double
-    distance = std::sqrt(dx * dx + dy * dy);
-    double
-    z = z0 + (dist_x * dx + dist_y * dy) / distance * dz;
+    double dx = x1 - x0;
+    double dy = y1 - y0;
+    double dz = z1 - z0;
+    double dist_x = xi - x0;
+    double dist_y = yi - y0;
+    double distance = std::sqrt(dx * dx + dy * dy);
+    double z = z0 + (dist_x * dx + dist_y * dy) / distance * dz;
 
     return z;
 }
