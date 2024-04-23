@@ -4,7 +4,7 @@
 
 #ifndef ENGINE_COLOR_H
 #define ENGINE_COLOR_H
-#include "../easy_image.h"
+#include "../Header Files/easy_image.h"
 
 
 class Color{

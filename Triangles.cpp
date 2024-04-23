@@ -1,4 +1,4 @@
-#include "Triangles.h"
+#include "Header Files/Triangles.h"
 
 std::pair<std::vector<Face>, std::vector<Vector3D>> Triangles::split_Faces(const std::vector<Face> &faces, const std::vector<Vector3D> &points, const int &splitAmount) {
     std::vector<Face> splitFaces = faces;

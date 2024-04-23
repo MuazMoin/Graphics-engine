@@ -27,28 +27,28 @@ set(engine_sources
     Projection.cpp
     WireframeParser.cpp
     vector3d.cc
-        FigureParser.h
+        "Header Files/FigureParser.h"
         FigureParser.cpp
-        ImageSize.h
+        "Header Files/ImageSize.h"
         ImageSize.cpp
-        Scale.h
+        "Header Files/Scale.h"
         Scale.cpp
         2D_L-Systemen/Line2D.cpp
-        Triangles.h
+        "Header Files/Triangles.h"
         Triangles.cpp
-        Platonic.h
-        NotPlatonic.h
+        "Header Files/Platonic.h"
+        "Header Files/NotPlatonic.h"
         Platonic.cpp
         NotPlatonic.cpp
 
-    Include.hpp
-        l_SystemsFunc.h
+    "Header Files/Include.hpp"
+        "Header Files/l_SystemsFunc.h"
         l_SystemsFunc.cpp
-        ZBuffer.h
+        "Header Files/ZBuffer.h"
         ZBuffer.cpp
-        ZBufferedWireframeParser.h
+        "Header Files/ZBufferedWireframeParser.h"
         ZBufferedWireframeParser.cpp
-        ZParser.h
+        "Header Files/ZParser.h"
         ZParser.cpp
         l_SystemsFunc.cpp
 )

@@ -2,7 +2,7 @@
 // Created by Muaz Moin on 11/03/2024.
 //
 
-#include "ImageSize.h"
+#include "Header Files/ImageSize.h"
 
 std::vector<int>
 ImageSize::getImageSize(const Lines2D& lines, int size, double &xMin, double &xMax, double &yMin, double &yMax) {

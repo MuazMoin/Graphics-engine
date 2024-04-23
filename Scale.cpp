@@ -2,7 +2,7 @@
 // Created by Muaz Moin on 12/03/2024.
 //
 
-#include "Scale.h"
+#include "Header Files/Scale.h"
 
 void scaleLines::scale2DLines(Lines2D &lines, std::vector<int> imageSize, const double &xMin, const double &xMax,
                               const double &yMin, const double &yMax) {

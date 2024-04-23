@@ -2,8 +2,8 @@
 // Created by Muaz Moin on 15/03/2024.
 //
 
-#include "Platonic.h"
-#include "Triangles.h"
+#include "Header Files/Platonic.h"
+#include "Header Files/Triangles.h"
 #include <cmath>
 #include <numeric>
 

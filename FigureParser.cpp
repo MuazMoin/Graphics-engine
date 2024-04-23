@@ -2,17 +2,17 @@
 // Created by Muaz Moin on 11/03/2024.
 //
 
-#include "FigureParser.h"
-#include "Figure.h"
-#include "TransformationMatrix.h"
+#include "Header Files/FigureParser.h"
+#include "Header Files/Figure.h"
+#include "Header Files/TransformationMatrix.h"
 #include <fstream>
 #include <cmath>
-#include "NotPlatonic.h"
-#include "Platonic.h"
+#include "Header Files/NotPlatonic.h"
+#include "Header Files/Platonic.h"
 #include <sstream>
 #include "2D_L-Systemen/LSystem2D.h"
-#include "l_SystemsFunc.h"
-#include "ZBuffer.h"
+#include "Header Files/l_SystemsFunc.h"
+#include "Header Files/ZBuffer.h"
 
 
 Figures3d

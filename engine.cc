@@ -1,7 +1,7 @@
-#include "easy_image.h" // Include headerbestand voor het EasyImage-bibliotheek
-#include "ini_configuration.h" // Include headerbestand voor de INI Configuration-bibliotheek
+#include "Header Files/easy_image.h" // Include headerbestand voor het EasyImage-bibliotheek
+#include "Header Files/ini_configuration.h" // Include headerbestand voor de INI Configuration-bibliotheek
 #include "2D_L-Systemen/Line2D.h" // Include headerbestand voor de 2D-lijnbibliotheek
-#include "l_parser.h" // Include headerbestand voor de L-parser-bibliotheek
+#include "Header Files/l_parser.h" // Include headerbestand voor de L-parser-bibliotheek
 #include <fstream> // Include headerbestand voor bestandsbewerkingen
 #include <iostream> // Include headerbestand voor in-/uitvoerbewerkingen
 #include <stdexcept> // Include headerbestand voor runtime fouten
@@ -11,9 +11,9 @@
 #include <limits>
 
 #include "2D_L-Systemen/LSystem2D.h"
-#include "WireframeParser.h"
-#include "ZBufferedWireframeParser.h"
-#include "ZParser.h"
+#include "Header Files/WireframeParser.h"
+#include "Header Files/ZBufferedWireframeParser.h"
+#include "Header Files/ZParser.h"
 
 //Created by Muaz Moin on 05/03/2024.
 

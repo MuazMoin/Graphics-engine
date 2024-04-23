@@ -2,11 +2,11 @@
 // Created by Muaz Moin on 15/03/2024.
 //
 
-#include "NotPlatonic.h"
-#include "Triangles.h"
+#include "Header Files/NotPlatonic.h"
+#include "Header Files/Triangles.h"
 #include <cmath>
 #include <numeric>
-#include "Platonic.h"
+#include "Header Files/Platonic.h"
 
 int NotPlatonic::calculateIndex(const int &i, const int &j, const int &m) {
     return i * m + j;

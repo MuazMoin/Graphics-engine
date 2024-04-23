@@ -1,14 +1,14 @@
 #ifndef ENGINE_LSYSTEM2D_H
 #define ENGINE_LSYSTEM2D_H
 
-#include "../easy_image.h"
-#include "../ini_configuration.h"
-#include "../l_parser.h"
+#include "../Header Files/easy_image.h"
+#include "../Header Files/ini_configuration.h"
+#include "../Header Files/l_parser.h"
 #include "Line2D.h"
-#include "../Face.h"
+#include "../Header Files/Face.h"
 #include "Point2D.h"
-#include "../vector3d.h"
-#include "../ZBuffer.h"
+#include "../Header Files/vector3d.h"
+#include "../Header Files/ZBuffer.h"
 
 class LSystem2D {
 public:

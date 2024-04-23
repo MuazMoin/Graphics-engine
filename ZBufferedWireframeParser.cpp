@@ -2,12 +2,12 @@
 // Created by Muaz Moin on 22/03/2024.
 //
 
-#include "ZBufferedWireframeParser.h"
-#include "FigureParser.h"
+#include "Header Files/ZBufferedWireframeParser.h"
+#include "Header Files/FigureParser.h"
 #include "2D_L-Systemen/LSystem2D.h"
-#include "Projection.h"
-#include "ImageSize.h"
-#include "Scale.h"
+#include "Header Files/Projection.h"
+#include "Header Files/ImageSize.h"
+#include "Header Files/Scale.h"
 
 
 img::EasyImage ZBufferedWireframeParser::ZBufferedParser(const ini::Configuration &configuration) {

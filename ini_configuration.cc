@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "ini_configuration.h"
+#include "Header Files/ini_configuration.h"
 
 #include <algorithm>
 #include <cassert>

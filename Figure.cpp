@@ -2,10 +2,10 @@
 // Created by Muaz Moin on 07/03/2024.
 //
 
-#include "Figure.h"
-#include "TransformationMatrix.h"
+#include "Header Files/Figure.h"
+#include "Header Files/TransformationMatrix.h"
 #include <cmath>
-#include "vector3d.h"
+#include "Header Files/vector3d.h"
 
 Figure::Figure() {
     rotateX = 0;
