@@ -48,3 +48,22 @@ std::pair<std::vector<Face>, std::vector<Vector3D>> Triangles::split_Faces(const
     }
     return {splitFaces, splitPoints};
 }
+
+void Triangles::trifigures(Figure &figure) {
+    // Transformeer de oorspronkelijke faces naar nieuwe faces
+    std::vector<Face> newFaces;
+    for (const Face& face : figure.faces) {
+        if (face.point_indexes.size() <= 3) {
+            newFaces.push_back(face); // Behoud de face zoals hij is
+        } else {
+            for (size_t i = 1; i < face.point_indexes.size() - 1; ++i) {
+                newFaces.push_back(Face({face.point_indexes[0], face.point_indexes[i], face.point_indexes[i + 1]}));
+            }
+        }
+    }
+
+    // Zet de nieuwe faces terug in de figure
+    figure.faces = std::move(newFaces); // Verplaats de nieuwe faces naar de figure
+}
+
+

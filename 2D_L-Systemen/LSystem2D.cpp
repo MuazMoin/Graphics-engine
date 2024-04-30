@@ -221,8 +221,8 @@ void LSystem2D::drawZBufferLinesUsingInterpolation(img::EasyImage &image, const 
         unsigned int x1 = lround(line.p2.x);
         unsigned int y1 = lround(line.p2.y);
 
-        unsigned int z0 = lround(zBuffer.getz_interpolatie(x0, y0));
-        unsigned int z1 = lround(zBuffer.getz_interpolatie(x1, y1));
+        double z0 = zBuffer.getz_interpolatie(x0, y0);
+        double  z1 = zBuffer.getz_interpolatie(x1, y1);
 
         draw_zbuf_line(zBuffer, image, x0, y0, z0, x1, y1, z1, line.color);
     }
