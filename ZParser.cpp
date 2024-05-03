@@ -9,6 +9,7 @@
 #include "Header Files/Scale.h"
 #include "Header Files/Triangles.h"
 #include "Header Files/Figure.h"
+#include "2D_L-Systemen/LSystem2D.h"
 
 img::EasyImage ZParser::parseZBuffer(const ini::Configuration &configuration) {
 
@@ -20,10 +21,10 @@ img::EasyImage ZParser::parseZBuffer(const ini::Configuration &configuration) {
 
     Figures3d figures = FigureParser::parseWireframeFigures(configuration, eye, nrFigures);
 
-    double xMax = 0.0;
-        double yMax = 0.0;
-            double xMin = 0.0;
-                double yMin = 0.0;
+    double xMax;
+    double yMax;
+    double xMin;
+    double yMin;
 
     Lines2D lines = Projection::doProjection(figures);
     std::vector<int> imageSize = ImageSize::getImageSize(lines, size, xMin, xMax, yMin, yMax);
@@ -33,6 +34,10 @@ img::EasyImage ZParser::parseZBuffer(const ini::Configuration &configuration) {
                                                      backgroundcolor[1] * 255,
                                                      backgroundcolor[2] * 255));
 
+
     Triangles::trifigures(figures);
 
+    LSystem2D::drawtrifig(image, figures, xMin, xMax, yMin, yMax);
+
+    return image;
 }

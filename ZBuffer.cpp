@@ -44,5 +44,15 @@ double ZBuffer::getz_interpolatie(unsigned int xi, unsigned int yi) const {
     return 1.0 / zBuffer[xi][yi];
 }
 
+bool ZBuffer::close(int x, int y, double zvalue) {
+    if (x >= 0 && x < zBuffer.size() && y >= 0 && y < zBuffer[0].size()) {
+        if (zvalue < zBuffer[x][y]) {
+            zBuffer[x][y] = zvalue;
+            return true;
+        }
+    }
+    return false;
+}
+
 
 

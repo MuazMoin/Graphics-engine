@@ -315,60 +315,102 @@ void LSystem2D::drawtrifig(img::EasyImage &image, const Figures3d &figures, doub
 
 // Compute center of the figure
     double dtempo = 0.95 * image.get_width();
-        double d = dtempo / (Xmax - Xmin);
+    double d = dtempo / (Xmax - Xmin);
 
     double DCx = d * (Xmin + Xmax) / 2.0;
     double DCy = d * (Ymin + Ymax) / 2.0;
 
 // Compute the offset for centering the figure in the image
     double dXtempo = image.get_width() / 2.0;
-        double dx = dXtempo - DCx;
+    double dx = dXtempo - DCx;
 
     double dYtempo = image.get_height() / 2.0;
-        double dy = dYtempo - DCy;
+    double dy = dYtempo - DCy;
 
 // Iterate over each figure
     for (auto& figure : figures) {
         // Iterate over each face in the figure
         for (auto& face : figure.faces) {
-            // Draw the face on the image using Z-buffer algorithm
-            draw_zbuf_triag(zBuffer, image, figure.points[face.point_indexes[0]], figure.points[face.point_indexes[1]], figure.points[face.point_indexes[2]], d, dx, dy, figure.getColor());
+            // Get the points of the face
+            std::vector<Vector3D> points;
+            for (auto& index : face.point_indexes) {
+                points.push_back(figure.points[index]);
+            }
+
+            img::Color imgColor = figure.getColor().toEasyImageColor();
+            draw_zbuf_triag(zBuffer, image, points[0], points[1], points[2], d, dx, dy, imgColor);
         }
     }
-
-}
+    }
 
 void LSystem2D::draw_zbuf_triag(ZBuffer &zBuffer, img::EasyImage &image, const Vector3D &A, const Vector3D &B,
-                                const Vector3D &C, double d, double dx, double dy, img::Color color) {
-    // Calculate the 2D coordinates of the 3D points
-    Point2D pointA = {d * A.x + dx, d * A.y + dy};
-    Point2D pointB = {d * B.x + dx, d * B.y + dy};
-    Point2D pointC = {d * C.x + dx, d * C.y + dy};
+                                 const Vector3D &C, double d, double dx, double dy, img::Color color) {
+    // Project 3D points to 2D space
+    Point2D A_proj(d * A.x / (-A.z) + dx, d * A.y / (-A.z) + dy);
+    Point2D B_proj(d * B.x / (-B.z) + dx, d * B.y / (-B.z) + dy);
+    Point2D C_proj(d * C.x / (-C.z) + dx, d * C.y / (-C.z) + dy);
 
-    // Draw the triangle on the image using the Z-buffer algorithm
-    int yminimum = static_cast<int>(round(std::min({pointA.y, pointB.y, pointC.y}) + 0.5));
-    int ymaximum = static_cast<int>(round(std::max({pointA.y, pointB.y, pointC.y}) - 0.5));
+    // Find the minimum and maximum y coordinates of the triangle and round them to integer values
+    int y_min = static_cast<int>(round(std::min({A_proj.y, B_proj.y, C_proj.y}) + 0.5));
+    int y_max = static_cast<int>(round(std::max({A_proj.y, B_proj.y, C_proj.y}) - 0.5));
 
-    double Xgtempo = pointA.x + pointB.x + pointC.x;
-    double Ygtempo = pointA.y + pointB.y + pointC.y;
+    // Calculate the coordinates of the centroid and the reciprocal of the depth of the centroid
+    double xG = (A_proj.x + B_proj.x + C_proj.x) / 3;
+    double yG = (A_proj.y + B_proj.y + C_proj.y) / 3;
+    double oneOverZG = 1 / (3 * A.z) + 1 / (3 * B.z) + 1 / (3 * C.z);
 
-    double xG = Xgtempo / 3.0;
-    double yG = Ygtempo / 3.0;
+    // Loop through each row of the triangle
+    for (int y = y_min; y <= y_max; ++y) {
+        // Initialize the left and right x coordinates to infinity and negative infinity, respectively
+        double xL = std::numeric_limits<double>::infinity();
+        double xR = -std::numeric_limits<double>::infinity();
 
-    double aZ = 3 * A.z;
-            double bZ = 3 * B.z;
-                    double cZ = 3 * C.z;
+        // Calculate left and right intersections of each triangle edge with the scanline
+        auto updateBounds = [&](double xIntersect) {
+            xL = std::min(xL, xIntersect);
+            xR = std::max(xR, xIntersect);
+        };
 
-    double zG = 1 / aZ + 1 / bZ + 1 / cZ;
+        // Check and update bounds for each edge of the triangle
+        auto checkAndUpdateEdge = [&](const Point2D &p1, const Point2D &p2) {
+            if ((y - p1.y) * (y - p2.y) <= 0 && p1.y != p2.y) {
+                double xIntersect = p2.x + (p1.x - p2.x) * (y - p2.y) / (p1.y - p2.y);
+                updateBounds(xIntersect);
+            }
+        };
 
-    for (int y = yminimum; y <= ymaximum; ++y) {
-        double xLAB = std::numeric_limits<double>::infinity();
-        double xLAC = std::numeric_limits<double>::infinity();
-        double xLBC = std::numeric_limits<double>::infinity();
-        double xRAB = -std::numeric_limits<double>::infinity();
-        double xRAC = -std::numeric_limits<double>::infinity();
-        double xRBC = -std::numeric_limits<double>::infinity();
+        checkAndUpdateEdge(A_proj, B_proj);
+        checkAndUpdateEdge(B_proj, C_proj);
+        checkAndUpdateEdge(C_proj, A_proj);
 
+        // Round bounds to integer values
+        int xLeft = static_cast<int>(round(xL + 0.5));
+        int xRight = static_cast<int>(round(xR - 0.5));
 
+        // Iterate over pixels in the row
+        for (int x = xLeft; x <= xRight; ++x) {
+            // Calculate plane equation coefficients for perspective correction
+            Vector3D u = B - A;
+            Vector3D v = C - A;
+            Vector3D w = Vector3D::point(u.y * v.z - u.z * v.y,
+                                         u.z * v.x - u.x * v.z,
+                                         u.x * v.y - u.y * v.x);
 
+            double k = w.x * A.x + w.y * A.y + w.z * A.z;
+
+            double dzdxtempo = w.x;
+                double dzdx = dzdxtempo / (-d * k);
+
+            double dzdytempo = w.y;
+                double dzdy = dzdytempo / (-d * k);
+
+            // Calculate depth value for the current pixel
+            double oneOverZ = 1.0001 * oneOverZG + (x - xG) * dzdx + (y - yG) * dzdy;
+
+            // Check and update Z-buffer
+            if (zBuffer.close(x, y, oneOverZ)) {
+                image(x, y) = color;
+            }
+        }
+    }
 }

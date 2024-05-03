@@ -11,7 +11,7 @@
 class Triangles {
     public:
     static std::pair<std::vector<Face>, std::vector<Vector3D>> split_Faces(const std::vector<Face> &faces, const std::vector<Vector3D> &points, const int &splitAmount);
-    static void trifigures(Figure &figure);
+    static void trifigures(Figures3d &figures);
 
 };
 #endif //ENGINE_TRIANGLES_H
