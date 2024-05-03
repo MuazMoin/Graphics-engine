@@ -307,3 +307,68 @@ void LSystem2D::draw_zbuf_line(ZBuffer &zbuffer, img::EasyImage &image, unsigned
     }
 
 }
+
+void LSystem2D::drawtrifig(img::EasyImage &image, const Figures3d &figures, double &Xmin, double &Xmax, double &Ymin,
+                           double &Ymax) {
+    // Initialize ZBuffer with image dimensions
+    ZBuffer zBuffer = ZBuffer(static_cast<int>(image.get_width()), static_cast<int>(image.get_height()));
+
+// Compute center of the figure
+    double dtempo = 0.95 * image.get_width();
+        double d = dtempo / (Xmax - Xmin);
+
+    double DCx = d * (Xmin + Xmax) / 2.0;
+    double DCy = d * (Ymin + Ymax) / 2.0;
+
+// Compute the offset for centering the figure in the image
+    double dXtempo = image.get_width() / 2.0;
+        double dx = dXtempo - DCx;
+
+    double dYtempo = image.get_height() / 2.0;
+        double dy = dYtempo - DCy;
+
+// Iterate over each figure
+    for (auto& figure : figures) {
+        // Iterate over each face in the figure
+        for (auto& face : figure.faces) {
+            // Draw the face on the image using Z-buffer algorithm
+            draw_zbuf_triag(zBuffer, image, figure.points[face.point_indexes[0]], figure.points[face.point_indexes[1]], figure.points[face.point_indexes[2]], d, dx, dy, figure.getColor());
+        }
+    }
+
+}
+
+void LSystem2D::draw_zbuf_triag(ZBuffer &zBuffer, img::EasyImage &image, const Vector3D &A, const Vector3D &B,
+                                const Vector3D &C, double d, double dx, double dy, img::Color color) {
+    // Calculate the 2D coordinates of the 3D points
+    Point2D pointA = {d * A.x + dx, d * A.y + dy};
+    Point2D pointB = {d * B.x + dx, d * B.y + dy};
+    Point2D pointC = {d * C.x + dx, d * C.y + dy};
+
+    // Draw the triangle on the image using the Z-buffer algorithm
+    int yminimum = static_cast<int>(round(std::min({pointA.y, pointB.y, pointC.y}) + 0.5));
+    int ymaximum = static_cast<int>(round(std::max({pointA.y, pointB.y, pointC.y}) - 0.5));
+
+    double Xgtempo = pointA.x + pointB.x + pointC.x;
+    double Ygtempo = pointA.y + pointB.y + pointC.y;
+
+    double xG = Xgtempo / 3.0;
+    double yG = Ygtempo / 3.0;
+
+    double aZ = 3 * A.z;
+            double bZ = 3 * B.z;
+                    double cZ = 3 * C.z;
+
+    double zG = 1 / aZ + 1 / bZ + 1 / cZ;
+
+    for (int y = yminimum; y <= ymaximum; ++y) {
+        double xLAB = std::numeric_limits<double>::infinity();
+        double xLAC = std::numeric_limits<double>::infinity();
+        double xLBC = std::numeric_limits<double>::infinity();
+        double xRAB = -std::numeric_limits<double>::infinity();
+        double xRAC = -std::numeric_limits<double>::infinity();
+        double xRBC = -std::numeric_limits<double>::infinity();
+
+
+
+}

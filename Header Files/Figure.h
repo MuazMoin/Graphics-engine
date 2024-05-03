@@ -49,4 +49,5 @@ public:
 };
 typedef std::list<Figure> Figures3d;
 
+
 #endif //ENGINE_FIGURE_H

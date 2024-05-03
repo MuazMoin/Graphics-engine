@@ -9,6 +9,7 @@
 #include "Point2D.h"
 #include "../Header Files/vector3d.h"
 #include "../Header Files/ZBuffer.h"
+#include "../Header Files/Figure.h"
 
 class LSystem2D {
 public:
@@ -35,6 +36,9 @@ public:
     static void draw_zbuf_line(ZBuffer &zbuffer, img::EasyImage &image, unsigned int x0,
                                unsigned int y0, unsigned int z0, unsigned int x1, unsigned int y1, unsigned int z1,
                                const Color &color);
+    static void drawtrifig(img::EasyImage &image, const Figures3d &figures  , double &Xmin,
+                           double &Xmax, double &Ymin, double &Ymax);
+    static void draw_zbuf_triag(ZBuffer &zBuffer, img::EasyImage &image, Vector3D const& A, Vector3D const& B, Vector3D const& C, double d, double dx, double dy, img::Color color);
     static void drawZBufferLinesUsingInterpolation(img::EasyImage &image, const Lines2D &lines);
 
 
