@@ -10,6 +10,8 @@ public:
     static void createOctahedron(Figure& figure);
     static void createIcosahedron(Figure& figure);
     static void createDodecahedron(Figure& figure);
+    static void createMengerSponge(Figure& figure, int maxIterations);
+    static void createSubcubes(Figure& figure, int maxIterations, int currentIteration, const Vector3D& center, double size);
 
 
 };

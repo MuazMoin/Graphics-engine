@@ -26,7 +26,7 @@ img::EasyImage ZParser::parseZBuffer(const ini::Configuration &configuration) {
     double xMin;
     double yMin;
 
-    Lines2D lines = Projection::doProjection(figures);
+    Lines2D lines = Projection::doZBufferProjection(figures);
     std::vector<int> imageSize = ImageSize::getImageSize(lines, size, xMin, xMax, yMin, yMax);
 
     img::EasyImage image = img::EasyImage(imageSize[0], imageSize[1],

@@ -133,6 +133,41 @@ void Platonic::createDodecahedron(Figure& figure) {
     };
 }
 
+void Platonic::createMengerSponge(Figure& figure, int maxIterations) {
+    createCube(figure);
+
+    // Centrum en grootte van de oorspronkelijke kubus
+    Vector3D center = Vector3D::point(0.0, 0.0, 0.0);
+    double size = 1.0;
+
+    // Maak herhaaldelijk subkubussen volgens het aantal iteraties
+    createSubcubes(figure, maxIterations, 0, center, size);
+}
+
+
+
+void Platonic::createSubcubes(Figure& figure, int maxIterations, int currentIteration, const Vector3D& center, double size) {
+    if (currentIteration >= maxIterations) {
+        return;
+    } else {
+        double newSize = size / 3.0;
+        for (int dz = -1; dz <= 1; ++dz) {
+            for (int dy = -1; dy <= 1; ++dy) {
+                for (int dx = -1; dx <= 1; ++dx) {
+                    if (!(dx == 0 && dy == 0 && dz == 0)) {
+                        Vector3D newCenter = center + Vector3D::vector(dx * newSize, dy * newSize, dz * newSize);
+                        Figure subcube;
+                        createCube(subcube);
+                        createSubcubes(subcube, maxIterations, currentIteration + 1, newCenter, newSize);
+                        figure.points.insert(figure.points.end(), subcube.points.begin(), subcube.points.end());
+                        figure.faces.insert(figure.faces.end(), subcube.faces.begin(), subcube.faces.end());
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 
 

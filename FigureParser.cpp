@@ -13,6 +13,7 @@
 #include "2D_L-Systemen/LSystem2D.h"
 #include "Header Files/l_SystemsFunc.h"
 #include "Header Files/ZBuffer.h"
+#include "FractalFigures.h"
 
 
 Figures3d
@@ -61,6 +62,7 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &section) {
 
     double height = section["height"].as_double_or_default(0);
     int nrIterations = section["nrIterations"].as_int_or_default(0);
+    double fractalScale = section["fractalScale"].as_double_or_default(0);
     double R = section["R"].as_double_or_default(0);
     double r = section["r"].as_double_or_default(0);
     int n = section["n"].as_int_or_default(0);
@@ -70,6 +72,8 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &section) {
         FigureParser::createLineDrawing(section, newFigure);
     }else if (type == "3DLSystem"){
         FigureParser::parse3DLSystem(newFigure, section["inputfile"].as_string_or_die());
+
+        // platonic figures
     } else if (type == "Cube") {
         Platonic::createCube(newFigure);
     } else if (type == "Tetrahedron") {
@@ -80,6 +84,8 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &section) {
         Platonic::createIcosahedron(newFigure);
     } else if (type == "Dodecahedron") {
         Platonic::createDodecahedron(newFigure);
+
+        // not platonic figures
     }else if (type == "Cylinder") {
         NotPlatonic::createCylinder(newFigure, n, height);
     } else if (type == "Cone") {
@@ -88,6 +94,52 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &section) {
         NotPlatonic::createSphere(newFigure, n);
     } else if (type == "Torus") {
         NotPlatonic::createTorus(newFigure, R, r, n, m);
+
+        // fractal figures
+    }else if(type == "FractalCube") {
+        Platonic::createCube(newFigure);
+        auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
+        if (!fractalFigures.empty()) {
+            return fractalFigures[0]; // Retourneer het eerste fractale figuur
+        }
+    } else if(type == "FractalTetrahedron") {
+        Platonic::createTetrahedron(newFigure);
+        auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
+        if (!fractalFigures.empty()) {
+            return fractalFigures[0]; // Retourneer het eerste fractale figuur
+        }
+    } else if(type == "FractalOctahedron") {
+        Platonic::createOctahedron(newFigure);
+        auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
+        if (!fractalFigures.empty()) {
+            return fractalFigures[0]; // Retourneer het eerste fractale figuur
+        }
+    } else if(type == "FractalIcosahedron") {
+        Platonic::createIcosahedron(newFigure);
+        auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
+        if (!fractalFigures.empty()) {
+            return fractalFigures[0]; // Retourneer het eerste fractale figuur
+        }
+    } else if(type == "FractalDodecahedron") {
+        Platonic::createDodecahedron(newFigure);
+        auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
+        if (!fractalFigures.empty()) {
+            return fractalFigures[0];
+        }
+
+    }else if (type == "MengerSponge") {
+            int nrIterations = section["nrIterations"].as_int_or_die();
+
+            // Figuur maken
+            Platonic platonic;
+            Figure mengerSpongeFigure;
+            platonic.createMengerSponge(mengerSpongeFigure, nrIterations);
+
+            // Toevoegen aan de lijst met figuren
+
+            return mengerSpongeFigure;
+
+        //runtime error
     }else {
         throw std::runtime_error("Invalid figure type: " + type);
     }

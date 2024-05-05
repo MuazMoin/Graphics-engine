@@ -51,6 +51,8 @@ set(engine_sources
         "Header Files/ZParser.h"
         ZParser.cpp
         l_SystemsFunc.cpp
+        FractalFigures.h
+        FractalFigures.cpp
 )
 
 ############################################################
