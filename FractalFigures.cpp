@@ -1,5 +1,5 @@
 
-#include "FractalFigures.h"
+#include "Header Files/FractalFigures.h"
 #include "Header Files/TransformationMatrix.h"
 
 std::vector<Figure> FractalFigures::generateFractal(const Figure& figure, int nrIterations, double fractalScale) {

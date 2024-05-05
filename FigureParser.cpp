@@ -13,7 +13,7 @@
 #include "2D_L-Systemen/LSystem2D.h"
 #include "Header Files/l_SystemsFunc.h"
 #include "Header Files/ZBuffer.h"
-#include "FractalFigures.h"
+#include "Header Files/FractalFigures.h"
 
 
 Figures3d

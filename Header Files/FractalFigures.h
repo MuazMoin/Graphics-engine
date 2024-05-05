@@ -1,4 +1,4 @@
-#include "Header Files/Figure.h"
+#include "Figure.h"
 #include <vector>
 
 class FractalFigures {
