@@ -8,6 +8,7 @@
 #include <vector>
 #include <fstream>
 #include <limits>
+#include <algorithm>
 #include "sstream"
 
 
