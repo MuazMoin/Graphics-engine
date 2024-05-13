@@ -36,13 +36,13 @@ void NotPlatonic::createCylinder(Figure &figure, const int &n, const double &hei
     std::vector<int> topFace;
     std::vector<int> bottomFace;
 
-    for (int i = 0; i < 2 * n; ++i) {
-        if (i % 2 == 0) {
-            topFace.push_back(i);
-        } else {
-            bottomFace.push_back(i);
-        }
+    for (int i = 0; i < n; ++i) {
+        topFace.push_back(2 * i);
+        bottomFace.push_back(2 * i + 1);
     }
+
+    figure.faces.emplace_back(topFace);
+    figure.faces.emplace_back(bottomFace);
 
 }
 
