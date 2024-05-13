@@ -11,7 +11,7 @@ ZBuffer::ZBuffer(const int width, const int height)
         : zBuffer(width, std::vector<double>(height, std::numeric_limits<double>::infinity())) {}
 
 bool
-ZBuffer::z_close(unsigned int x0, unsigned int y0, unsigned int z0, unsigned int x1, unsigned int y1, unsigned int z1,
+ZBuffer::z_close(unsigned int x0, unsigned int y0, double z0, unsigned int x1, unsigned int y1, double z1,
                  unsigned int xi, unsigned int yi) {
     double inv_z = 1.0 / z_interpolatie(z0, z1, x0, y0, x1, y1, xi, yi); // Calculate the 1/z value of the current point
     if (inv_z < zBuffer[xi][yi]) { // Check if the current point is closer to the origin than the value in the z-buffer
@@ -53,6 +53,3 @@ bool ZBuffer::close(int x, int y, double zvalue) {
     }
     return false;
 }
-
-//
-
