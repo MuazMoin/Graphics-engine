@@ -99,33 +99,22 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &section) {
     }else if(type == "FractalCube") {
         Platonic::createCube(newFigure);
         auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
-        if (!fractalFigures.empty()) {
-            return fractalFigures[0]; // Retourneer het eerste fractale figuur
-        }
+
     } else if(type == "FractalTetrahedron") {
         Platonic::createTetrahedron(newFigure);
         auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
-        if (!fractalFigures.empty()) {
-            return fractalFigures[0]; // Retourneer het eerste fractale figuur
-        }
+
     } else if(type == "FractalOctahedron") {
         Platonic::createOctahedron(newFigure);
         auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
-        if (!fractalFigures.empty()) {
-            return fractalFigures[0]; // Retourneer het eerste fractale figuur
-        }
+
     } else if(type == "FractalIcosahedron") {
         Platonic::createIcosahedron(newFigure);
         auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
-        if (!fractalFigures.empty()) {
-            return fractalFigures[0]; // Retourneer het eerste fractale figuur
-        }
+
     } else if(type == "FractalDodecahedron") {
         Platonic::createDodecahedron(newFigure);
         auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
-        if (!fractalFigures.empty()) {
-            return fractalFigures[0];
-        }
 
     }else if (type == "MengerSponge") {
             int nrIterations = section["nrIterations"].as_int_or_die();

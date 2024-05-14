@@ -238,17 +238,29 @@ void LSystem2D::draw_zbuf_line(ZBuffer &zbuffer, img::EasyImage &image, unsigned
            << image.get_width() << " and height " << image.get_height();
         throw std::runtime_error(ss.str());
     }
+
     if (x0 == x1) {
         //special case for x0 == x1
-        for (unsigned int i = std::min(y0, y1); i <= std::max(y0, y1); i++) {
-            if (zbuffer.z_close(x0, y0, z0, x1, y1, z1, x0, i)) {
+        if (y0 > y1) {
+            std::swap(y0, y1);
+            std::swap(z0, z1);
+        }
+        for (unsigned int i = y0; i <= y1; i++) {
+            double z = z0 + (z1 - z0) * (i - y0) / (y1 - y0);
+            if (zbuffer.getz_interpolatie(x0, i) > z) {
+                zbuffer.zBuffer[x0][i] = 1.0 / z;
                 image(x0, i) = color.toEasyImageColor();
             }
         }
     } else if (y0 == y1) {
         //special case for y0 == y1
-        for (unsigned int i = std::min(x0, x1); i <= std::max(x0, x1); i++) {
-            if (zbuffer.z_close(x0, y0, z0, x1, y1, z1, i, y0)) {
+        if (x0 > x1) {
+            std::swap(x0, x1);
+            std::swap(z0, z1);
+        }
+        for (unsigned int i = x0; i <= x1; i++) {
+            double z = z0 + (z1 - z0) * (i - x0) / (x1 - x0);
+            if (zbuffer.z_close(x0, y0, z, x1, y1, z, i, y0)) {
                 image(i, y0) = color.toEasyImageColor();
             }
         }
@@ -257,23 +269,28 @@ void LSystem2D::draw_zbuf_line(ZBuffer &zbuffer, img::EasyImage &image, unsigned
             //flip points if x1>x0: we want x0 to have the lowest value
             std::swap(x0, x1);
             std::swap(y0, y1);
+            std::swap(z0, z1);
         }
+
         double m = ((double) y1 - (double) y0) / ((double) x1 - (double) x0);
         if (-1.0 <= m && m <= 1.0) {
             for (unsigned int i = 0; i <= (x1 - x0); i++) {
-                if (zbuffer.z_close(x0, y0, z0, x1, y1, z1, x0+i, (unsigned int) round(y0 + m * i))) {
+                double z = z0 + (z1 - z0) * (i) / (x1 - x0);
+                if (zbuffer.z_close(x0, y0, z, x1, y1, z, x0+i, (unsigned int) round(y0 + m * i))) {
                     image(x0 + i, (unsigned int) round(y0 + m * i)) = color.toEasyImageColor();
                 }
             }
         } else if (m > 1.0) {
             for (unsigned int i = 0; i <= (y1 - y0); i++) {
-                if (zbuffer.z_close(x0, y0, z0, x1, y1, z1, (unsigned int) round(x0 + i / m), y0 + i)) {
+                double z = z0 + (z1 - z0) * (i) / (y1 - y0);
+                if (zbuffer.z_close(x0, y0, z, x1, y1, z, (unsigned int) round(x0 + i / m), y0 + i)) {
                     image((unsigned int) round(x0 + i / m), y0 + i) = color.toEasyImageColor();
                 }
             }
         } else if (m < -1.0) {
             for (unsigned int i = 0; i <= (y0 - y1); i++) {
-                if (zbuffer.z_close(x0, y0, z0, x1, y1, z1, (unsigned int) round(x0 - (i / m)), y0 - i)) {
+                double z = z0 + (z1 - z0) * (i) / (y0 - y1);
+                if (zbuffer.z_close(x0, y0, z, x1, y1, z, (unsigned int) round(x0 - (i / m)), y0 - i)) {
                     image((unsigned int) round(x0 - (i / m)), y0 - i) = color.toEasyImageColor();
                 }
             }

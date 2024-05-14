@@ -1,4 +1,3 @@
-
 #include "Header Files/FractalFigures.h"
 #include "Header Files/TransformationMatrix.h"
 
@@ -10,17 +9,20 @@ std::vector<Figure> FractalFigures::generateFractal(const Figure& figure, int nr
     } else {
         for (int i = 0; i < nrIterations; ++i) {
             std::vector<Figure> newFigures;
-            for (const Figure& baseFigure : resultingFigures) {
-                Figure newFigure = baseFigure;
 
-                for (int j = 0; j < newFigure.points.size(); ++j) {
-                    Vector3D& point = newFigure.points[j];
-                    point = (point - newFigure.center) / fractalScale + newFigure.center;
+            for (const Figure& figure : resultingFigures) {
+                for (int j = 0; j < (int)figure.points.size(); ++j) {
+                    Figure newFigure = figure;
+                    newFigure.applyTransformation(TransformationMatrix::scalefigure(1.0 / fractalScale));
+
+                    Vector3D A = figure.points[j];
+                    Vector3D B = newFigure.points[j];
+
+                    newFigure.applyTransformation(TransformationMatrix::translate(A - B));
+                    newFigures.push_back(newFigure);
                 }
-
-                newFigures.push_back(newFigure);
             }
-            resultingFigures.insert(resultingFigures.end(), newFigures.begin(), newFigures.end());
+            resultingFigures = newFigures;
         }
         return resultingFigures;
     }
