@@ -100,6 +100,7 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &section) {
         Platonic::createCube(newFigure);
         auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
 
+
     } else if(type == "FractalTetrahedron") {
         Platonic::createTetrahedron(newFigure);
         auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
