@@ -1,4 +1,5 @@
 # Computer-Graphics-Engine
+A project for the course Computer Graphics 1001WETCGR at the university of Antwerp by Muaz Moin (student Computer Science 2023 - 2024)
 
 ## Functionality
 
