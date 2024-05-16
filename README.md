@@ -19,7 +19,7 @@ Functionalities of the engine ready to use:
 - Triangulation
 - Z-buffering with triangles
 
-currentely working on:
+currently working on:
 
 - 3D fractals
 
