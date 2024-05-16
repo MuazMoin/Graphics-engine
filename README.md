@@ -19,3 +19,7 @@
 - Z-buffering with triangles
 
 - 3D fractals
+
+When running this engine change your working directory to the directory with the .ini files that you want to convert to BMP files.
+for example:
+```/Users/muazmoin/Documents/GITHUB/CG/INI/wireframes```
