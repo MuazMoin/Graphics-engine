@@ -23,12 +23,21 @@ Functionalities of the engine ready to use:
 currently working on:
 
 - 3D fractals
+  - FractalCube
+  - FractalTetrahedron
+  - FractalOctahedron
+  - FractalIcosahedron
+  - FractalDodecahedron
 
 
-**Important note:**
+## How to use
+
 
 When running this engine change your working directory to the directory with the .ini files that you want to convert to BMP files.
 for example:
 ```/Users/muazmoin/Documents/GITHUB/CG/INI/wireframes```
+
+
+**Important note:**
 
 Be aware that plagiarism is not allowed. If you use parts of this code, make sure to reference it properly.
