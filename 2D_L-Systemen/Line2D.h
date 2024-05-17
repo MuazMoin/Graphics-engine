@@ -60,6 +60,6 @@ public:
 };
 
 
-using Lines2D = std::list<Line2D>; // Definieer een alias voor een lijst van 2D-lijnen
+using Lines2D = std::list<Line2D>;
 
 #endif //CG_LINES2D_H

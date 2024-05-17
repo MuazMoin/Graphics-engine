@@ -9,7 +9,7 @@
 class FigureParser {
 public:
     static Figures3d parseWireframeFigures(const ini::Configuration &configuration, const Vector3D &eye, int nrFigures);
-    static Figure parseWireframeFigure(const ini::Section& figure);
+    static Figures3d parseWireframeFigure(const ini::Section& section);
     static void createLineDrawing(const ini::Section &section,  Figure &newFigure);
     static void parse3DLSystem(Figure &figure, const std::string &inputfile);
 

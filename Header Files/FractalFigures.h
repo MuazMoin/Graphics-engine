@@ -3,5 +3,5 @@
 
 class FractalFigures {
 public:
-    static std::vector<Figure> generateFractal(Figure &figure, int nrIterations, double fractalScale);
+    static Figures3d generateFractal(Figure &figure, int nrIterations, double fractalScale);
 };
