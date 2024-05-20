@@ -23,21 +23,25 @@ FigureParser::parseWireframeFigures(const ini::Configuration &configuration, con
         std::string figureName = "Figure" + std::to_string(i);
 
 
-        Figure newFig = FigureParser::parseWireframeFigure(configuration[figureName]);
-        auto transform = TransformationMatrix::linedrawing3DTransformation(newFig.scale,
-                                                                           newFig.rotateX,
-                                                                           newFig.rotateY,
-                                                                           newFig.rotateZ, newFig.center,
-                                                                           eye);
-        newFig.applyTransformation(transform);
-        figuresList.push_back(newFig);
+        Figures3d newFig = FigureParser::parseWireframeFigure(configuration[figureName]);
+        for (auto figure: newFig) {
+
+            auto transform = TransformationMatrix::linedrawing3DTransformation(figure.scale,
+                                                                               figure.rotateX,
+                                                                               figure.rotateY,
+                                                                               figure.rotateZ, figure.center,
+                                                                               eye);
+            figure.applyTransformation(transform);
+            figuresList.push_back(figure);
+
+        }
 
     }
 
     return figuresList;
 }
 
-Figure FigureParser::parseWireframeFigure(const ini::Section &section) {
+Figures3d FigureParser::parseWireframeFigure(const ini::Section &section) {
     std::string type = section["type"].as_string_or_die();
 
     Figure newFigure;
@@ -70,7 +74,7 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &section) {
 
     if (type == "LineDrawing") {
         FigureParser::createLineDrawing(section, newFigure);
-    }else if (type == "3DLSystem"){
+    } else if (type == "3DLSystem") {
         FigureParser::parse3DLSystem(newFigure, section["inputfile"].as_string_or_die());
 
         // platonic figures
@@ -86,7 +90,7 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &section) {
         Platonic::createDodecahedron(newFigure);
 
         // not platonic figures
-    }else if (type == "Cylinder") {
+    } else if (type == "Cylinder") {
         NotPlatonic::createCylinder(newFigure, n, height);
     } else if (type == "Cone") {
         NotPlatonic::createCone(newFigure, n, height);
@@ -96,44 +100,50 @@ Figure FigureParser::parseWireframeFigure(const ini::Section &section) {
         NotPlatonic::createTorus(newFigure, R, r, n, m);
 
         // fractal figures
-    }else if(type == "FractalCube") {
+    } else if (type == "FractalCube") {
         Platonic::createCube(newFigure);
         auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
+        return fractalFigures;
 
 
-    } else if(type == "FractalTetrahedron") {
+    } else if (type == "FractalTetrahedron") {
         Platonic::createTetrahedron(newFigure);
         auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
+        return fractalFigures;
 
-    } else if(type == "FractalOctahedron") {
+    } else if (type == "FractalOctahedron") {
         Platonic::createOctahedron(newFigure);
         auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
+        return fractalFigures;
 
-    } else if(type == "FractalIcosahedron") {
+    } else if (type == "FractalIcosahedron") {
         Platonic::createIcosahedron(newFigure);
         auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
+        return fractalFigures;
 
-    } else if(type == "FractalDodecahedron") {
+    } else if (type == "FractalDodecahedron") {
         Platonic::createDodecahedron(newFigure);
         auto fractalFigures = FractalFigures::generateFractal(newFigure, nrIterations, fractalScale);
+        return fractalFigures;
 
-    }else if (type == "MengerSponge") {
-            int nrIterations = section["nrIterations"].as_int_or_die();
-
-            // Figuur maken
-            Platonic platonic;
-            Figure mengerSpongeFigure;
-            platonic.createMengerSponge(mengerSpongeFigure, nrIterations);
-
-            // Toevoegen aan de lijst met figuren
-
-            return mengerSpongeFigure;
+//    }else if (type == "MengerSponge") {
+//            int nrIterations = section["nrIterations"].as_int_or_die();
+//
+//            // Figuur maken
+//            Platonic platonic;
+//            Figure mengerSpongeFigure;
+//            platonic.createMengerSponge(mengerSpongeFigure, nrIterations);
+//
+//            // Toevoegen aan de lijst met figuren
+//
+//            return mengerSpongeFigure;
 
         //runtime error
-    }else {
+
+    } else {
         throw std::runtime_error("Invalid figure type: " + type);
     }
-    return newFigure;
+    return {newFigure};
 }
 
 void FigureParser::createLineDrawing(const ini::Section &section, Figure &newFigure) {
