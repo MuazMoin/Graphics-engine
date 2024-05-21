@@ -43,4 +43,3 @@ img::EasyImage ZBufferedWireframeParser::ZBufferedParser(const ini::Configuratio
 
     }
 
-    // Z coordinaten zijn verschillend van wat ze zouden moeten zijn. Figures zijn correct, ook z coordinaten na projectoin ook correct na scale z niet ;eer correct.

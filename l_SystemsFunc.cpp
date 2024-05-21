@@ -18,25 +18,26 @@ LParser::LSystem3D L_SystemsFunc::parseLSystem3D(const std::string &inputfile) {
 }
 
 std::string L_SystemsFunc::getString(const LParser::LSystem3D &l_system) {
-    if (l_system.get_nr_iterations() == 0){
-        return l_system.get_initiator();
-    } else {
-        std::string oldString = l_system.get_initiator();
-        std::string figureString;
-        // Iterate x times over the string
-        for (int i = 0; i < l_system.get_nr_iterations(); ++i) {
-            figureString = "";
-            for (char c: oldString) {
-                if (l_system.get_alphabet().find(c) != l_system.get_alphabet().end()){
-                    figureString += l_system.get_replacement(c);
-                } else {
-                    figureString += c;
-                }
-            }
-            oldString = figureString;
-        }
-        return figureString;
+    int iterations = l_system.get_nr_iterations();
+    std::string resultString = l_system.get_initiator();
+
+    if (iterations == 0) {
+        return resultString;
     }
+
+    for (int i = 0; i < iterations; ++i) {
+        std::string tempString;
+        for (char c : resultString) {
+            if (l_system.get_alphabet().count(c)) {
+                tempString += l_system.get_replacement(c);
+            } else {
+                tempString += c;
+            }
+        }
+        resultString = tempString;
+    }
+
+    return resultString;
 }
 
 void L_SystemsFunc::getFacesAndPoints(Figure &figure, const LParser::LSystem3D &l_system, const std::string &figureString) {
