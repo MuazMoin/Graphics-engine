@@ -1,6 +1,6 @@
 # <span style="color: #4CAF50; font-family: 'Arial Black', sans-serif;">🎨 Computer-Graphics-Engine</span>
 
-![Project Status](https://img.shields.io/badge/status-active-brightgreen) ![License](https://img.shields.io/badge/license-MIT-blue)
+![Project Status](https://img.shields.io/badge/status-inactive-lightgrey) ![License](https://img.shields.io/badge/license-MIT-blue)
 
 <p style="font-size: 1.2em; font-family: 'Comic Sans MS', cursive;">
 A project for the course <b>Computer Graphics 1001WETCGR</b> at the <span style="color: #FF5733;">University of Antwerp</span> by <b>Muaz Moin</b> (student Computer Science 2023 - 2024)
@@ -28,7 +28,8 @@ Functionalities of the engine ready to use:
 
 ### <span style="color: #9C27B0;">🛠️ Currently working on:</span>
 
-<ul style="font-family: 'Courier New', monospace;">
+<p style="font-family: 'Courier New', monospace;">
+<ul>
     <li><b>3D fractals</b>
         <ul>
             <li>FractalCube</li>
@@ -39,6 +40,9 @@ Functionalities of the engine ready to use:
         </ul>
     </li>
 </ul>
+</p>
+
+> **Note:** The project is no longer active and no new features will be added. The current state of the project is the final version.
 
 ## <span style="color: #FF9800;">🚀 How to use</span>
 
