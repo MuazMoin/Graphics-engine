@@ -23,14 +23,7 @@ Functionalities of the engine ready to use:
     <li><b>Z-Buffering with lines</b></li>
     <li><b>Triangulation</b></li>
     <li><b>Z-buffering with triangles</b></li>
-</ul>
-</p>
-
-### <span style="color: #9C27B0;">🛠️ Incomplete Features:</span>
-
-<p style="font-family: 'Courier New', monospace;">
-<ul>
-    <li><b>3D fractals</b>
+    <li><b>3D fractals</b></li>
         <ul>
             <li>FractalCube</li>
             <li>FractalTetrahedron</li>
