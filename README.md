@@ -26,7 +26,7 @@ Functionalities of the engine ready to use:
 </ul>
 </p>
 
-### <span style="color: #9C27B0;">🛠️ Currently working on:</span>
+### <span style="color: #9C27B0;">🛠️ Incomplete Features:</span>
 
 <p style="font-family: 'Courier New', monospace;">
 <ul>
